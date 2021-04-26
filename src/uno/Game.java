@@ -73,7 +73,7 @@ public class Game {
         players[1] = player2;
         players[2] = player3;
         players[3] = player4;
-        System.out.println("players: "+ player1 + " , " + player2 + " , " + player3 + " , " + player4);
+        System.out.println("players: " + player1 + " , " + player2 + " , " + player3 + " , " + player4);
         System.out.println(Arrays.toString(players));
 
     }
@@ -105,7 +105,7 @@ public class Game {
 
     }
 
-    private void readUserInput(){
+    private void readUserInput() {
         inputCard();
     }
 
