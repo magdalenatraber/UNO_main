@@ -1,11 +1,11 @@
 package uno.Cards;
 
 public enum CardColor {
-    BLUE("BLUE"),
-    GREEN("GREEN"),
-    YELLOW("YELLOW"),
-    RED("RED"),
-    BLACK("WILD");
+    BLUE("B"),
+    GREEN("G"),
+    YELLOW("Y"),
+    RED("R"),
+    BLACK("W");
 
     public static final CardColor[] colors = CardColor.values();
     private final String caption;

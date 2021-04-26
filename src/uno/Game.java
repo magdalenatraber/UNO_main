@@ -34,7 +34,7 @@ public class Game {
     public void Run() {
         initPlayer();
         initDrawPile();
-        System.out.println("#cards in draw Pile" + drawPile.getSize());
+        System.out.println("#cards in draw Pile " + drawPile.getSize());
         System.out.println("drawPile" + drawPile);
 //        System.out.println("#cards in draw Pile" + discardPile.getSize());
 //        initDiscardPile();
@@ -49,9 +49,14 @@ public class Game {
 //        System.out.println("player3: " + player3 + " " + player3.getHand());
 //        System.out.println("player4: " + player4 + " " + player4.getHand());
 
+        System.out.println("#cards in draw Pile " + drawPile.getSize());
 
-        while(!exit){
-//            readUserInput();
+
+        System.out.println("---------------------------");
+
+        while (!exit) {
+            readUserInput();
+
 
         }
     }
@@ -79,10 +84,10 @@ public class Game {
         discardPile.push(initialCard);
     }
 
-    public void initDrawPile(){
-        drawPile.generateDeck(CardColor.colors,CardType.cardType);
-//        drawPile.shuffle();
-
+    //Ziehstapel wird erstellt und gemischt
+    public void initDrawPile() {
+        drawPile.generateDeck(CardColor.colors, CardType.cardType);
+        drawPile.shuffle();
     }
 
     private void dealCards() {
@@ -104,16 +109,12 @@ public class Game {
         inputCard();
     }
 
-    private void inputCard(){
 
-        do {
-            output.println("Play Card");
-            card = input.next();
-
-        } while (true);
+    private Player choosePlayer() {
+        int index = (int) (Math.random() * players.length);
+        return players[index];
 
     }
-
 
 
 }

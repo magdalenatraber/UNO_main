@@ -23,13 +23,13 @@ public class Pile {
 
                 if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD)) {
                     card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    cards.add(card);
+                    //   cards.add(card);
                 } else if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD_DRAW_4)) {
                     card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    cards.add(card);
+                    //  cards.add(card);
                 } else if (!colors[i].equals(CardColor.BLACK) && (!cardTypes[j].equals(CardType.WILD) && !cardTypes[j].equals(CardType.WILD_DRAW_4))) {
                     card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    cards.add(card);
+                    // cards.add(card);
                 }
             }
         }
@@ -56,11 +56,11 @@ public class Pile {
         return cards;
     }
 
-    public void shuffle(){
+    public void shuffle() {
         Collections.shuffle(cards);
     }
 
-    public int getSize(){
+    public int getSize() {
         return cards.size();
     }
 
