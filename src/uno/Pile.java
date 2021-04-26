@@ -5,17 +5,18 @@ import uno.Cards.CardColor;
 import uno.Cards.CardType;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Pile {
-    public ArrayList<Card> cards = new ArrayList<>();
-    public Pile(ArrayList<Card> cards) {
+    public Stack<Card> cards = new Stack<>();
+    public Pile(Stack<Card> cards) {
         this.cards = cards;
     }
 
     // creates deck out of 108 single cards
-    public ArrayList<Card> generateDeck(CardColor[] colors, CardType[] cardTypes) {
+    public Stack<Card> generateDeck(CardColor[] colors, CardType[] cardTypes) {
 
-        ArrayList<Card> cards = new ArrayList<>();
+        Stack<Card> cards = new Stack<>();
         Card card;
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < cardTypes.length; j++) {
@@ -51,7 +52,7 @@ public class Pile {
         return "cards=" + cards.toString();
     }
 
-    public ArrayList<Card> getCards() {
+    public Stack<Card> getCards() {
         return cards;
     }
 
