@@ -19,7 +19,7 @@ public enum CardType {
 
 
     public static final CardType[] cardType = CardType.values();
-    private final int numInDeck;
+    public final int numInDeck;
     private final String caption;
 
     CardType(final int numInDeck, final String caption) {

@@ -17,6 +17,8 @@ public class MainApp {
         game.Run();
         input.close();
         System.out.println("Program ends");
+        System.out.println();
+
 
 
     } // main

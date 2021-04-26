@@ -1,5 +1,7 @@
 package uno;
 
+import java.util.ArrayList;
+
 public class Player {
     private String name;
     private Hand hand = new Hand();
@@ -7,9 +9,9 @@ public class Player {
 
     public Player(String name) {
         this.name = name;
-        this.hand = hand;
         this.point = 0;
     }
+
 
     public String getName() {
         return name;
@@ -19,6 +21,14 @@ public class Player {
         return hand;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void drawCard(final Pile drawPile) {
+        final var card = drawPile.pop();
+        hand.add(card);
+    }
 
     @Override
     public String toString() {

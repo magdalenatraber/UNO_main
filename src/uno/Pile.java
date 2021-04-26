@@ -4,19 +4,19 @@ import uno.Cards.Card;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Stack;
 
 public class Pile {
-    public Stack<Card> cards = new Stack<>();
-    public Pile(Stack<Card> cards) {
-        this.cards = cards;
+    public Stack<Card> cards;
+
+    public Pile() {
+        this.cards = new Stack<>();
     }
 
     // creates deck out of 108 single cards
-    public Stack<Card> generateDeck(CardColor[] colors, CardType[] cardTypes) {
+    public void generateDeck(CardColor[] colors, CardType[] cardTypes) {
 
-        Stack<Card> cards = new Stack<>();
         Card card;
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < cardTypes.length; j++) {
@@ -33,7 +33,6 @@ public class Pile {
                 }
             }
         }
-        return cards;
     }
 
     // creates single card
@@ -42,6 +41,7 @@ public class Pile {
         for (int i = 0; i < numInDeck; i++) {
             card = new Card(cardColor, cardType);
             cards.add(card);
+
         }
         return card;
     }
@@ -54,6 +54,26 @@ public class Pile {
 
     public Stack<Card> getCards() {
         return cards;
+    }
+
+    public void shuffle(){
+        Collections.shuffle(cards);
+    }
+
+    public int getSize(){
+        return cards.size();
+    }
+
+    public Card pop() {
+        if (cards.empty()) {
+            throw new IllegalStateException("Pile is empty, cannot draw");
+        }
+
+        return cards.pop();
+    }
+
+    public void push(final Card card) {
+        cards.push(card);
     }
 
 
