@@ -17,7 +17,7 @@ public class Game {
     private Player player2;
     private Player player3;
     private Player player4;
-    public static final int NUMBER_OF_CARDS_DEALT = 1;
+    public static final int NUMBER_OF_CARDS_DEALT = 7;
 
     private final Pile drawPile = new Pile();
     private final Pile discardPile = new Pile();
