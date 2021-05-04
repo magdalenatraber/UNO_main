@@ -1,5 +1,7 @@
 package uno;
 
+import uno.Cards.Card;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -30,6 +32,28 @@ public class Player {
         hand.add(card);
     }
 
+    public void removeCardFromHand(){
+    }
+
+
+    public boolean playCard(Pile discardpile, String playcard) {
+
+        for (Card card : hand.cardsInHand) {
+            if (card.toString().equals(playcard)) {
+                hand.remove(card);
+                discardpile.push(card);
+                return true;
+            }
+        }
+        System.out.println("Dies ist keine gültige Karte!");
+        return false;
+    }
+    public boolean handIsEmpty(){
+        if(hand.getHandSize() == 0)
+            return true;
+        else
+            return false;
+    }
     @Override
     public String toString() {
         return name;

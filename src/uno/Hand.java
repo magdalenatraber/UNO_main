@@ -10,7 +10,9 @@ public class Hand {
     public void add(final Card card) {
         cardsInHand.add(card);
     }
-
+    public void remove(final Card card) {
+        cardsInHand.remove(card);
+    }
     public ArrayList<Card> getCardsInHand() {
         return cardsInHand;
     }

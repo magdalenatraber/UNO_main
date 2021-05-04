@@ -17,7 +17,7 @@ public class Game {
     private Player player2;
     private Player player3;
     private Player player4;
-    public static final int NUMBER_OF_CARDS_DEALT = 7;
+    public static final int NUMBER_OF_CARDS_DEALT = 1;
 
     private final Pile drawPile = new Pile();
     private final Pile discardPile = new Pile();
@@ -136,19 +136,33 @@ public class Game {
     private void inputCard() {
         Scanner input = new Scanner(System.in);
         Player currentPlayer = choosePlayer();
-        System.out.println("card on table: " + discardPile.lookAtTopCard());
-        System.out.println("Aktueller Spieler: " + currentPlayer);
-        System.out.println("Deine Hand: " + currentPlayer.getHand());
-        inputHelp();
-        updateHelp();
-        System.out.println("card on table: " + discardPile.lookAtTopCard());
-        System.out.println("Deine Hand: " + currentPlayer.getHand());
+     //   System.out.println("card on table: " + discardPile.lookAtTopCard());
+      //  System.out.println("Aktueller Spieler: " + currentPlayer);
+       // System.out.println("Deine Hand: " + currentPlayer.getHand());
+
+     //   System.out.println("card on table: " + discardPile.lookAtTopCard());
+      //  System.out.println("Deine Hand: " + currentPlayer.getHand());
         do {
+            showHandandTable(currentPlayer);
             output.println("Play Card");
             card = input.next();
-
-        } while (true);
+            if(card.equals("help")){
+                 inputHelp();
+                updateHelp();
+            }
+            else
+            if(currentPlayer.playCard(discardPile,card) == true) {
+                if(currentPlayer.handIsEmpty()) {
+                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!" );
+                    System.exit(0);
+                }
+                    else
+                currentPlayer = nextPlayer(currentPlayer);
+            }
+        } while (!currentPlayer.handIsEmpty());
     }
+
+
 
 
     private void playTurn() {
@@ -166,6 +180,26 @@ public class Game {
         return players[index];
 
     }
+
+    private Player nextPlayer(Player currentplayer) {
+            for (int i = 0; i < players.length; i++) {
+                if (players[i] == currentplayer ) {
+                    if (i == 3) {
+                        currentplayer =  players[0];
+                        return currentplayer;
+                    } else
+                        currentplayer = players[i + 1];
+                    return currentplayer;
+                }
+            }
+        return currentplayer;
+    }
+    private void showHandandTable(Player player){
+        System.out.println("card on table: " + discardPile.lookAtTopCard());
+        System.out.println("Aktueller Spieler: " + player);
+        System.out.println("Deine Hand: " + player.getHand());
+    }
+
 
     // test comment caro 4
 
