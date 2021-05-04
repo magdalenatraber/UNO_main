@@ -133,7 +133,7 @@ public class Game {
     }
 
     //Spieler Input
-    private void inputCard() {
+    private void inputCard () {
         Scanner input = new Scanner(System.in);
         Player currentPlayer = choosePlayer();
      //   System.out.println("card on table: " + discardPile.lookAtTopCard());
