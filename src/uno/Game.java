@@ -24,6 +24,9 @@ public class Game {
 
     private Player[] players = new Player[4];
 
+    private int helpNeeded;
+    private Help help;
+
 
     //Konstruktor
     public Game(Scanner input, PrintStream output) {
@@ -102,12 +105,43 @@ public class Game {
         }
     }
 
+    //Help Input
+    private void inputHelp() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Benötigst du Hilfe? Für JA drücke 1, für NEIN drücke 2");
+        do {
+            helpNeeded = input.nextInt();
+            if (helpNeeded < 1 || helpNeeded > 2) {
+                output.println("Dies ist keine gültige Eingabe!");
+            } else {
+                break;
+            }
+        } while (true);
+    }
+
+    private void updateHelp() {
+        switch (helpNeeded) {
+            case 1:
+                help = new HelpText();
+                break;
+            case 2:
+                System.out.println("Spiel wird fortgesetzt");
+                break;
+            default:
+                break;
+        }
+    }
+
     //Spieler Input
     private void inputCard() {
         Scanner input = new Scanner(System.in);
         Player currentPlayer = choosePlayer();
         System.out.println("card on table: " + discardPile.lookAtTopCard());
         System.out.println("Aktueller Spieler: " + currentPlayer);
+        System.out.println("Deine Hand: " + currentPlayer.getHand());
+        inputHelp();
+        updateHelp();
+        System.out.println("card on table: " + discardPile.lookAtTopCard());
         System.out.println("Deine Hand: " + currentPlayer.getHand());
         do {
             output.println("Play Card");
