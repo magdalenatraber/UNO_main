@@ -1,8 +1,7 @@
-package uno;
+package uno.Player;
 
 import uno.Cards.Card;
-
-import java.util.ArrayList;
+import uno.Pile;
 
 public class Player {
     private String name;

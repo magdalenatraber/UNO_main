@@ -1,6 +1,4 @@
-package uno;
-
-import java.sql.SQLOutput;
+package uno.Help;
 
 public class HelpText extends Help {
 

@@ -1,8 +1,10 @@
 package uno;
 
-import uno.Cards.Card;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
+import uno.Help.Help;
+import uno.Help.HelpText;
+import uno.Player.Player;
 
 import java.io.PrintStream;
 import java.util.*;
