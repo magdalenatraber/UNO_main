@@ -20,6 +20,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return color.getCaption() + "_" + type.getCaption();
+        return color.getCaption() + type.getCaption();
     }
 }

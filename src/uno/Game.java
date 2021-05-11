@@ -159,7 +159,7 @@ public class Game {
                     else
                 currentPlayer = nextPlayer(currentPlayer);
             }
-        } while (!currentPlayer.handIsEmpty());
+        } while (true);
     }
 
 
