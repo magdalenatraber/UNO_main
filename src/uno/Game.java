@@ -34,7 +34,8 @@ public class Game {
     public Game(Scanner input, PrintStream output) {
         this.input = input;
         this.output = output;
-    }
+    }// Konstruktor
+
 
     // game loop
     public void run() {
@@ -63,11 +64,9 @@ public class Game {
         inputCard(currentPlayer);
 
         while (!exit) {
-            readUserInput();
-
-
         }
-    }
+    }//Game Loop
+
 
     //Spieler werden erstellt
     public void initPlayer() {
@@ -113,7 +112,8 @@ public class Game {
                 player.drawCardInHand(drawPile);
             }
         }
-    }
+    }//dealCards
+
 
     //Help Input
     private void inputHelp() {
@@ -127,7 +127,8 @@ public class Game {
                 break;
             }
         } while (true);
-    }
+    }//Help Input
+
 
     private void updateHelp() {
         switch (helpNeeded) {
@@ -140,6 +141,19 @@ public class Game {
             default:
                 break;
         }
+    }//update Help
+
+
+    private boolean checkTopCard(Player currentPlayer) {
+        Card discardPileTopCard = discardPile.lookAtTopCard();
+
+        if (discardPileTopCard.getType().getCaption().equals("+2")){
+            currentPlayer.getPlusTwoCards(drawPile);
+            System.out.println("_________________________________");
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
+        return true;
+        }
+        return false;
     }
 
     //Spieler Input
