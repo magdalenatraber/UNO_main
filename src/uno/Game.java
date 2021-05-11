@@ -1,5 +1,6 @@
 package uno;
 
+import uno.Cards.Card;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
 import uno.Help.Help;
