@@ -7,23 +7,22 @@ import uno.Help.HelpText;
 import uno.Player.Player;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class Game {
 
+    public static final int NUMBER_OF_CARDS_DEALT = 7;
     private final Scanner input;
     private final PrintStream output;
+    private final Pile drawPile = new Pile();
+    private final Pile discardPile = new Pile();
     private boolean exit = false;
     private String card;
     private Player player1;
     private Player player2;
     private Player player3;
     private Player player4;
-    public static final int NUMBER_OF_CARDS_DEALT = 7;
-
-    private final Pile drawPile = new Pile();
-    private final Pile discardPile = new Pile();
-
     private Player[] players = new Player[4];
 
     private int helpNeeded;
@@ -37,30 +36,30 @@ public class Game {
     }
 
     // game loop
-    public void Run() {
+    public void run() {
+        // Spielvorbereitung
         initPlayer();
         initDrawPile();
-        System.out.println("#cards in draw Pile " + drawPile.getSize());
-        System.out.println("drawPile" + drawPile);
-        System.out.println("#cards in discard Pile " + discardPile.getSize());
         initDiscardPile();
 
-        System.out.println("---------------------------");
 
+        Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
+
+
+        // neue Runde
+        startingPlayer = clockwise(startingPlayer);
+        Player currentPlayer = startingPlayer;
+        System.out.println("Spieler " + currentPlayer + " beginnt. Spieler " + counterClockwise(currentPlayer) + " gibt die Karten.");
         dealCards();
-        System.out.println("list of players:" + Arrays.toString(players));
 
-        System.out.println("#cards in discard Pile " + discardPile.getSize());
-
-        System.out.println("player1: " + player1 + " " + player1.getHand());
-        System.out.println("player2: " + player2 + " " + player2.getHand());
-        System.out.println("player3: " + player3 + " " + player3.getHand());
-        System.out.println("player4: " + player4 + " " + player4.getHand());
-
-        System.out.println("#cards in draw Pile " + drawPile.getSize());
+        System.out.println(player1 + " " + player1.getHand());
+        System.out.println(player2 + " " + player2.getHand());
+        System.out.println(player3 + " " + player3.getHand());
+        System.out.println(player4 + " " + player4.getHand());
 
 
-        System.out.println("---------------------------");
+
+        inputCard(currentPlayer);
 
         while (!exit) {
             readUserInput();
@@ -81,28 +80,36 @@ public class Game {
         players[1] = player2;
         players[2] = player3;
         players[3] = player4;
-        System.out.println("players: " + player1 + " , " + player2 + " , " + player3 + " , " + player4);
-        System.out.println(Arrays.toString(players));
-    }
 
-    //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
-    private void initDiscardPile() {
-        //Rule XY: Take one card from draw pile and put on discard pile
-        final var initialCard = drawPile.pop();
-        discardPile.push(initialCard);
-    }
+    }//initPlayer
 
     //Ziehstapel wird erstellt und gemischt
     public void initDrawPile() {
         drawPile.generateDeck(CardColor.colors, CardType.cardType);
         drawPile.shuffle();
-    }
+    }//initDrawPile
+
+
+    //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
+    private void initDiscardPile() {
+        final var initialCard = drawPile.pop();
+        discardPile.push(initialCard);
+        if (initialCard.getType().getCaption().equals("+4")) {
+            initDiscardPile();
+        }
+    }//initDiscardPile
+
+
+    private Player choosePlayer() {
+        int index = (int) (Math.random() * players.length);
+        return players[index];
+    }//choosePlayer
 
     // Karten werden ausgeteilt - 7 Stück pro Spieler
     private void dealCards() {
         for (int i = 0; i < NUMBER_OF_CARDS_DEALT; i++) {
             for (Player player : players) {
-                player.drawCard(drawPile);
+                player.drawCardInHand(drawPile);
             }
         }
     }
@@ -135,73 +142,94 @@ public class Game {
     }
 
     //Spieler Input
-    private void inputCard () {
+    private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
-        Player currentPlayer = choosePlayer();
-     //   System.out.println("card on table: " + discardPile.lookAtTopCard());
-      //  System.out.println("Aktueller Spieler: " + currentPlayer);
-       // System.out.println("Deine Hand: " + currentPlayer.getHand());
-
-     //   System.out.println("card on table: " + discardPile.lookAtTopCard());
-      //  System.out.println("Deine Hand: " + currentPlayer.getHand());
         do {
-            showHandandTable(currentPlayer);
+
+            showHandAndTable(currentPlayer);
             output.println("Play Card");
             card = input.next();
-            if(card.equals("help")){
-                 inputHelp();
+
+            if (card.equals("help")) {
+                inputHelp();
                 updateHelp();
-            }
-            else
-            if(currentPlayer.playCard(discardPile,card) == true) {
-                if(currentPlayer.handIsEmpty()) {
-                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!" );
-                    System.exit(0);
-                }
-                    else
+
+            } else if (card.equals("ziehen")) {
+                currentPlayer.drawCard(drawPile, discardPile);
                 currentPlayer = nextPlayer(currentPlayer);
-            }
-        } while (true);
-    }
 
+            } else if (currentPlayer.playCard(discardPile, drawPile, card) == true) {
 
+                if (currentPlayer.handIsEmpty()) {
+                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
+                    System.exit(0);
 
+                } else {
+                    currentPlayer = nextPlayer(currentPlayer);
 
-    private void playTurn() {
-        System.out.println("current player: ");
-
-    }
-
-    private void readUserInput() {
-        inputCard();
-    }
-
-
-    private Player choosePlayer() {
-        int index = (int) (Math.random() * players.length);
-        return players[index];
-
-    }
-
-    private Player nextPlayer(Player currentplayer) {
-            for (int i = 0; i < players.length; i++) {
-                if (players[i] == currentplayer ) {
-                    if (i == 3) {
-                        currentplayer =  players[0];
-                        return currentplayer;
-                    } else
-                        currentplayer = players[i + 1];
-                    return currentplayer;
+                    if (checkTopCard(currentPlayer)) {
+                        currentPlayer = nextPlayer(currentPlayer);
+                    }
                 }
             }
-        return currentplayer;
-    }
-    private void showHandandTable(Player player){
+
+        } while (true);
+    }//inputCard
+
+
+//    private void playTurn() {
+//        System.out.println("current player: ");
+//    }//playTurn
+
+
+    private Player nextPlayer(Player currentPlayer) {
+        return clockwise(currentPlayer);
+    }//nextPlayer
+
+
+    private Player clockwise(Player currentPlayer) {
+        for (int i = 0; i < players.length; i++) {
+            if (players[i] == currentPlayer) {
+                if (i == 3) {
+                    currentPlayer = players[0];
+                    return currentPlayer;
+                } else
+                    currentPlayer = players[i + 1];
+                return currentPlayer;
+            }
+        }
+        return currentPlayer;
+    }//clockwise
+
+
+    private Player counterClockwise(Player currentPlayer) {
+       for (int i = 0; i < players.length; i++) {
+            if (players[i] == currentPlayer) {
+                if (i == 0) {
+                    currentPlayer = players[3];
+                    return currentPlayer;
+                } else
+                    currentPlayer = players[i - 1];
+                return currentPlayer;
+            }
+        }
+        return currentPlayer;
+    }//counterClockwise
+
+
+    private void showHandAndTable(Player player) {
+        System.out.println("---------------------------");
+        System.out.println("card amount check:" + countAllCards());
         System.out.println("card on table: " + discardPile.lookAtTopCard());
         System.out.println("Aktueller Spieler: " + player);
         System.out.println("Deine Hand: " + player.getHand());
-    }
+    }//showHandAndTable
 
+
+    public int countAllCards() {
+        return discardPile.getSize() + drawPile.getSize() + player1.getHand().getHandSize() + player2.getHand().getHandSize()
+                + player3.getHand().getHandSize() + +player4.getHand().getHandSize();
+    }//countAllCards
 
     // test comment caro 4
     // test comment 5

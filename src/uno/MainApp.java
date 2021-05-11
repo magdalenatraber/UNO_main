@@ -1,11 +1,5 @@
 package uno;
 
-import uno.Cards.Card;
-import uno.Cards.CardColor;
-import uno.Cards.CardType;
-
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 public class MainApp {
@@ -14,7 +8,7 @@ public class MainApp {
 
         Scanner input = new Scanner(System.in);
         Game game = new Game(input, System.out);
-        game.Run();
+        game.run();
         input.close();
         System.out.println("Program ends");
         System.out.println();
