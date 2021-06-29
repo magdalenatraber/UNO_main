@@ -1,6 +1,5 @@
 package uno;
 
-import uno.Cards.Card;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
 import uno.Help.Help;
@@ -8,7 +7,6 @@ import uno.Help.HelpText;
 import uno.Player.Player;
 
 import java.io.PrintStream;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Game {
@@ -144,16 +142,25 @@ public class Game {
     }//update Help
 
 
-    private boolean checkTopCard(Player currentPlayer) {
-        Card discardPileTopCard = discardPile.lookAtTopCard();
+    private void checkPlayedCard(Player currentPlayer) {
 
-        if (discardPileTopCard.getType().getCaption().equals("+2")){
+//        Card discardPileTopCard = discardPile.lookAtTopCard();
+
+        // error: if P1 plays +2 after having drawn card, and P2 can't play, +2 goes to next next player P3
+        if (card.contains("+2")) {
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
             System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
-        return true;
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+        } else if (card.contains("<->")) {
+            System.out.println("changing direction test");
+            changeDirection(direction);
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+        } else if (card.contains("<S>")) {
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
         }
-        return false;
+
     }
 
     //Spieler Input
@@ -180,19 +187,20 @@ public class Game {
                     System.exit(0);
 
                 } else {
-                    currentPlayer = nextPlayer(currentPlayer);
 
-                    if (checkTopCard(currentPlayer)) {
-                        currentPlayer = nextPlayer(currentPlayer);
-                    }
+                    checkPlayedCard(currentPlayer);
+                    currentPlayer = nextPlayer(currentPlayer, getDirection());
                 }
             }
 
         } while (true);
     }//inputCard
 
+    private String getDirection() {
+        return direction;
+    }
 
-//    private void playTurn() {
+    //    private void playTurn() {
 //        System.out.println("current player: ");
 //    }//playTurn
 
@@ -218,7 +226,7 @@ public class Game {
 
 
     private Player counterClockwise(Player currentPlayer) {
-       for (int i = 0; i < players.length; i++) {
+        for (int i = 0; i < players.length; i++) {
             if (players[i] == currentPlayer) {
                 if (i == 0) {
                     currentPlayer = players[3];
@@ -237,6 +245,7 @@ public class Game {
         System.out.println("card amount check:" + countAllCards());
         System.out.println("card on table: " + discardPile.lookAtTopCard());
         System.out.println("Aktueller Spieler: " + player);
+        System.out.println("Spielrichtung: " + getDirection());
         System.out.println("Deine Hand: " + player.getHand());
     }//showHandAndTable
 
