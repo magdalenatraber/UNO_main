@@ -3,8 +3,6 @@ package uno.Player;
 import uno.Cards.Card;
 import uno.Pile;
 
-import java.util.Scanner;
-
 public class Player {
     private String name;
     private Hand hand = new Hand();
@@ -87,6 +85,7 @@ public class Player {
                     getPenaltyCard(drawPile);
                     return true;
                 }
+                
             }
         }
 
