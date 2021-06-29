@@ -151,25 +151,46 @@ public class Game {
     }//update Help
 
 
-    private void checkPlayedCard(Player currentPlayer) {
+    // checks which card is played and returns
+    private Player checkPlayedCard(Player currentPlayer) {
 
 //        Card discardPileTopCard = discardPile.lookAtTopCard();
 
         // error: if P1 plays +2 after having drawn card, and P2 can't play, +2 goes to next next player P3
+
+        if (card.contains("+4")) {
+            System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
+
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+            currentPlayer.getPlusTwoCards(drawPile);
+            currentPlayer.getPlusTwoCards(drawPile);
+            System.out.println("_________________________________");
+            System.out.println("Hi " + currentPlayer + "! Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+            return currentPlayer;
+        }
+
         if (card.contains("+2")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
             System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
-            currentPlayer = nextPlayer(currentPlayer, getDirection());
-        } else if (card.contains("<->")) {
-            System.out.println("changing direction test");
-            changeDirection(direction);
-            currentPlayer = nextPlayer(currentPlayer, getDirection());
-        } else if (card.contains("<S>")) {
-            currentPlayer = nextPlayer(currentPlayer, getDirection());
+            return currentPlayer;
         }
 
+        if (card.contains("<->")) {
+            changeDirection(direction);
+            System.out.println("Hi " + nextPlayer(currentPlayer,direction) + ", the direction was changed, it's your turn now!");
+            return currentPlayer;
+        }
+
+        if (card.contains("<S>")){
+            System.out.println("Sorry " + nextPlayer(currentPlayer,direction) + ", you're being skipped.");
+            Player nextPlayer = nextPlayer(currentPlayer,direction);
+            System.out.println("Hi " + nextPlayer(nextPlayer,direction) + ", it's your turn");
+            return nextPlayer;
+        }
+
+        return currentPlayer;
     }
 
     //Spieler Input
@@ -196,8 +217,10 @@ public class Game {
                     System.exit(0);
 
                 } else {
+                    // checks which card is being played
+              currentPlayer = checkPlayedCard(currentPlayer);
 
-                    checkPlayedCard(currentPlayer);
+                    // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
                 }
             }

@@ -120,6 +120,8 @@ public class Player {
         }
     }
 
+
+
     public boolean handIsEmpty() {
         if (hand.getHandSize() == 0)
             return true;
