@@ -23,7 +23,7 @@ public class Game {
     private Player player3;
     private Player player4;
     private Player[] players = new Player[4];
-
+    private String direction;
     private int helpNeeded;
     private Help help;
 
@@ -47,16 +47,18 @@ public class Game {
 
 
         // neue Runde
-        startingPlayer = clockwise(startingPlayer);
+        setDirection("clockwise");
+
+        startingPlayer = nextPlayer(startingPlayer, getDirection());
         Player currentPlayer = startingPlayer;
         System.out.println("Spieler " + currentPlayer + " beginnt. Spieler " + counterClockwise(currentPlayer) + " gibt die Karten.");
         dealCards();
+
 
         System.out.println(player1 + " " + player1.getHand());
         System.out.println(player2 + " " + player2.getHand());
         System.out.println(player3 + " " + player3.getHand());
         System.out.println(player4 + " " + player4.getHand());
-
 
 
         inputCard(currentPlayer);
@@ -178,7 +180,7 @@ public class Game {
 
             } else if (card.equals("ziehen")) {
                 currentPlayer.drawCard(drawPile, discardPile);
-                currentPlayer = nextPlayer(currentPlayer);
+                currentPlayer = nextPlayer(currentPlayer, getDirection());
 
             } else if (currentPlayer.playCard(discardPile, drawPile, card) == true) {
 
@@ -203,10 +205,24 @@ public class Game {
     //    private void playTurn() {
 //        System.out.println("current player: ");
 //    }//playTurn
+    private void setDirection(String direction) {
+        this.direction = direction;
+    }
 
+    private void changeDirection(String direction) {
+        if (direction.equals("clockwise"))
+            setDirection("counterclockwise");
+        else
+            setDirection("clockwise");
+    }
 
-    private Player nextPlayer(Player currentPlayer) {
-        return clockwise(currentPlayer);
+    private Player nextPlayer(Player currentPlayer, String direction) {
+
+        if (direction.equals("clockwise"))
+            return clockwise(currentPlayer);
+        else
+            return counterClockwise(currentPlayer);
+
     }//nextPlayer
 
 
