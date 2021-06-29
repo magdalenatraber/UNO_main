@@ -3,7 +3,8 @@ package uno;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
 import uno.Help.Help;
-import uno.Help.HelpText;
+import uno.Help.HelpText_Inputs;
+import uno.Help.HelpText_Rules;
 import uno.Player.Player;
 
 import java.io.PrintStream;
@@ -118,10 +119,13 @@ public class Game {
     //Help Input
     private void inputHelp() {
         Scanner input = new Scanner(System.in);
-        System.out.println("Benötigst du Hilfe? Für JA drücke 1, für NEIN drücke 2");
+        System.out.println("Benötigst du Hilfe?");
+        System.out.println("Für SPIELREGELN drücke 1");
+        System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
+        System.out.println("Benötigst du keine Hilfe, drücke 3");
         do {
             helpNeeded = input.nextInt();
-            if (helpNeeded < 1 || helpNeeded > 2) {
+            if (helpNeeded < 1 || helpNeeded > 3) {
                 output.println("Dies ist keine gültige Eingabe!");
             } else {
                 break;
@@ -133,9 +137,12 @@ public class Game {
     private void updateHelp() {
         switch (helpNeeded) {
             case 1:
-                help = new HelpText();
+                help = new HelpText_Rules();
                 break;
             case 2:
+                help = new HelpText_Inputs();
+                break;
+            case 3:
                 System.out.println("Spiel wird fortgesetzt");
                 break;
             default:
