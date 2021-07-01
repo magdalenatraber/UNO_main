@@ -46,10 +46,10 @@ public class Player {
             playOrNot = input.next();
             if (playOrNot.equals("j")) {
 
+
                 if (playsMatchingCard(discardPile, drawnCard)) {
                     discardPile.push(drawnCard);
-
-                    break;
+                    return drawnCard.toString();
                 }
 
                 if (!playsMatchingCard(discardPile, drawnCard)) {
