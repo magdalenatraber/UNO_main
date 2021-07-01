@@ -74,33 +74,49 @@ public class Game {
 
         System.out.println("");
 
-        for (int i = 1; i <= 4 ; i++) {
+        for (int i = 1; i <= 4; i++) {
             Scanner input = new Scanner(System.in);
             System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
             playerName = input.next();
-            if (i == 1){
+            if (i == 1) {
                 player1 = new Player(playerName);
+                players[0] = player1;
+                System.out.println("____________________");
             }
-            if (i == 2){
-                player2 = new Player(playerName);
+            if (i == 2) {
+                if (player1.getName().equals(playerName)) {
+                    player2 = new Player(playerName + "bert");
+                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                    System.out.println("Du heißt jetzt " + player2.getName());
+                } else {
+                    player2 = new Player(playerName);
+                }
+                players[1] = player2;
+                System.out.println("____________________");
             }
-            if (i == 3){
-                player3 = new Player(playerName);
+            if (i == 3) {
+                if (player1.getName().equals(playerName) || player2.getName().equals(playerName)) {
+                    player3 = new Player(playerName + "chen");
+                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                    System.out.println("Du heißt jetzt " + player3.getName());
+                } else {
+                    player3 = new Player(playerName);
+                }
+                players[2] = player3;
+                System.out.println("____________________");
             }
-            if (i == 4){
-                player4 = new Player(playerName);
+            if (i == 4) {
+                if (player1.getName().equals(playerName) || player2.getName().equals(playerName) || player3.getName().equals(playerName)) {
+                    player4 = new Player(playerName + "maus");
+                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                    System.out.println("Du heißt jetzt " + player4.getName());
+                } else {
+                    player4 = new Player(playerName);
+                }
+                players[3] = player4;
+                System.out.println("____________________");
             }
         }
-
-//        player1 = new Player(playerName);
-//        player2 = new Player("Meggie");
-//        player3 = new Player("Steff");
-//        player4 = new Player("Kunibert");
-
-        players[0] = player1;
-        players[1] = player2;
-        players[2] = player3;
-        players[3] = player4;
 
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
@@ -239,20 +255,20 @@ public class Game {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
             return currentPlayer;
         }
 
         if (cardInput.contains("<->")) {
             changeDirection(direction);
-            System.out.println("Hi " + nextPlayer(currentPlayer,direction) + ", the direction was changed, it's your turn now!");
+            System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
             return currentPlayer;
         }
 
-        if (cardInput.contains("<S>")){
-            System.out.println("Sorry " + nextPlayer(currentPlayer,direction) + ", you're being skipped.");
-            Player nextPlayer = nextPlayer(currentPlayer,direction);
-            System.out.println("Hi " + nextPlayer(nextPlayer,direction) + ", it's your turn");
+        if (cardInput.contains("<S>")) {
+            System.out.println("Sorry " + nextPlayer(currentPlayer, direction) + ", du musst aussetzen!");
+            Player nextPlayer = nextPlayer(currentPlayer, direction);
+            System.out.println("Hi " + nextPlayer(nextPlayer, direction) + ", du bist dran!");
             return nextPlayer;
         }
 
