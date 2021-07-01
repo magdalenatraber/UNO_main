@@ -34,7 +34,7 @@ public class Player {
     }//drawCardInHand
 
     // Karte wird gezogen und angesehen
-    public String drawCard(Pile drawPile, Pile discardPile) {
+    public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
         final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
@@ -47,12 +47,12 @@ public class Player {
             if (playOrNot.equals("j")) {
 
 
-                if (playsMatchingCard(discardPile, drawnCard)) {
+                if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     discardPile.push(drawnCard);
                     return drawnCard.toString();
                 }
 
-                if (!playsMatchingCard(discardPile, drawnCard)) {
+                if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     hand.add(drawnCard);
                     getPenaltyCard(drawPile);
                     return null;
@@ -72,7 +72,7 @@ public class Player {
     }
 
 
-    public boolean playCard(Pile discardPile, Pile drawPile, String playCard) {
+    public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
 
         for (Card card : hand.cardsInHand) {
 

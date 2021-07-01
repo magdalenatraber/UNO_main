@@ -49,7 +49,7 @@ public class Pile {
 
     @Override
     public String toString() {
-        return "cards=" + cards.toString();
+        return "cards:" + cards.toString();
     }
 
     public Stack<Card> getCards() {
@@ -58,13 +58,6 @@ public class Pile {
 
     public void shuffle() {
         Collections.shuffle(cards);
-    }
-
-  public boolean isEmpty(){
-        if(cards.isEmpty())
-            return true;
-        return false;
-
     }
 
     public int getSize() {

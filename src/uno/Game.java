@@ -69,6 +69,8 @@ public class Game {
         }
 
         inputCard(currentPlayer);
+        // wegen bot
+//        currentPlayer.playCard()
 
         while (!exit) {
         }
@@ -138,6 +140,14 @@ public class Game {
         drawPile.shuffle();
     }//initDrawPile
 
+    public void newDiscardPile() {
+        Pile newDiscardPile = new Pile();
+        Card lastCard = discardPile.pop();
+        newDiscardPile.push(lastCard);
+        drawPile = discardPile;
+        drawPile.shuffle();
+        discardPile = newDiscardPile;
+    }
 
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
@@ -210,6 +220,10 @@ public class Game {
         do {
 
             showHandAndTable(currentPlayer);
+            if (drawPile.isEmpty()) {
+                newDiscardPile();
+            }
+
             output.println("Play Card");
             cardInput = input.next();
 
@@ -218,13 +232,13 @@ public class Game {
                 updateHelp();
 
             } else if (cardInput.equals("ziehen")) {
-                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile)) != null) {
+                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, colorInput)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
                 }
 
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
-            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput) == true) {
+            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, colorInput) == true) {
 
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
@@ -267,7 +281,7 @@ public class Game {
             String pickedColor = pickColor();
             // switch to next player
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + colorInput + " spielen");
+            System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + pickedColor + " spielen");
             return currentPlayer;
         }
 
@@ -425,16 +439,10 @@ public class Game {
         System.out.println("Aktueller Spieler: " + player);
         System.out.println("Spielrichtung: " + getDirection());
         System.out.println("Deine Hand: " + player.getHand());
+        System.out.println("DrawPile: " + drawPile.getSize());
+        System.out.println("DiscardPile: " + discardPile.getSize());
     }//showHandAndTable
 
-    private void newDrawPile() {
-        Pile newDiscardPile = new Pile();
-        Card lastCard = discardPile.pop();
-        newDiscardPile.push(lastCard);
-        drawPile = discardPile;
-        drawPile.shuffle();
-        discardPile = newDiscardPile;
-    }
 
 
     public int countAllCards() {
