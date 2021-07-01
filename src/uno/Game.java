@@ -216,20 +216,20 @@ public class Game {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
             return currentPlayer;
         }
 
         if (cardInput.contains("<->")) {
             changeDirection(direction);
-            System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", the direction was changed, it's your turn now!");
+            System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
             return currentPlayer;
         }
 
         if (cardInput.contains("<S>")) {
-            System.out.println("Sorry " + nextPlayer(currentPlayer, direction) + ", you're being skipped.");
+            System.out.println("Sorry " + nextPlayer(currentPlayer, direction) + ", du musst aussetzen!");
             Player nextPlayer = nextPlayer(currentPlayer, direction);
-            System.out.println("Hi " + nextPlayer(nextPlayer, direction) + ", it's your turn");
+            System.out.println("Hi " + nextPlayer(nextPlayer, direction) + ", du bist dran!");
             return nextPlayer;
         }
 
