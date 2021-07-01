@@ -24,6 +24,7 @@ public class Game {
     private Player player2;
     private Player player3;
     private Player player4;
+    private Player currentPlayer;
     private Player[] players = new Player[4];
     private String direction;
     private int helpNeeded;
@@ -59,7 +60,6 @@ public class Game {
         System.out.println(player2 + " " + player2.getHand());
         System.out.println(player3 + " " + player3.getHand());
         System.out.println(player4 + " " + player4.getHand());
-
 
 
         inputCard(currentPlayer);
@@ -143,6 +143,11 @@ public class Game {
         }
     }//initDiscardPile
 
+
+    private void checkFirstCard(Card initialCard) {
+
+
+    }
 
     private Player choosePlayer() {
         int index = (int) (Math.random() * players.length);
