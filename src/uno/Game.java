@@ -16,8 +16,8 @@ public class Game {
     public static final int NUMBER_OF_CARDS_DEALT = 7;
     private final Scanner input;
     private final PrintStream output;
-    private final Pile drawPile = new Pile();
-    private final Pile discardPile = new Pile();
+    private Pile drawPile = new Pile();
+    private Pile discardPile = new Pile();
     private boolean exit = false;
     private String cardInput;
     private String colorInput;
@@ -49,9 +49,18 @@ public class Game {
         //   startingPlayer = nextPlayer(startingPlayer, getDirection());
         Player currentPlayer = startingPlayer;
 
+        System.out.println("Spieler " + currentPlayer + " gibt die Karten." + " Spieler " + nextPlayer(currentPlayer, getDirection()) + " beginnt.");
         initDrawPile();
         initDiscardPile();
+        dealCards();
 
+        // distribute cards
+        System.out.println(player1 + " " + player1.getHand());
+        System.out.println(player2 + " " + player2.getHand());
+        System.out.println(player3 + " " + player3.getHand());
+        System.out.println(player4 + " " + player4.getHand());
+
+        // check first card
         Card firstCard = discardPile.lookAtTopCard();
         cardInput = firstCard.getType().getCaption();
         currentPlayer = checkPlayedCard(currentPlayer);
@@ -417,6 +426,15 @@ public class Game {
         System.out.println("Spielrichtung: " + getDirection());
         System.out.println("Deine Hand: " + player.getHand());
     }//showHandAndTable
+
+    private void newDrawPile() {
+        Pile newDiscardPile = new Pile();
+        Card lastCard = discardPile.pop();
+        newDiscardPile.push(lastCard);
+        drawPile = discardPile;
+        drawPile.shuffle();
+        discardPile = newDiscardPile;
+    }
 
 
     public int countAllCards() {

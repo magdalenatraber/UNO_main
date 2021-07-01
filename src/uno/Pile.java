@@ -60,6 +60,13 @@ public class Pile {
         Collections.shuffle(cards);
     }
 
+  public boolean isEmpty(){
+        if(cards.isEmpty())
+            return true;
+        return false;
+
+    }
+
     public int getSize() {
         return cards.size();
     }
