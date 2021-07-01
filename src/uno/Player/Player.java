@@ -48,6 +48,7 @@ public class Player {
 
                 if (playsMatchingCard(discardPile, drawnCard)) {
                     discardPile.push(drawnCard);
+
                     break;
                 }
 
