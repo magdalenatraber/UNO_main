@@ -18,7 +18,7 @@ public class Game {
     private final Pile drawPile = new Pile();
     private final Pile discardPile = new Pile();
     private boolean exit = false;
-    private String card;
+    private String cardInput;
     private Player player1;
     private Player player2;
     private Player player3;
@@ -181,12 +181,11 @@ public class Game {
 
     // checks which card is played and returns
     private Player checkPlayedCard(Player currentPlayer) {
-
 //        Card discardPileTopCard = discardPile.lookAtTopCard();
 
         // error: if P1 plays +2 after having drawn card, and P2 can't play, +2 goes to next next player P3
 
-        if (card.contains("+4")) {
+        if (cardInput.contains("+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
 
             currentPlayer = nextPlayer(currentPlayer, getDirection());
@@ -197,7 +196,7 @@ public class Game {
             return currentPlayer;
         }
 
-        if (card.contains("+2")) {
+        if (cardInput.contains("+2")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
@@ -205,13 +204,13 @@ public class Game {
             return currentPlayer;
         }
 
-        if (card.contains("<->")) {
+        if (cardInput.contains("<->")) {
             changeDirection(direction);
             System.out.println("Hi " + nextPlayer(currentPlayer,direction) + ", the direction was changed, it's your turn now!");
             return currentPlayer;
         }
 
-        if (card.contains("<S>")){
+        if (cardInput.contains("<S>")){
             System.out.println("Sorry " + nextPlayer(currentPlayer,direction) + ", you're being skipped.");
             Player nextPlayer = nextPlayer(currentPlayer,direction);
             System.out.println("Hi " + nextPlayer(nextPlayer,direction) + ", it's your turn");
@@ -228,17 +227,17 @@ public class Game {
 
             showHandAndTable(currentPlayer);
             output.println("Play Card");
-            card = input.next();
+            cardInput = input.next();
 
-            if (card.equals("help")) {
+            if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
 
-            } else if (card.equals("ziehen")) {
+            } else if (cardInput.equals("ziehen")) {
                 currentPlayer.drawCard(drawPile, discardPile);
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
-            } else if (currentPlayer.playCard(discardPile, drawPile, card) == true) {
+            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput) == true) {
 
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
@@ -246,7 +245,7 @@ public class Game {
 
                 } else {
                     // checks which card is being played
-              currentPlayer = checkPlayedCard(currentPlayer);
+                    currentPlayer = checkPlayedCard(currentPlayer);
 
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
