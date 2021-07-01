@@ -313,46 +313,6 @@ public class Game {
         return currentPlayerHuman;
     }
 
-    // checks when card is drawn and played and returns
-//
-//    private Player checkDrawnCard(Player currentPlayer, Card card) {
-////        Card discardPileTopCard = discardPile.lookAtTopCard();
-//
-//        if (card.getType().getCaption().equals("+4")) {
-//            System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
-//
-//            currentPlayer = nextPlayer(currentPlayer, getDirection());
-//            currentPlayer.getPlusTwoCards(drawPile);
-//            currentPlayer.getPlusTwoCards(drawPile);
-//            System.out.println("_________________________________");
-//            System.out.println("Hi " + currentPlayer + "! Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
-//            return currentPlayer;
-//        }
-//
-//        if (card.getType().getCaption().equals("+2")) {
-//            currentPlayer = nextPlayer(currentPlayer, getDirection());
-//            currentPlayer.getPlusTwoCards(drawPile);
-//            System.out.println("_________________________________");
-//            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe");
-//            return currentPlayer;
-//        }
-//
-//        if (card.getType().getCaption().equals("<->")) {
-//            changeDirection(direction);
-//            System.out.println("Hi " + nextPlayer(currentPlayer,direction) + ", the direction was changed, it's your turn now!");
-//            return currentPlayer;
-//        }
-//
-//        if (card.getType().getCaption().equals("<S>")){
-//            System.out.println("Sorry " + nextPlayer(currentPlayer,direction) + ", you're being skipped.");
-//            Player nextPlayer = nextPlayer(currentPlayer,direction);
-//            System.out.println("Hi " + nextPlayer(nextPlayer,direction) + ", it's your turn");
-//            return nextPlayer;
-//        }
-//
-//        return currentPlayer;
-//    }
-
     private String pickColor() {
 
         Scanner inputColor = new Scanner(System.in);
@@ -397,6 +357,10 @@ public class Game {
             setDirection("counterclockwise");
         else
             setDirection("clockwise");
+    }
+
+    private Player setNextPlayer() {
+        return nextPlayer(currentPlayer, getDirection());
     }
 
     private Player nextPlayer(Player currentPlayerHuman, String direction) {
