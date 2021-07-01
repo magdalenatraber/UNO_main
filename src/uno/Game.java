@@ -26,6 +26,7 @@ public class Game {
     private Player[] players = new Player[4];
     private String direction;
     private int helpNeeded;
+    private String playerName;
     private Help help;
 
 
@@ -72,15 +73,42 @@ public class Game {
     //Spieler werden erstellt
     public void initPlayer() {
 
-        player1 = new Player("Caro");
-        player2 = new Player("Meggie");
-        player3 = new Player("Steff");
-        player4 = new Player("Kunibert");
+        System.out.println("");
+
+        for (int i = 1; i <= 4 ; i++) {
+            Scanner input = new Scanner(System.in);
+            System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+            playerName = input.next();
+            if (i == 1){
+                player1 = new Player(playerName);
+            }
+            if (i == 2){
+                player2 = new Player(playerName);
+            }
+            if (i == 3){
+                player3 = new Player(playerName);
+            }
+            if (i == 4){
+                player4 = new Player(playerName);
+            }
+        }
+
+//        player1 = new Player(playerName);
+//        player2 = new Player("Meggie");
+//        player3 = new Player("Steff");
+//        player4 = new Player("Kunibert");
 
         players[0] = player1;
         players[1] = player2;
         players[2] = player3;
         players[3] = player4;
+
+        System.out.println("");
+        System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
+        System.out.println("Das Spiel kann nun beginnen! Viel Spass!");
+        System.out.println("");
+        System.out.println("* * * * * * * * * * *");
+        System.out.println("");
 
     }//initPlayer
 
