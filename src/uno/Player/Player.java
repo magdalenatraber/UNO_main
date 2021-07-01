@@ -34,7 +34,7 @@ public class Player {
     }//drawCardInHand
 
     // Karte wird gezogen und angesehen
-    public void drawCard(Pile drawPile, Pile discardPile) {
+    public String drawCard(Pile drawPile, Pile discardPile) {
         String playOrNot;
         final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
@@ -55,13 +55,13 @@ public class Player {
                 if (!playsMatchingCard(discardPile, drawnCard)) {
                     hand.add(drawnCard);
                     getPenaltyCard(drawPile);
-                    break;
+                    return null;
                 }
 
             } else if (playOrNot.equals("n")) {
 
                 hand.add(drawnCard);
-                break;
+                return null;
             } else
                 System.out.println("Diese Eingabe ist nicht gültig");
         } while (true);
