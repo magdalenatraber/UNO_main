@@ -140,6 +140,7 @@ public class Game {
         drawPile.shuffle();
     }//initDrawPile
 
+    // doesnt work yet
     public void newDiscardPile() {
         Pile newDiscardPile = new Pile();
         Card lastCard = discardPile.pop();
