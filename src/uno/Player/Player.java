@@ -79,7 +79,7 @@ public class Player {
             if (card.toString().equals(playCard)) {
 
                 // Spielregel Methoden
-                if (playsMatchingCard(discardPile, card)) {
+                if (playsMatchingCard(discardPile, card, pickedColor)) {
                     hand.remove(card);
                     discardPile.push(card);
                     return true;
@@ -109,11 +109,13 @@ public class Player {
     }
 
     // ist die vom Spieler ausgewählte Karte spielbar?
-    public boolean playsMatchingCard(Pile discardPile, Card card) {
+    public boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor) {
         Card topCard = discardPile.lookAtTopCard();
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
-        } else if (card.getColor().getCaption().equals("W") || topCard.getColor().getCaption().equals("W")) {
+        } else if (card.getColor().getCaption().equals("W")) {
+            return true;
+        } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
             return true;
         } else {
             System.out.println("Karte kann nicht gespielt werden!");
