@@ -108,7 +108,7 @@ public class Game {
             }
             if (i == 4) {
                 if (player1.getName().equals(playerName) || player2.getName().equals(playerName) || player3.getName().equals(playerName)) {
-                    player4 = new Player(playerName + "imaus");
+                    player4 = new Player(playerName + "maus");
                     System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
                     System.out.println("Du heißt jetzt " + player4.getName());
                 } else {
