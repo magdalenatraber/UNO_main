@@ -43,18 +43,26 @@ public class Game {
     public void run() {
         // Spielvorbereitung
         initPlayer();
+
+        setDirection("clockwise");
+
+        Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
+     //   startingPlayer = nextPlayer(startingPlayer, getDirection());
+        Player currentPlayer = startingPlayer;
+
         initDrawPile();
         initDiscardPile();
 
-        Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
+        Card firstCard = discardPile.lookAtTopCard();
+        cardInput = firstCard.getType().getCaption();
+        currentPlayer = checkPlayedCard(currentPlayer);
 
-        // neue Runde
-        setDirection("clockwise");
 
-        startingPlayer = nextPlayer(startingPlayer, getDirection());
-        Player currentPlayer = startingPlayer;
-        System.out.println("Spieler " + currentPlayer + " beginnt. Spieler " + counterClockwise(currentPlayer) + " gibt die Karten.");
+        currentPlayer = nextPlayer(currentPlayer,getDirection());
+
+        System.out.println("Spieler " + counterClockwise(currentPlayer) + " gibt die Karten." + " Spieler " + currentPlayer + " beginnt.");
         dealCards();
+        // neue Runde
 
         System.out.println(player1 + " " + player1.getHand());
         System.out.println(player2 + " " + player2.getHand());
@@ -140,8 +148,9 @@ public class Game {
         discardPile.push(initialCard);
         if (initialCard.getType().getCaption().equals("+4")) {
             initDiscardPile();
-        }
-    }//initDiscardPile
+        }//initDiscardPile
+
+    }
 
 
     private void checkFirstCard(Card initialCard) {
