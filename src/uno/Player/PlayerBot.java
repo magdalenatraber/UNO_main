@@ -139,9 +139,7 @@ public class PlayerBot extends Player{
     // }
 //        }
 
-        }
-
-        return null;
+        return input;
     }
 
     @Override
