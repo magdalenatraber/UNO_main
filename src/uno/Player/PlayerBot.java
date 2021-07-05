@@ -131,8 +131,13 @@ public class PlayerBot extends Player{
     }
 
     public String inputData() {
-
-        for (Card card : hand.cardsInHand) {
+        String input = "ziehen";
+//        for (Card card : hand.cardsInHand) {
+        //  if(playsMatchingCard(discardPile,card,pickedColor)){
+        //      input = card.toString;
+        //      break;
+    // }
+//        }
 
         }
 
