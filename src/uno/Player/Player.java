@@ -41,10 +41,14 @@ public abstract class Player {
 
     public abstract boolean handIsEmpty();
 
+    public abstract String inputData(Pile discardPile, String pickedColor);
+
+    public abstract String pickColor();
+
     @Override
     public String toString() {
         return name;
     }
 
-    public abstract String inputData();
+
 }

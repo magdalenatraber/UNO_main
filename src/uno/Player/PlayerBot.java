@@ -6,7 +6,7 @@ import uno.Pile;
 import java.util.Random;
 import java.util.Scanner;
 
-public class PlayerBot extends Player{
+public class PlayerBot extends Player {
 
     public PlayerBot(String name) {
         super(name);
@@ -16,7 +16,7 @@ public class PlayerBot extends Player{
 
     public static String generateRandomName(int len) {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                +"lmnopqrstuvwxyz!@#$%&";
+                + "lmnopqrstuvwxyz!@#$%&";
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++)
@@ -41,27 +41,24 @@ public class PlayerBot extends Player{
 
         do {
             System.out.println("Möchtest du diese Karte spielen? j/n");
-            playOrNot = input.next();
-            if (playOrNot.equals("j")) {
-
-
-                if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
+           // playOrNot = input.next();
+            //if (playOrNot.equals("j")) {
+            if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     discardPile.push(drawnCard);
                     return drawnCard.toString();
                 }
-
-                if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
+            else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     hand.add(drawnCard);
                     getPenaltyCard(drawPile);
                     return null;
                 }
 
-            } else if (playOrNot.equals("n")) {
+            //} //else if (playOrNot.equals("n")) {
 
-                hand.add(drawnCard);
-                return null;
-            } else
-                System.out.println("Diese Eingabe ist nicht gültig");
+               // hand.add(drawnCard);
+               // return null;
+            //} else
+               // System.out.println("Diese Eingabe ist nicht gültig");
         } while (true);
     } //drawCard
 
@@ -130,17 +127,48 @@ public class PlayerBot extends Player{
         }
     }
 
-    public String inputData() {
+    public String inputData(Pile discardPile, String pickedColor) {
         String input = "ziehen";
-//        for (Card card : hand.cardsInHand) {
-        //  if(playsMatchingCard(discardPile,card,pickedColor)){
-        //      input = card.toString;
-        //      break;
-    // }
-//        }
+        for (Card card : hand.cardsInHand) {
+            if (playsMatchingCard(discardPile, card, pickedColor)) {
+                input = card.toString();
+                break;
+            }
+        }
 
         return input;
     }
+
+    public String pickColor() {
+        String colorInput = null;
+        boolean pickedColor = false;
+        while (pickedColor == false) {
+
+
+            if (colorInput.equals("Y")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("G")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("B")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("R")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else {
+                System.out.println("Diese Eingabe ist nicht gültig");
+                continue;
+            }
+        }
+        return colorInput;
+    }
+
+
+
+
+
 
     @Override
     public String toString() {
