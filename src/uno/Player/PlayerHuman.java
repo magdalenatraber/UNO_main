@@ -134,45 +134,17 @@ public class PlayerHuman extends Player {
         }
     }
 
+    public int countCardsInHand() {
+        return hand.getHandSize();
+    }
+
+
     public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
 
         return input.next();
 
     }
-
-    public String pickColor() {
-
-        Scanner inputColor = new Scanner(System.in);
-        String  colorInput = null;
-        boolean pickedColor = false;
-        while (pickedColor == false) {
-            colorInput = inputColor.next();
-
-
-            if (colorInput.equals("Y")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("G")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("B")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("R")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else {
-                System.out.println("Diese Eingabe ist nicht gültig");
-                continue;
-            }
-        }
-        return colorInput;
-    }
-
-
-
-
 
     @Override
     public String toString() {

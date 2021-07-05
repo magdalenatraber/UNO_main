@@ -41,6 +41,8 @@ public abstract class Player {
 
     public abstract boolean handIsEmpty();
 
+    public abstract int countCardsInHand();
+
     public abstract String inputData(Pile discardPile, String pickedColor);
 
     public abstract String pickColor();

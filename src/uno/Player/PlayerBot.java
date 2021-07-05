@@ -39,19 +39,21 @@ public class PlayerBot extends Player {
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
 
-        do {
-            System.out.println("Möchtest du diese Karte spielen? j/n");
-           // playOrNot = input.next();
-            //if (playOrNot.equals("j")) {
-            if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    discardPile.push(drawnCard);
-                    return drawnCard.toString();
-                }
-            else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    hand.add(drawnCard);
-                    getPenaltyCard(drawPile);
-                    return null;
-                }
+        System.out.println("Möchtest du diese Karte spielen? j/n");
+        // playOrNot = input.next();
+        //if (playOrNot.equals("j")) {
+
+        if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
+            discardPile.push(drawnCard);
+            System.out.println("Ich spiele " + drawnCard);
+            return drawnCard.toString();
+        } else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
+            hand.add(drawnCard);
+            System.out.println("Ich kann nicht spielen.");
+            return null;
+        }
+
+        return null;
 
             //} //else if (playOrNot.equals("n")) {
 
@@ -108,12 +110,15 @@ public class PlayerBot extends Player {
         Card topCard = discardPile.lookAtTopCard();
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
-        } else if (card.getColor().getCaption().equals("W")) {
-            return true;
         } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
+            System.out.println("W* wurde gespielt. Du musst färben.");
+            return true;
+
+        } else if (card.getColor().getCaption().equals("W")) {
+            System.out.println("W* wurde gespielt. Du kannst spielen was du willst.");
             return true;
         } else {
-            System.out.println("Karte kann nicht gespielt werden!");
+
             return false;
         }
     }
@@ -122,9 +127,14 @@ public class PlayerBot extends Player {
     public boolean handIsEmpty() {
         if (hand.getHandSize() == 0) {
             return true;
+
         } else {
             return false;
         }
+    }
+
+    public int countCardsInHand() {
+        return hand.getHandSize();
     }
 
     public String inputData(Pile discardPile, String pickedColor) {
@@ -139,35 +149,40 @@ public class PlayerBot extends Player {
         return input;
     }
 
+    public boolean didYouSayUno(String cardInput) {
+        if (cardInput.contains("uno")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String sayUno(String cardInput){
+        return "uno";
+    }
+
     public String pickColor() {
         String colorInput = null;
-        boolean pickedColor = false;
-        while (pickedColor == false) {
+        for (Card card : hand.cardsInHand) {
+            if (!card.getColor().getCaption().equals("W"))
+                colorInput = card.getColor().getCaption();
+        }
 
+        if (colorInput.equals("Y")) {
+            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
 
-            if (colorInput.equals("Y")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("G")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("B")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("R")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else {
-                System.out.println("Diese Eingabe ist nicht gültig");
-                continue;
-            }
+        } else if (colorInput.equals("G")) {
+            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+
+        } else if (colorInput.equals("B")) {
+            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+
+        } else if (colorInput.equals("R")) {
+            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+
         }
         return colorInput;
     }
-
-
-
-
 
 
     @Override

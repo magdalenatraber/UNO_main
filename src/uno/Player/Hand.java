@@ -27,7 +27,7 @@ public class Hand{
 
     @Override
     public String toString() {
-        return "cardsInHand:" + cardsInHand;
+        return " " + cardsInHand;
     }
 
 

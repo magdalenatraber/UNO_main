@@ -23,7 +23,7 @@ public class Game {
     private Pile discardPile = new Pile();
     private boolean exit = false;
     private String cardInput;
-    private String colorInput;
+    private String pickedColor;
 
     private Player player1;
     private Player player2;
@@ -147,7 +147,7 @@ public class Game {
 
             if (i == 3) {
                 if (i <= nrBots) {
-                    playerName = "Nr.5";
+                    playerName = "R2D2";
                     player3 = new PlayerBot(playerName);
                     players[2] = player3;
                     System.out.println("Bot " + playerName + " erstellt!");
@@ -237,7 +237,6 @@ public class Game {
 
     private void checkFirstCard(Card initialCard) {
 
-
     }
 
     private Player choosePlayer() {
@@ -293,11 +292,12 @@ public class Game {
     //Spieler Input
     private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
+
         do {
 
             showHandAndTable(currentPlayer);
 
-            output.println("Play Card");
+            output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
 
             cardInput = currentPlayer.inputData(discardPile, colorInput);
 
@@ -312,7 +312,20 @@ public class Game {
 
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
-            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, colorInput) == true) {
+            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
+
+                System.out.println(currentPlayer + " spielt " + cardInput);
+
+                if (currentPlayer.countCardsInHand() == 1) {
+                    cardInput = currentPlayer.sayUno(cardInput);
+                    System.out.println("test card input" + cardInput);
+                    if (currentPlayer.didYouSayUno(cardInput)) {
+                        System.out.println(currentPlayer + " sagt Uno");
+                    } else {
+                        System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                        currentPlayer.getPlusTwoCards(drawPile);
+                    }
+                }
 
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
@@ -324,6 +337,9 @@ public class Game {
 
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
+
+
+
                 }
             }
 
@@ -382,7 +398,6 @@ public class Game {
 
         return currentPlayer;
     }
-
 
 
     private String getDirection() {
@@ -446,14 +461,15 @@ public class Game {
 
     private void showHandAndTable(Player player) {
         System.out.println("---------------------------");
-        System.out.println("card amount check:" + countAllCards());
-        System.out.println("card on table: " + discardPile.lookAtTopCard());
-        System.out.println("Aktueller Spieler: " + player);
-        System.out.println("Spielrichtung: " + getDirection());
+        System.out.print("Anzahl Karten: " + countAllCards());
+        System.out.print(" | Ziehstapel: " + drawPile.getSize());
+        System.out.println(" | Ablagestapel: " + discardPile.getSize());
+        System.out.print("Aktueller Spieler: " + player);
+        System.out.println(" | Spielrichtung: " + getDirection());
+        System.out.println("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
         System.out.println("Deine Hand: " + player.getHand());
-        System.out.println("DrawPile: " + drawPile.getSize());
-        System.out.println("DiscardPile: " + discardPile.getSize());
     }//showHandAndTable
+
 
 
     public int countAllCards() {
