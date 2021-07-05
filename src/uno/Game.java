@@ -257,7 +257,7 @@ public class Game {
 
             output.println("Play Card");
 
-            cardInput = currentPlayer.inputData();
+            cardInput = currentPlayer.inputData(discardPile, colorInput);
 
             if (cardInput.equals("help")) {
                 inputHelp();
@@ -311,7 +311,7 @@ public class Game {
         if (cardInput.equals("WW")) {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
-            String pickedColor = pickColor();
+            String pickedColor = currentPlayer.pickColor();
             // switch to next player
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + pickedColor + " spielen");
@@ -342,33 +342,7 @@ public class Game {
         return currentPlayer;
     }
 
-    private String pickColor() {
 
-        Scanner inputColor = new Scanner(System.in);
-        boolean pickedColor = false;
-        while (pickedColor == false) {
-            colorInput = inputColor.next();
-
-
-            if (colorInput.equals("Y")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("G")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("B")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else if (colorInput.equals("R")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-                pickedColor = true;
-            } else {
-                System.out.println("Diese Eingabe ist nicht gültig");
-                continue;
-            }
-        }
-        return colorInput;
-    }
 
     private String getDirection() {
         return direction;
