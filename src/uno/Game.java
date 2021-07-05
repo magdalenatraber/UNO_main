@@ -101,7 +101,7 @@ public class Game {
 
         for (int i = 1; i <= 4; i++) {
             if (i <= nrBots) {
-                playerName = generateRandomName(7);
+                playerName = "RoboCop";
                 player1 = new PlayerBot(playerName);
                 players[0] = player1;
                 System.out.println("____________________");
@@ -116,7 +116,7 @@ public class Game {
                 }
             }
             if (i <= nrBots) {
-                playerName = generateRandomName(7);
+                playerName = "Terminator";
                 player2 = new PlayerBot(playerName);
                 players[1] = player2;
                 System.out.println("____________________");
@@ -134,7 +134,7 @@ public class Game {
 
 
             if (i <= nrBots) {
-                playerName = generateRandomName(7);
+                playerName = "Nr.5";
                 player3 = new PlayerBot(playerName);
                 players[2] = player3;
                 System.out.println("____________________");
@@ -152,7 +152,7 @@ public class Game {
 
 
             if (i <= nrBots) {
-                playerName = generateRandomName(7);
+                playerName = "Wall-E";
                 player4 = new PlayerBot(playerName);
                 players[3] = player4;
                 System.out.println("____________________");
