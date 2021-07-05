@@ -65,9 +65,9 @@ public class Pile {
     }
 
     public Card pop() {
-        if (cards.isEmpty()) {
-            Game.newDrawPile();
-        }
+//        if (cards.size() == 2) {
+//            Game.renewDrawPile();
+//        }
 
         return cards.pop();
     }

@@ -217,14 +217,29 @@ public class Game {
 
     // doesnt work yet
 
-    public static void newDrawPile() {
-        Pile newDiscardPile = new Pile();
-        Card lastCard = discardPile.pop();
-        newDiscardPile.push(lastCard);
-        drawPile = discardPile;
-        drawPile.shuffle();
-        discardPile = newDiscardPile;
-    }
+//    public static void newDrawPile() {
+//        Pile newDiscardPile = new Pile();
+//        Card lastCard = discardPile.pop();
+//        newDiscardPile.push(lastCard);
+//        drawPile = discardPile;
+//        drawPile.shuffle();
+//        discardPile = newDiscardPile;
+//    }
+
+//    public static void renewDrawPile() {
+//        System.out.println("***Es gibt nur mehr 1 Karte***");
+//        System.out.println("drawPile: " + drawPile);
+//
+//        Card topCardFromDiscardPile = discardPile.pop();
+//        Pile RestOfDiscardPile = discardPile;
+//        discardPile.shuffle();
+//
+//        drawPile = discardPile;
+//
+//        discardPile.push(topCardFromDiscardPile);
+//
+//    }
+
 
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
@@ -318,8 +333,9 @@ public class Game {
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
                 if (currentPlayer.countCardsInHand() == 1) {
+                    System.out.println("test card input: " + cardInput);
                     cardInput = currentPlayer.sayUno(cardInput);
-                    System.out.println("test card input" + cardInput);
+                    System.out.println("test card input: " + cardInput);
                     if (currentPlayer.didYouSayUno(cardInput)) {
                         System.out.println(currentPlayer + " sagt Uno");
                     } else {
@@ -470,6 +486,7 @@ public class Game {
         System.out.println("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
         System.out.println("Deine Hand: " + player.getHand());
     }//showHandAndTable
+
 
 
     public int countAllCards() {

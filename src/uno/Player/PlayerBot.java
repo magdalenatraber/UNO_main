@@ -68,7 +68,7 @@ public class PlayerBot extends Player {
 
         for (Card card : hand.cardsInHand) {
 
-            if (card.toString().equals(playCard)) {
+            if (playCard.contains(card.toString())) {
 
                 // Spielregel Methoden
                 if (playsMatchingCard(discardPile, card, pickedColor)) {
@@ -153,7 +153,7 @@ public class PlayerBot extends Player {
     }
 
     public String sayUno(String cardInput){
-        return "uno";
+        return "piep";
     }
 
     public String pickColor() {

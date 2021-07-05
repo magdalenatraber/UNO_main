@@ -77,7 +77,7 @@ public class PlayerHuman extends Player {
 
         for (Card card : hand.cardsInHand) {
 
-            if (card.toString().equals(playCard)) {
+            if (playCard.contains(card.toString())) {
 
                 // Spielregel Methoden
                 if (playsMatchingCard(discardPile, card, pickedColor)) {
@@ -143,7 +143,7 @@ public class PlayerHuman extends Player {
     public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
 
-        return input.next();
+        return input.nextLine();
 
     }
 
