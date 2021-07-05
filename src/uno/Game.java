@@ -488,7 +488,6 @@ public class Game {
     }//showHandAndTable
 
 
-
     public int countAllCards() {
         return discardPile.getSize() + drawPile.getSize() + player1.getHand().getHandSize() + player2.getHand().getHandSize()
                 + player3.getHand().getHandSize() + player4.getHand().getHandSize();
