@@ -87,22 +87,40 @@ public class Game {
 
         System.out.println("");
 
-//        Scanner botOrNot = new Scanner(System.in);
+        Scanner botOrNot = new Scanner(System.in);
         System.out.println("Es können 4 Spieler mitspielen.");
         System.out.println("Wieviele Bots werden benötigt?");
-//        nrBots = botOrNot.nextInt();
+        nrBots = botOrNot.nextInt();
+
+        if (nrBots > 4) {
+            System.out.println("Ungültige Eingabe! Die Eingabe wurde auf 4 verringert!");
+            nrBots = 4;
+        }
+
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
 
-        for (int i = 1; i <= 4-nrBots; i++) {
-            Scanner input = new Scanner(System.in);
-            System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
-            playerName = input.next();
-            if (i == 1) {
-                player1 = new PlayerHuman(playerName);
+        for (int i = 1; i <= 4; i++) {
+            if (i <= nrBots) {
+                playerName = generateRandomName(7);
+                player1 = new PlayerBot(playerName);
                 players[0] = player1;
                 System.out.println("____________________");
+            } else {
+                Scanner input = new Scanner(System.in);
+                System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+                playerName = input.next();
+                if (i == 1) {
+                    player1 = new PlayerHuman(playerName);
+                    players[0] = player1;
+                    System.out.println("____________________");
+                }
             }
-            if (i == 2) {
+            if (i <= nrBots) {
+                playerName = generateRandomName(7);
+                player2 = new PlayerBot(playerName);
+                players[1] = player2;
+                System.out.println("____________________");
+            } else if (i == 2) {
                 if (player1.getName().equals(playerName)) {
                     player2 = new PlayerHuman(playerName + "bert");
                     System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
@@ -113,7 +131,14 @@ public class Game {
                 players[1] = player2;
                 System.out.println("____________________");
             }
-            if (i == 3) {
+
+
+            if (i <= nrBots) {
+                playerName = generateRandomName(7);
+                player3 = new PlayerBot(playerName);
+                players[2] = player3;
+                System.out.println("____________________");
+            } else if (i == 3) {
                 if (player1.getName().equals(playerName) || player2.getName().equals(playerName)) {
                     player3 = new PlayerHuman(playerName + "chen");
                     System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
@@ -124,28 +149,25 @@ public class Game {
                 players[2] = player3;
                 System.out.println("____________________");
             }
-            if (i == 4) {
-                if (player1.getName().equals(playerName) || player2.getName().equals(playerName) || player3.getName().equals(playerName)) {
-                    player4 = new PlayerHuman(playerName + "maus");
-                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
-                    System.out.println("Du heißt jetzt " + player4.getName());
-                } else {
-                    player4 = new PlayerHuman(playerName);
-                }
+
+
+            if (i <= nrBots) {
+                playerName = generateRandomName(7);
+                player4 = new PlayerBot(playerName);
                 players[3] = player4;
                 System.out.println("____________________");
+            } else if (i == 4) {
+                    if (player1.getName().equals(playerName) || player2.getName().equals(playerName) || player3.getName().equals(playerName)) {
+                        player4 = new PlayerHuman(playerName + "maus");
+                        System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                        System.out.println("Du heißt jetzt " + player4.getName());
+                    } else {
+                        player4 = new PlayerHuman(playerName);
+                    }
+                    players[3] = player4;
+                    System.out.println("____________________");
+                }
             }
-
-        }
-
-//        for (int i = 0; i < nrBots; i++) {
-//            if (players[i].getName() == null) {
-//                String name = generateRandomName(7);
-//                Player test1 = new PlayerBot(name);
-//                players[i] = test;
-//            }
-//        }
-
 
 
         System.out.println("");
@@ -159,7 +181,7 @@ public class Game {
 
     public static String generateRandomName(int len) {
         String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                +"lmnopqrstuvwxyz!@#$%&";
+                + "lmnopqrstuvwxyz!@#$%&";
         Random rnd = new Random();
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++)
@@ -287,7 +309,6 @@ public class Game {
 
         } while (true);
     }//inputCard
-
 
 
     // checks which card is played and returns
@@ -439,7 +460,6 @@ public class Game {
         System.out.println("DrawPile: " + drawPile.getSize());
         System.out.println("DiscardPile: " + discardPile.getSize());
     }//showHandAndTable
-
 
 
     public int countAllCards() {
