@@ -90,7 +90,7 @@ public class Game {
         Scanner botOrNot = new Scanner(System.in);
         System.out.println("Es können 4 Spieler mitspielen.");
         System.out.println("Wieviele Bots werden benötigt?");
-        nrBots = input.nextInt();
+        nrBots = botOrNot.nextInt();
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
 
         for (int i = 1; i <= 4-nrBots; i++) {
