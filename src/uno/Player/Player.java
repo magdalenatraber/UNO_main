@@ -45,6 +45,10 @@ public abstract class Player {
 
     public abstract String inputData(Pile discardPile, String pickedColor);
 
+    public abstract boolean didYouSayUno(String cardInput);
+
+    public abstract String sayUno(String cardInput);
+
     public abstract String pickColor();
 
     @Override

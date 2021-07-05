@@ -1,6 +1,7 @@
 package uno.Player;
 
 import uno.Cards.Card;
+import uno.Game;
 import uno.Pile;
 
 import java.util.Scanner;
@@ -145,6 +146,52 @@ public class PlayerHuman extends Player {
         return input.next();
 
     }
+
+    public boolean didYouSayUno(String cardInput) {
+        if (cardInput.contains("uno")) {
+            System.out.println("Hat Uno gesagt");
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public String sayUno(String cardInput){
+        return cardInput;
+    }
+
+    public String pickColor() {
+
+        Scanner inputColor = new Scanner(System.in);
+        String  colorInput = null;
+        boolean pickedColor = false;
+        while (pickedColor == false) {
+            colorInput = inputColor.next();
+
+
+            if (colorInput.equals("Y")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("G")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("B")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else if (colorInput.equals("R")) {
+                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                pickedColor = true;
+            } else {
+                System.out.println("Diese Eingabe ist nicht gültig");
+                continue;
+            }
+        }
+        return colorInput;
+    }
+
+
+
+
 
     @Override
     public String toString() {

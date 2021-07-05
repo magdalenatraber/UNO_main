@@ -1,6 +1,7 @@
 package uno.Player;
 
 import uno.Cards.Card;
+import uno.Game;
 import uno.Pile;
 
 import java.util.Random;
@@ -27,6 +28,7 @@ public class PlayerBot extends Player {
     // Karten werden in die Hand gezogen
     @Override
     public void drawCardInHand(final Pile drawPile) {
+
         final var card = drawPile.pop();
         hand.add(card);
     }//drawCardInHand
@@ -55,13 +57,6 @@ public class PlayerBot extends Player {
 
         return null;
 
-            //} //else if (playOrNot.equals("n")) {
-
-               // hand.add(drawnCard);
-               // return null;
-            //} else
-               // System.out.println("Diese Eingabe ist nicht gültig");
-        } while (true);
     } //drawCard
 
     @Override

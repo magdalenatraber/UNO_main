@@ -19,8 +19,8 @@ public class Game {
     public static final int NUMBER_OF_CARDS_DEALT = 7;
     private final Scanner input;
     private final PrintStream output;
-    private Pile drawPile = new Pile();
-    private Pile discardPile = new Pile();
+    public static Pile drawPile = new Pile();
+    public static Pile discardPile = new Pile();
     private boolean exit = false;
     private String cardInput;
     private String pickedColor;
@@ -53,7 +53,7 @@ public class Game {
 
         Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
         //   startingPlayer = nextPlayer(startingPlayer, getDirection());
-        Player currentPlayer = startingPlayer;
+        currentPlayer = startingPlayer;
 
         System.out.println("Spieler " + currentPlayer + " gibt die Karten." + " Spieler " + nextPlayer(currentPlayer, getDirection()) + " beginnt.");
         initDrawPile();
@@ -216,7 +216,8 @@ public class Game {
     }//initDrawPile
 
     // doesnt work yet
-    public void newDrawPile() {
+
+    public static void newDrawPile() {
         Pile newDiscardPile = new Pile();
         Card lastCard = discardPile.pop();
         newDiscardPile.push(lastCard);
@@ -299,14 +300,14 @@ public class Game {
 
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
 
-            cardInput = currentPlayer.inputData(discardPile, colorInput);
+            cardInput = currentPlayer.inputData(discardPile, pickedColor);
 
             if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
 
             } else if (cardInput.equals("ziehen")) {
-                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, colorInput)) != null) {
+                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
                 }
 
@@ -355,7 +356,7 @@ public class Game {
 
         if (cardInput.equals("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
-            String pickedColor = currentPlayer.pickColor();
+            pickedColor = currentPlayer.pickColor();
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             currentPlayer.getPlusTwoCards(drawPile);
@@ -368,7 +369,7 @@ public class Game {
         if (cardInput.equals("WW")) {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
-            String pickedColor = currentPlayer.pickColor();
+            pickedColor = currentPlayer.pickColor();
             // switch to next player
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + pickedColor + " spielen");
@@ -469,7 +470,6 @@ public class Game {
         System.out.println("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
         System.out.println("Deine Hand: " + player.getHand());
     }//showHandAndTable
-
 
 
     public int countAllCards() {
