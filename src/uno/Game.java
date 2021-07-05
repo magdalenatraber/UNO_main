@@ -298,7 +298,7 @@ public class Game {
 
         if (cardInput.equals("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
-            String pickedColor = pickColor();
+            String pickedColor = currentPlayer.pickColor();
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
             currentPlayer.getPlusTwoCards(drawPile);

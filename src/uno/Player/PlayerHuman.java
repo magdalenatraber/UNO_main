@@ -134,7 +134,7 @@ public class PlayerHuman extends Player {
         }
     }
 
-    public String inputData() {
+    public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
 
         return input.next();
