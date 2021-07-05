@@ -45,4 +45,6 @@ public abstract class Player {
     public String toString() {
         return name;
     }
+
+    public abstract String inputData();
 }

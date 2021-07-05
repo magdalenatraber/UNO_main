@@ -48,11 +48,11 @@ public class Game {
         initPlayer();
         setDirection("clockwise");
 
-        Player startingPlayerHuman = choosePlayer(); // Meggie // Steff // Caro // Kuni
+        Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
         //   startingPlayer = nextPlayer(startingPlayer, getDirection());
-        Player currentPlayerHuman = startingPlayerHuman;
+        Player currentPlayer = startingPlayer;
 
-        System.out.println("Spieler " + currentPlayerHuman + " gibt die Karten." + " Spieler " + nextPlayer(currentPlayerHuman, getDirection()) + " beginnt.");
+        System.out.println("Spieler " + currentPlayer + " gibt die Karten." + " Spieler " + nextPlayer(currentPlayer, getDirection()) + " beginnt.");
         initDrawPile();
         initDiscardPile();
         dealCards();
@@ -66,12 +66,12 @@ public class Game {
         // check first card
         Card firstCard = discardPile.lookAtTopCard();
         cardInput = firstCard.getType().getCaption();
-        currentPlayerHuman = checkPlayedCard(currentPlayerHuman);
+        currentPlayer = checkPlayedCard(currentPlayer);
         if (!cardInput.equals("<->")) {
-            currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
         }
 
-        inputCard(currentPlayerHuman);
+        inputCard(currentPlayer);
         // wegen bot
 //        currentPlayer.playCard()
 
@@ -219,7 +219,7 @@ public class Game {
 
 
     //Spieler Input
-    private void inputCard(Player currentPlayerHuman) {
+    private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
         do {
 
@@ -229,31 +229,32 @@ public class Game {
             }
 
             output.println("Play Card");
-            cardInput = input.next();
+
+            cardInput = currentPlayer.inputData();
 
             if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
 
             } else if (cardInput.equals("ziehen")) {
-                if ((cardInput = currentPlayerHuman.drawCard(drawPile, discardPile, colorInput)) != null) {
-                    currentPlayerHuman = checkPlayedCard(currentPlayerHuman);
+                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, colorInput)) != null) {
+                    currentPlayer = checkPlayedCard(currentPlayer);
                 }
 
-                currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
+                currentPlayer = nextPlayer(currentPlayer, getDirection());
 
-            } else if (currentPlayerHuman.playCard(discardPile, drawPile, cardInput, colorInput) == true) {
+            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, colorInput) == true) {
 
-                if (currentPlayerHuman.handIsEmpty()) {
-                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayerHuman + " hat das Spiel gewonnen!");
+                if (currentPlayer.handIsEmpty()) {
+                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
                     System.exit(0);
 
                 } else {
                     // checks which card is being played
-                    currentPlayerHuman = checkPlayedCard(currentPlayerHuman);
+                    currentPlayer = checkPlayedCard(currentPlayer);
 
                     // next player's turn
-                    currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
+                    currentPlayer = nextPlayer(currentPlayer, getDirection());
                 }
             }
 
@@ -261,56 +262,57 @@ public class Game {
     }//inputCard
 
 
+
     // checks which card is played and returns
-    private Player checkPlayedCard(Player currentPlayerHuman) {
+    private Player checkPlayedCard(Player currentPlayer) {
 //        Card discardPileTopCard = discardPile.lookAtTopCard();
 
         // error: if P1 plays +2 after having drawn card, and P2 can't play, +2 goes to next next player P3
 
         if (cardInput.equals("W+4")) {
-            System.out.println("Hi " + currentPlayerHuman + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
+            System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             String pickedColor = pickColor();
-            currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
-            currentPlayerHuman.getPlusTwoCards(drawPile);
-            currentPlayerHuman.getPlusTwoCards(drawPile);
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+            currentPlayer.getPlusTwoCards(drawPile);
+            currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayerHuman + "! Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
-            System.out.println("Hi " + nextPlayer(currentPlayerHuman, getDirection()) + " Du musst die Farbe " + pickedColor + " spielen");
-            return currentPlayerHuman;
+            System.out.println("Hi " + currentPlayer + "! Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + " Du musst die Farbe " + pickedColor + " spielen");
+            return currentPlayer;
         }
 
         if (cardInput.equals("WW")) {
-            System.out.println("Hi " + currentPlayerHuman + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
+            System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
             String pickedColor = pickColor();
             // switch to next player
-            currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
-            System.out.println("Hi " + currentPlayerHuman + "! Du musst die Farbe " + pickedColor + " spielen");
-            return currentPlayerHuman;
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+            System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + pickedColor + " spielen");
+            return currentPlayer;
         }
 
         if (cardInput.contains("+2")) {
-            currentPlayerHuman = nextPlayer(currentPlayerHuman, getDirection());
-            currentPlayerHuman.getPlusTwoCards(drawPile);
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+            currentPlayer.getPlusTwoCards(drawPile);
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayerHuman + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
-            return currentPlayerHuman;
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
+            return currentPlayer;
         }
 
         if (cardInput.contains("<->")) {
             changeDirection(direction);
-            System.out.println("Hi " + nextPlayer(currentPlayerHuman, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
-            return currentPlayerHuman;
+            System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
+            return currentPlayer;
         }
 
         if (cardInput.contains("<S>")) {
-            System.out.println("Sorry " + nextPlayer(currentPlayerHuman, direction) + ", du musst aussetzen!");
-            Player nextPlayerHuman = nextPlayer(currentPlayerHuman, direction);
+            System.out.println("Sorry " + nextPlayer(currentPlayer, direction) + ", du musst aussetzen!");
+            Player nextPlayerHuman = nextPlayer(currentPlayer, direction);
             System.out.println("Hi " + nextPlayer(nextPlayerHuman, direction) + ", du bist dran!");
             return nextPlayerHuman;
         }
 
-        return currentPlayerHuman;
+        return currentPlayer;
     }
 
     private String pickColor() {
@@ -363,50 +365,50 @@ public class Game {
         return nextPlayer(currentPlayer, getDirection());
     }
 
-    private Player nextPlayer(Player currentPlayerHuman, String direction) {
+    private Player nextPlayer(Player currentPlayer, String direction) {
 
         if (direction.equals("clockwise"))
-            return clockwise(currentPlayerHuman);
+            return clockwise(currentPlayer);
         else
-            return counterClockwise(currentPlayerHuman);
+            return counterClockwise(currentPlayer);
 
     }//nextPlayer
 
-    private Player clockwise(Player currentPlayerHuman) {
+    private Player clockwise(Player currentPlayer) {
         for (int i = 0; i < players.length; i++) {
-            if (players[i] == currentPlayerHuman) {
+            if (players[i] == currentPlayer) {
                 if (i == 3) {
-                    currentPlayerHuman = players[0];
-                    return currentPlayerHuman;
+                    currentPlayer = players[0];
+                    return currentPlayer;
                 } else
-                    currentPlayerHuman = players[i + 1];
-                return currentPlayerHuman;
+                    currentPlayer = players[i + 1];
+                return currentPlayer;
             }
         }
-        return currentPlayerHuman;
+        return currentPlayer;
     }//clockwise
 
-    private Player counterClockwise(Player currentPlayerHuman) {
+    private Player counterClockwise(Player currentPlayer) {
         for (int i = 0; i < players.length; i++) {
-            if (players[i] == currentPlayerHuman) {
+            if (players[i] == currentPlayer) {
                 if (i == 0) {
-                    currentPlayerHuman = players[3];
-                    return currentPlayerHuman;
+                    currentPlayer = players[3];
+                    return currentPlayer;
                 } else
-                    currentPlayerHuman = players[i - 1];
-                return currentPlayerHuman;
+                    currentPlayer = players[i - 1];
+                return currentPlayer;
             }
         }
-        return currentPlayerHuman;
+        return currentPlayer;
     }//counterClockwise
 
-    private void showHandAndTable(Player playerHuman) {
+    private void showHandAndTable(Player player) {
         System.out.println("---------------------------");
         System.out.println("card amount check:" + countAllCards());
         System.out.println("card on table: " + discardPile.lookAtTopCard());
-        System.out.println("Aktueller Spieler: " + playerHuman);
+        System.out.println("Aktueller Spieler: " + player);
         System.out.println("Spielrichtung: " + getDirection());
-        System.out.println("Deine Hand: " + playerHuman.getHand());
+        System.out.println("Deine Hand: " + player.getHand());
         System.out.println("DrawPile: " + drawPile.getSize());
         System.out.println("DiscardPile: " + discardPile.getSize());
     }//showHandAndTable
@@ -415,7 +417,7 @@ public class Game {
 
     public int countAllCards() {
         return discardPile.getSize() + drawPile.getSize() + player1.getHand().getHandSize() + player2.getHand().getHandSize()
-                + player3.getHand().getHandSize() + +player4.getHand().getHandSize();
+                + player3.getHand().getHandSize() + player4.getHand().getHandSize();
     }//countAllCards
 
     // test comment caro 4
