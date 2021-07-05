@@ -98,76 +98,106 @@ public class Game {
         }
 
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
+        System.out.println("____________________");
 
         for (int i = 1; i <= 4; i++) {
-            if (i <= nrBots) {
-                playerName = "RoboCop";
-                player1 = new PlayerBot(playerName);
-                players[0] = player1;
-                System.out.println("____________________");
-            } else {
-                Scanner input = new Scanner(System.in);
-                System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
-                playerName = input.next();
-                if (i == 1) {
+
+            if (i == 1) {
+                if (i <= nrBots) {
+                    playerName = "RoboCop";
+                    player1 = new PlayerBot(playerName);
+                    players[0] = player1;
+                    System.out.println("Bot " + playerName + " erstellt!");
+                } else {
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("____________________");
+                    System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+                    playerName = input.next();
                     player1 = new PlayerHuman(playerName);
                     players[0] = player1;
                     System.out.println("____________________");
                 }
             }
-            if (i <= nrBots) {
-                playerName = "Terminator";
-                player2 = new PlayerBot(playerName);
-                players[1] = player2;
-                System.out.println("____________________");
-            } else if (i == 2) {
-                if (player1.getName().equals(playerName)) {
-                    player2 = new PlayerHuman(playerName + "bert");
-                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
-                    System.out.println("Du heißt jetzt " + player2.getName());
+
+            if (i == 2) {
+                if (i <= nrBots) {
+                    playerName = "Terminator";
+                    player2 = new PlayerBot(playerName);
+                    players[1] = player2;
+                    System.out.println("Bot " + playerName + " erstellt!");
                 } else {
-                    player2 = new PlayerHuman(playerName);
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("____________________");
+                    System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+                    playerName = input.next();
+                    if (player1.getName().equals(playerName)) {
+                        player2 = new PlayerHuman(playerName + "bert");
+                        playerName = player2.getName();
+                        System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                        System.out.println("Du heißt jetzt " + player2.getName());
+                        players[1] = player2;
+                        System.out.println("____________________");
+                    } else {
+                        player2 = new PlayerHuman(playerName);
+                        players[1] = player2;
+                        System.out.println("____________________");
+                    }
                 }
-                players[1] = player2;
-                System.out.println("____________________");
             }
 
-
-            if (i <= nrBots) {
-                playerName = "Nr.5";
-                player3 = new PlayerBot(playerName);
-                players[2] = player3;
-                System.out.println("____________________");
-            } else if (i == 3) {
-                if (player1.getName().equals(playerName) || player2.getName().equals(playerName)) {
-                    player3 = new PlayerHuman(playerName + "chen");
-                    System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
-                    System.out.println("Du heißt jetzt " + player3.getName());
+            if (i == 3) {
+                if (i <= nrBots) {
+                    playerName = "Nr.5";
+                    player3 = new PlayerBot(playerName);
+                    players[2] = player3;
+                    System.out.println("Bot " + playerName + " erstellt!");
                 } else {
-                    player3 = new PlayerHuman(playerName);
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("____________________");
+                    System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+                    playerName = input.next();
+                    if (player1.getName().equals(playerName) || player2.getName().equals(playerName)) {
+                        player3 = new PlayerHuman(playerName + "chen");
+                        playerName = player3.getName();
+                        System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
+                        System.out.println("Du heißt jetzt " + player3.getName());
+                        players[2] = player3;
+                        System.out.println("____________________");
+                    } else {
+                        player3 = new PlayerHuman(playerName);
+                        players[2] = player3;
+                        System.out.println("____________________");
+                    }
                 }
-                players[2] = player3;
-                System.out.println("____________________");
             }
 
-
-            if (i <= nrBots) {
-                playerName = "Wall-E";
-                player4 = new PlayerBot(playerName);
-                players[3] = player4;
-                System.out.println("____________________");
-            } else if (i == 4) {
+            if (i == 4) {
+                if (i <= nrBots) {
+                    playerName = "Wall-E";
+                    player4 = new PlayerBot(playerName);
+                    players[3] = player4;
+                    System.out.println("Bot " + playerName + " erstellt!");
+                } else {
+                    Scanner input = new Scanner(System.in);
+                    System.out.println("____________________");
+                    System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
+                    playerName = input.next();
                     if (player1.getName().equals(playerName) || player2.getName().equals(playerName) || player3.getName().equals(playerName)) {
                         player4 = new PlayerHuman(playerName + "maus");
+                        playerName = player4.getName();
                         System.out.println("Dieser Name existiert bereits. Dein Name wurde angepasst.");
                         System.out.println("Du heißt jetzt " + player4.getName());
+                        players[3] = player4;
+                        System.out.println("____________________");
                     } else {
                         player4 = new PlayerHuman(playerName);
+                        players[3] = player4;
+                        System.out.println("____________________");
                     }
-                    players[3] = player4;
-                    System.out.println("____________________");
                 }
             }
+
+        }
 
 
         System.out.println("");
@@ -178,16 +208,6 @@ public class Game {
         System.out.println("");
 
     }//initPlayer
-
-    public static String generateRandomName(int len) {
-        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                + "lmnopqrstuvwxyz!@#$%&";
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        return sb.toString();
-    }
 
     //Ziehstapel wird erstellt und gemischt
     public void initDrawPile() {
