@@ -131,12 +131,15 @@ public class PlayerBot extends Player{
     }
 
     public String inputData() {
+        String input = "ziehen";
+//        for (Card card : hand.cardsInHand) {
+        //  if(playsMatchingCard(discardPile,card,pickedColor)){
+        //      input = card.toString;
+        //      break;
+    // }
+//        }
 
-        for (Card card : hand.cardsInHand) {
-
-        }
-
-        return null;
+        return input;
     }
 
     @Override

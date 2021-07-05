@@ -87,10 +87,10 @@ public class Game {
 
         System.out.println("");
 
-        Scanner botOrNot = new Scanner(System.in);
+//        Scanner botOrNot = new Scanner(System.in);
         System.out.println("Es können 4 Spieler mitspielen.");
         System.out.println("Wieviele Bots werden benötigt?");
-        nrBots = botOrNot.nextInt();
+//        nrBots = botOrNot.nextInt();
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
 
         for (int i = 1; i <= 4-nrBots; i++) {
@@ -136,13 +136,17 @@ public class Game {
                 System.out.println("____________________");
             }
 
-            for (Player p : players){
-                if (p.getName() == null){
-                    String name = generateRandomName(7);
-                    p = new PlayerBot(name);
-                }
-            }
         }
+
+//        for (int i = 0; i < nrBots; i++) {
+//            if (players[i].getName() == null) {
+//                String name = generateRandomName(7);
+//                Player test1 = new PlayerBot(name);
+//                players[i] = test;
+//            }
+//        }
+
+
 
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
