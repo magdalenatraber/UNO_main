@@ -144,7 +144,7 @@ public class Game {
     }//initDrawPile
 
     // doesnt work yet
-    public void newDiscardPile() {
+    public void newDrawPile() {
         Pile newDiscardPile = new Pile();
         Card lastCard = discardPile.pop();
         newDiscardPile.push(lastCard);
@@ -223,10 +223,7 @@ public class Game {
         Scanner input = new Scanner(System.in);
         do {
 
-            showHandAndTable(currentPlayerHuman);
-            if (drawPile.isEmpty()) {
-                newDiscardPile();
-            }
+            showHandAndTable(currentPlayer);
 
             output.println("Play Card");
 
