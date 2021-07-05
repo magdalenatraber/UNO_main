@@ -7,8 +7,6 @@ import java.util.Scanner;
 
 public class PlayerHuman extends Player {
 
-
-
     public PlayerHuman(String name) {
         super(name);
         this.hand = new Hand();
@@ -85,12 +83,10 @@ public class PlayerHuman extends Player {
                     hand.remove(card);
                     discardPile.push(card);
                     return true;
-                }
-                else {
+                } else {
                     getPenaltyCard(drawPile);
                     return true;
                 }
-                
             }
         }
 
@@ -98,18 +94,19 @@ public class PlayerHuman extends Player {
         return false;
 
     }
+
     @Override
     public void getPenaltyCard(Pile drawPile) {
         drawCardInHand(drawPile);
         System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }
+
     @Override
     public void getPlusTwoCards(Pile drawPile) {
         drawCardInHand(drawPile);
         drawCardInHand(drawPile);
     }
-
 
     // ist die vom Spieler ausgewählte Karte spielbar?
     @Override
@@ -130,12 +127,19 @@ public class PlayerHuman extends Player {
 
     @Override
     public boolean handIsEmpty() {
-        if (hand.getHandSize() == 0)
+        if (hand.getHandSize() == 0) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
+    public String inputData() {
+        Scanner input = new Scanner(System.in);
+
+        return input.next();
+
+    }
 
     @Override
     public String toString() {
