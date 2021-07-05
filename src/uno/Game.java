@@ -7,9 +7,11 @@ import uno.Help.Help;
 import uno.Help.HelpText_Inputs;
 import uno.Help.HelpText_Rules;
 import uno.Player.Player;
+import uno.Player.PlayerBot;
 import uno.Player.PlayerHuman;
 
 import java.io.PrintStream;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -33,6 +35,7 @@ public class Game {
     private String direction;
     private int helpNeeded;
     private String playerName;
+    private int nrBots;
     private Help help;
 
     //Konstruktor
@@ -84,7 +87,13 @@ public class Game {
 
         System.out.println("");
 
-        for (int i = 1; i <= 4; i++) {
+        Scanner botOrNot = new Scanner(System.in);
+        System.out.println("Es können 4 Spieler mitspielen.");
+        System.out.println("Wieviele Bots werden benötigt?");
+        nrBots = input.nextInt();
+        System.out.println("Es werden " + nrBots + " Bots erstellt.");
+
+        for (int i = 1; i <= 4-nrBots; i++) {
             Scanner input = new Scanner(System.in);
             System.out.println("Spieler Nr. " + i + ", bitte gib deinen Namen ein:");
             playerName = input.next();
@@ -126,6 +135,13 @@ public class Game {
                 players[3] = player4;
                 System.out.println("____________________");
             }
+
+            for (Player p : players){
+                if (p.getName() == null){
+                    String name = generateRandomName(7);
+                    p = new PlayerBot(name);
+                }
+            }
         }
 
         System.out.println("");
@@ -136,6 +152,16 @@ public class Game {
         System.out.println("");
 
     }//initPlayer
+
+    public static String generateRandomName(int len) {
+        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
+                +"lmnopqrstuvwxyz!@#$%&";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
+    }
 
     //Ziehstapel wird erstellt und gemischt
     public void initDrawPile() {
