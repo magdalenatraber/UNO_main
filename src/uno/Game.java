@@ -11,7 +11,6 @@ import uno.Player.PlayerBot;
 import uno.Player.PlayerHuman;
 
 import java.io.PrintStream;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
@@ -75,8 +74,13 @@ public class Game {
         }
 
         inputCard(currentPlayer);
+
         // wegen bot
 //        currentPlayer.playCard()
+
+        // count drawPile
+
+//        newDrawPile();
 
         while (!exit) {
         }
@@ -226,19 +230,18 @@ public class Game {
 //        discardPile = newDiscardPile;
 //    }
 
-//    public static void renewDrawPile() {
-//        System.out.println("***Es gibt nur mehr 1 Karte***");
-//        System.out.println("drawPile: " + drawPile);
-//
-//        Card topCardFromDiscardPile = discardPile.pop();
-//        Pile RestOfDiscardPile = discardPile;
-//        discardPile.shuffle();
-//
-//        drawPile = discardPile;
-//
-//        discardPile.push(topCardFromDiscardPile);
-//
-//    }
+
+    public static void renewDrawPile() {
+        System.out.println("Ablagestapel wird neu gemischt.");
+        Card lastCard = discardPile.pop();
+        while (discardPile.getSize() > 1) {
+            Card card = discardPile.pop();
+            drawPile.push(card);
+        }
+        drawPile.shuffle();
+        discardPile.push(lastCard);
+
+    }
 
 
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
@@ -352,9 +355,13 @@ public class Game {
                     // checks which card is being played
                     currentPlayer = checkPlayedCard(currentPlayer);
 
+                    if (drawPile.getSize() < 6) {
+                        System.out.println("Es gibt nur mehr ein Paar Karten im Ablagestapel...");
+                        renewDrawPile();
+                    }
+
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
-
 
 
                 }

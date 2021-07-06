@@ -153,7 +153,7 @@ public class PlayerBot extends Player {
     }
 
     public String sayUno(String cardInput){
-        return "piep";
+        return "uno";
     }
 
     public String pickColor() {
