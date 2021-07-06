@@ -14,6 +14,8 @@ public class DemoApp {
     private static final String INSERT_TEMPLATE = "INSERT INTO Sessions (Player, Session, Round, Score) VALUES ('%1s', %2d, %3d, %4d);";
     private static final String SELECT_BYPLAYERANDSESSION = "SELECT Player, SUM(Score) AS Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
 
+
+
     public static String findWinnerName() {
         String winner = "";
         for (int i = 0; i < Game.players.length - 1; i++) {
@@ -32,7 +34,6 @@ public class DemoApp {
         return points;
     }
 
-
     public static void startDatabase() {
         try {
             SqliteClient client = new SqliteClient("demodatabase.sqlite");
@@ -42,19 +43,23 @@ public class DemoApp {
 
             client.executeStatement(CREATETABLE);
 
-            int points = pointsForWinner();
-            String name = findWinnerName();
+            for (int i = 0; i < Game.players.length; i++) {
+                if (Game.players[i].getHand().getHandPoints() != 0){
+                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, 1, 0));
+                } else {
+                    int points = pointsForWinner();
+                client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, 1, points));
+                }
+            }
 
-            client.executeStatement(String.format(INSERT_TEMPLATE, name, 1, 1, points));
-            client.executeStatement(String.format(INSERT_TEMPLATE, "Hans", 1, 1, 0));
-            client.executeStatement(String.format(INSERT_TEMPLATE, "Franz", 1, 2, 20));
-            client.executeStatement(String.format(INSERT_TEMPLATE, "Hans", 1, 2, 100));
+            String name = findWinnerName();
 
             ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, name, 1));
 
             for (HashMap<String, String> map : results) {
                 System.out.println(map.get("Player") + " hat in dieser Runde " + map.get("Score") + " Punkte gewonnen!");
             }
+
         } catch (SQLException ex) {
             System.out.println("Ups! Something went wrong: " + ex.getMessage());
         }
