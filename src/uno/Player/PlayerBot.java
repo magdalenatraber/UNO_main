@@ -3,8 +3,6 @@ package uno.Player;
 import uno.Cards.Card;
 import uno.Game;
 import uno.Pile;
-
-import java.util.Random;
 import java.util.Scanner;
 
 public class PlayerBot extends Player {
@@ -15,24 +13,14 @@ public class PlayerBot extends Player {
         this.point = 0;
     }
 
-    public static String generateRandomName(int len) {
-        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                + "lmnopqrstuvwxyz!@#$%&";
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        return sb.toString();
-    }
-
     // Karten werden in die Hand gezogen
     @Override
     public void drawCardInHand(final Pile drawPile) {
-
         final var card = drawPile.pop();
         hand.add(card);
     }//drawCardInHand
 
+    // Karte wird gezogen und angesehen
     @Override
     public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
@@ -54,9 +42,7 @@ public class PlayerBot extends Player {
             System.out.println("Ich kann nicht spielen.");
             return null;
         }
-
         return null;
-
     } //drawCard
 
     @Override
@@ -65,11 +51,8 @@ public class PlayerBot extends Player {
 
     @Override
     public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
-
         for (Card card : hand.cardsInHand) {
-
             if (playCard.contains(card.toString())) {
-
                 // Spielregel Methoden
                 if (playsMatchingCard(discardPile, card, pickedColor)) {
                     hand.remove(card);
@@ -81,11 +64,9 @@ public class PlayerBot extends Player {
                 }
             }
         }
-
         System.out.println("Dies ist keine gültige Karte!");
         return false;
-
-    }
+    }// playCard
 
     @Override
     public void getPenaltyCard(Pile drawPile) {
@@ -108,29 +89,26 @@ public class PlayerBot extends Player {
         } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
             System.out.println("W* wurde gespielt. Du musst färben.");
             return true;
-
         } else if (card.getColor().getCaption().equals("W")) {
             System.out.println("W* wurde gespielt. Du kannst spielen was du willst.");
             return true;
         } else {
-
             return false;
         }
-    }
+    }// playsMatchingCard
 
     @Override
     public boolean handIsEmpty() {
         if (hand.getHandSize() == 0) {
             return true;
-
         } else {
             return false;
         }
-    }
+    }// handIsEmpty
 
     public int countCardsInHand() {
         return hand.getHandSize();
-    }
+    }// countCardsInHand
 
     public String inputData(Pile discardPile, String pickedColor) {
         String input = "ziehen";
@@ -140,9 +118,8 @@ public class PlayerBot extends Player {
                 break;
             }
         }
-
         return input;
-    }
+    } //inputData
 
     public boolean didYouSayUno(String cardInput) {
         if (cardInput.contains("uno")) {
@@ -150,11 +127,11 @@ public class PlayerBot extends Player {
         } else {
             return false;
         }
-    }
+    }// didYouSayUno
 
     public String sayUno(String cardInput){
         return "piep";
-    }
+    }// sayUno
 
     public String pickColor() {
         String colorInput = null;
@@ -162,27 +139,22 @@ public class PlayerBot extends Player {
             if (!card.getColor().getCaption().equals("W"))
                 colorInput = card.getColor().getCaption();
         }
-
         if (colorInput.equals("Y")) {
             System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-
         } else if (colorInput.equals("G")) {
             System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-
         } else if (colorInput.equals("B")) {
             System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-
         } else if (colorInput.equals("R")) {
             System.out.println("Du hast die Farbe " + colorInput + " gewählt");
-
         }
         return colorInput;
-    }
+    }// pickColor
 
 
     @Override
     public String toString() {
         return name;
-    }
+    }// toString
 
 }

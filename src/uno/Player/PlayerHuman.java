@@ -16,15 +16,15 @@ public class PlayerHuman extends Player {
 
     public String getName() {
         return name;
-    }
+    }// getName
 
     public Hand getHand() {
         return hand;
-    }
+    }// getHand
 
     public int getPoint() {
         return point;
-    }
+    }// getPoint
 
     // Karten werden in die Hand gezogen
     @Override
@@ -46,21 +46,16 @@ public class PlayerHuman extends Player {
             System.out.println("Möchtest du diese Karte spielen? j/n");
             playOrNot = input.next();
             if (playOrNot.equals("j")) {
-
-
                 if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     discardPile.push(drawnCard);
                     return drawnCard.toString();
                 }
-
                 if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     hand.add(drawnCard);
                     getPenaltyCard(drawPile);
                     return null;
                 }
-
             } else if (playOrNot.equals("n")) {
-
                 hand.add(drawnCard);
                 return null;
             } else
@@ -70,15 +65,12 @@ public class PlayerHuman extends Player {
 
     @Override
     public void removeCardFromHand() {
-    }
+    }// removeCardFromHand
 
     @Override
     public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
-
         for (Card card : hand.cardsInHand) {
-
             if (playCard.contains(card.toString())) {
-
                 // Spielregel Methoden
                 if (playsMatchingCard(discardPile, card, pickedColor)) {
                     hand.remove(card);
@@ -90,24 +82,22 @@ public class PlayerHuman extends Player {
                 }
             }
         }
-
         System.out.println("Dies ist keine gültige Karte!");
         return false;
-
-    }
+    }// playCard
 
     @Override
     public void getPenaltyCard(Pile drawPile) {
         drawCardInHand(drawPile);
         System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
         System.out.println("Der nächste Spieler ist an der Reihe!");
-    }
+    }// getPenaltyCard
 
     @Override
     public void getPlusTwoCards(Pile drawPile) {
         drawCardInHand(drawPile);
         drawCardInHand(drawPile);
-    }
+    }// getPlusTwoCards
 
     // ist die vom Spieler ausgewählte Karte spielbar?
     @Override
@@ -123,8 +113,7 @@ public class PlayerHuman extends Player {
             System.out.println("Karte kann nicht gespielt werden!");
             return false;
         }
-    }
-
+    }// playsMatchingCard
 
     @Override
     public boolean handIsEmpty() {
@@ -133,19 +122,16 @@ public class PlayerHuman extends Player {
         } else {
             return false;
         }
-    }
+    }// handIsEmpty
 
     public int countCardsInHand() {
         return hand.getHandSize();
-    }
-
+    }// countCardsInHand
 
     public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
-
         return input.nextLine();
-
-    }
+    }// inputData
 
     public boolean didYouSayUno(String cardInput) {
         if (cardInput.contains("uno")) {
@@ -154,21 +140,18 @@ public class PlayerHuman extends Player {
         } else {
             return false;
         }
-    }
+    }// didYouSayUno
 
-    public String sayUno(String cardInput){
+    public String sayUno(String cardInput) {
         return cardInput;
-    }
+    }// sayUno
 
     public String pickColor() {
-
         Scanner inputColor = new Scanner(System.in);
-        String  colorInput = null;
+        String colorInput = null;
         boolean pickedColor = false;
         while (pickedColor == false) {
             colorInput = inputColor.next();
-
-
             if (colorInput.equals("Y")) {
                 System.out.println("Du hast die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
@@ -187,18 +170,13 @@ public class PlayerHuman extends Player {
             }
         }
         return colorInput;
-    }
-
-
-
-
+    }// pickColor
 
     @Override
     public String toString() {
         return name;
-    }
+    }// toString
+
 }
 
-//karte heben
-//karte spielen
-//karten zeigen
+
