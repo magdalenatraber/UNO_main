@@ -159,16 +159,16 @@ public class PlayerHuman extends Player {
         while (pickedColor == false) {
             colorInput = inputColor.next();
             if (colorInput.equals("Y")) {
-                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("G")) {
-                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("B")) {
-                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("R")) {
-                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else {
                 System.out.println("Diese Eingabe ist nicht gültig");
@@ -187,7 +187,7 @@ String yesOrNo = input.next();
             if(yesOrNo.equals("j")) {
                 System.out.println("Du forderst den Vorgänger heraus");
                 if (!rightOrWrong) {
-                    System.out.println("Du hattest unrecht.Du musst sechs Karten ziehen");
+                    System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
                     getPlusTwoCards(Game.drawPile);
                     getPlusTwoCards(Game.drawPile);
                     getPlusTwoCards(Game.drawPile);
@@ -200,7 +200,7 @@ String yesOrNo = input.next();
                 getPlusTwoCards(Game.drawPile);
                 getPlusTwoCards(Game.drawPile);
                 System.out.println("_________________________________");
-                System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+                System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
                 return false;
             }
             else

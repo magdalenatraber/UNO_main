@@ -19,24 +19,24 @@ public class Game {
     public static final int NUMBER_OF_CARDS_DEALT = 7;
     public static Pile drawPile = new Pile();
     public static Pile discardPile = new Pile();
-    private final Scanner input;
-    private final PrintStream output;
-    private boolean exit = false;
-    private String cardInput;
-    private String pickedColor;
-
     public static Player player1;
     public static Player player2;
     public static Player player3;
     public static Player player4;
     public static Player[] players = new Player[4];
-
     public static Player currentPlayer;
+    private final Scanner input;
+    private final PrintStream output;
+    private boolean exit = false;
+    private String cardInput;
+    private String pickedColor;
     private String direction;
     private int helpNeeded;
     private String playerName;
     private int nrBots;
     private Help help;
+
+    private int drawPileCounter = 0;
 
     //Konstruktor
     public Game(Scanner input, PrintStream output) {
@@ -97,6 +97,7 @@ public class Game {
         // wegen bot
 //        currentPlayer.playCard()
 
+        System.out.println(drawPileCounter);
         while (!exit) {
         }
     }//Game Loop
@@ -343,6 +344,7 @@ public class Game {
                         p.setPoint(points);
                         System.out.println(p.getName() + ": " + points);
                     }
+
                     DemoApp.startDatabase();
 
                     System.exit(0);
@@ -356,6 +358,7 @@ public class Game {
                     if (drawPile.getSize() < 6) {
                         System.out.println("Es gibt nur mehr 6 Karten im Ablagestapel.");
                         renewDrawPile();
+                        drawPileCounter++;
                     }
 
                     // next player's turn
@@ -379,12 +382,12 @@ public class Game {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
             boolean rightOrWrong = currentPlayer.compareHandWithPile();
-            if(nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)){
+            if (nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)) {
                 currentPlayer.getPlusTwoCards(drawPile);
                 currentPlayer.getPlusTwoCards(drawPile);
             }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + " Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
             return currentPlayer;
         }
 

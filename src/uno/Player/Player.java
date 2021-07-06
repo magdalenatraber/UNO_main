@@ -32,6 +32,7 @@ public abstract class Player {
 
     public abstract String drawCard(Pile drawPile, Pile discardPile, String pickedColor);
 
+
     public abstract void removeCardFromHand();
 
     public abstract boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor);
