@@ -25,6 +25,7 @@ public class Game {
     public static Player player4;
     public static Player[] players = new Player[4];
     public static Player currentPlayer;
+    public Player startingPlayer;
     private final Scanner input;
     private final PrintStream output;
     private boolean exit = false;
