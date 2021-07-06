@@ -316,10 +316,20 @@ public class Game {
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
+                    if (currentPlayer.countCardsInHand() == 1) {
+                        System.out.println("test card input: " + cardInput);
+                        cardInput = currentPlayer.sayUno(cardInput);
+                        System.out.println("test card input: " + cardInput);
+                        if (currentPlayer.didYouSayUno(cardInput)) {
+                            System.out.println(currentPlayer + " sagt Uno");
+                        } else {
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            currentPlayer.getPlusTwoCards(drawPile);
+                        }
+                    }
+                    currentPlayer = nextPlayer(currentPlayer, getDirection());
+
                 }
-
-                currentPlayer = nextPlayer(currentPlayer, getDirection());
-
             } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
 
                 System.out.println(currentPlayer + " spielt " + cardInput);

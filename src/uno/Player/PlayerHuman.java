@@ -50,11 +50,11 @@ public class PlayerHuman extends Player {
 
         do {
             System.out.println("Möchtest du diese Karte spielen? j/n");
-            playOrNot = input.next();
-            if (playOrNot.equals("j")) {
+            playOrNot = input.nextLine();
+            if (playOrNot.contains("j")) {
                 if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     discardPile.push(drawnCard);
-                    return drawnCard.toString();
+                    return drawnCard.toString() + playOrNot;
                 }
                 if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     hand.add(drawnCard);
@@ -178,46 +178,45 @@ public class PlayerHuman extends Player {
         return colorInput;
     }// pickColor
 
-// Herausfordern bei +4
-  public boolean challenge(boolean rightOrWrong){
+    // Herausfordern bei +4
+    public boolean challenge(boolean rightOrWrong) {
         Scanner input = new Scanner(System.in);
-String yesOrNo = input.next();
-        while(true) {
+
+        do {
             System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern? j/n");
-            if(yesOrNo.equals("j")) {
-                System.out.println("Du forderst den Vorgänger heraus");
+            String yesOrNo = input.next();
+            if (yesOrNo.equals("j")) {
+                System.out.println("Du forderst den Vorgänger heraus.");
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
                     getPlusTwoCards(Game.drawPile);
                     getPlusTwoCards(Game.drawPile);
                     getPlusTwoCards(Game.drawPile);
                     return false;
-                } else{
-                        System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen");
-                        return true;
-                    }
-            }else if (yesOrNo.equals("n")){
+                } else {
+                    System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
+                    return true;
+                }
+            } else if (yesOrNo.equals("n")) {
                 getPlusTwoCards(Game.drawPile);
                 getPlusTwoCards(Game.drawPile);
                 System.out.println("_________________________________");
                 System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
                 return false;
-            }
-            else
-                System.out.println("Bitte Eingabe wiederholen");
-        }
+            } else
+                System.out.println("Bitte Eingabe wiederholen.");
+        } while (true);
     }
-public boolean compareHandWithPile(){
+
+    public boolean compareHandWithPile() {
         Card topCard = Game.discardPile.lookAtTopCard();
-    for (Card card: hand.cardsInHand) {
-        if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
-            return true;
+        for (Card card : hand.cardsInHand) {
+            if (card.getColor().getCaption().equals(topCard.getColor().getCaption())) {
+                return true;
+            }
         }
+        return false;
     }
-    return false;
-}
-
-
 
 
     @Override

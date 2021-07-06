@@ -184,14 +184,19 @@ public class PlayerBot extends Player {
         return sb.toString();
     }
 
-    public boolean challenge(boolean rightOrWrong){
-        getPlusTwoCards(Game.drawPile);
-        getPlusTwoCards(Game.drawPile);
-        System.out.println("_________________________________");
-        System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
-        return false;
+    public boolean challenge(boolean rightOrWrong) {
+        System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
+        if (rightOrWrong) {
+            System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
+            return true;
+        } else {
+            getPlusTwoCards(Game.drawPile);
+            getPlusTwoCards(Game.drawPile);
+            System.out.println("_________________________________");
+            System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+            return false;
+        }
     }
-
     public boolean compareHandWithPile(){
         Card topCard = Game.discardPile.lookAtTopCard();
         for (Card card: hand.cardsInHand) {
