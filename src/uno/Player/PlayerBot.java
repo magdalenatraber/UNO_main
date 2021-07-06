@@ -155,7 +155,9 @@ public class PlayerBot extends Player {
     }
 
     public String pickColor() {
-        String colorInput = null;
+
+
+        String colorInput = "B";
         for (Card card : hand.cardsInHand) {
             if (!card.getColor().getCaption().equals("W"))
                 colorInput = card.getColor().getCaption();

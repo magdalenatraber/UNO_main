@@ -46,7 +46,6 @@ public class Pile {
         return card;
     }
 
-
     @Override
     public String toString() {
         return "cards:" + cards.toString();
@@ -65,11 +64,15 @@ public class Pile {
     }
 
     public Card pop() {
-//        if (cards.size() == 2) {
+//        if (cards.size() == 6) {
 //            Game.renewDrawPile();
 //        }
 
+        if (cards.empty()) {
+            throw new java.util.EmptyStackException();
+        }
         return cards.pop();
+
     }
 
     public void push(final Card card) {
