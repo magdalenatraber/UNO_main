@@ -215,31 +215,17 @@ public class Game {
         drawPile.shuffle();
     }//initDrawPile
 
-    // doesnt work yet
+    public static void renewDrawPile() {
+        System.out.println("Ablagestapel wird neu gemischt.");
+        Card lastCard = discardPile.pop();
+        while (discardPile.getSize() > 1) {
+            Card card = discardPile.pop();
+            drawPile.push(card);
+        }
+        drawPile.shuffle();
+        discardPile.push(lastCard);
 
-//    public static void newDrawPile() {
-//        Pile newDiscardPile = new Pile();
-//        Card lastCard = discardPile.pop();
-//        newDiscardPile.push(lastCard);
-//        drawPile = discardPile;
-//        drawPile.shuffle();
-//        discardPile = newDiscardPile;
-//    }
-
-//    public static void renewDrawPile() {
-//        System.out.println("***Es gibt nur mehr 1 Karte***");
-//        System.out.println("drawPile: " + drawPile);
-//
-//        Card topCardFromDiscardPile = discardPile.pop();
-//        Pile RestOfDiscardPile = discardPile;
-//        discardPile.shuffle();
-//
-//        drawPile = discardPile;
-//
-//        discardPile.push(topCardFromDiscardPile);
-//
-//    }
-
+    }
 
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
@@ -351,6 +337,13 @@ public class Game {
                 } else {
                     // checks which card is being played
                     currentPlayer = checkPlayedCard(currentPlayer);
+
+                    // neuer Stapel
+
+                    if (drawPile.getSize() < 6) {
+                        System.out.println("Es gibt nur mehr 6 Karten im Ablagestapel.");
+                        renewDrawPile();
+                    }
 
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());

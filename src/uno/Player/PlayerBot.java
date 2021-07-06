@@ -1,9 +1,7 @@
 package uno.Player;
 
 import uno.Cards.Card;
-import uno.Game;
 import uno.Pile;
-
 import java.util.Random;
 import java.util.Scanner;
 
@@ -153,7 +151,7 @@ public class PlayerBot extends Player {
     }
 
     public String sayUno(String cardInput){
-        return "piep";
+        return "uno";
     }
 
     public String pickColor() {

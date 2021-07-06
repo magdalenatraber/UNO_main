@@ -1,6 +1,7 @@
 package uno.Player;
 
 import uno.Cards.Card;
+import uno.Game;
 import uno.Pile;
 
 public abstract class Player {
