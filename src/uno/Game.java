@@ -76,6 +76,7 @@ public class Game {
         initPlayer();
         startingPlayer = choosePlayer(); // randomly chooses player to start
         currentPlayer = startingPlayer;
+        //DemoApp.startDatabase();
         initDrawPile();
         initDiscardPile();
         newRound();
@@ -305,6 +306,9 @@ public class Game {
                 inputHelp();
                 updateHelp();
 
+            } else if (cardInput.equals("Punktestand")) {
+                System.out.println(DemoApp.getRequestedPoints());
+
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
@@ -348,6 +352,7 @@ public class Game {
                     }
 
                     DemoApp.startDatabase();
+                    System.out.println(DemoApp.getDatabaseRundensieger());
                     System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
                     System.exit(0);
 
