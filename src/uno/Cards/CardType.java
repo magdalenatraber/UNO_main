@@ -42,4 +42,7 @@ public enum CardType {
         return caption;
     }
 
+    public int getValue() {
+        return value;
+    }
 }

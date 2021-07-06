@@ -3,6 +3,7 @@ package uno;
 import uno.Cards.Card;
 import uno.Cards.CardColor;
 import uno.Cards.CardType;
+import uno.Database.DemoApp;
 import uno.Help.Help;
 import uno.Help.HelpText_Inputs;
 import uno.Help.HelpText_Rules;
@@ -11,27 +12,26 @@ import uno.Player.PlayerBot;
 import uno.Player.PlayerHuman;
 
 import java.io.PrintStream;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Game {
 
     public static final int NUMBER_OF_CARDS_DEALT = 7;
-    private final Scanner input;
-    private final PrintStream output;
     public static Pile drawPile = new Pile();
     public static Pile discardPile = new Pile();
+    private final Scanner input;
+    private final PrintStream output;
     private boolean exit = false;
     private String cardInput;
     private String pickedColor;
 
-    private Player player1;
-    private Player player2;
-    private Player player3;
-    private Player player4;
-    private Player[] players = new Player[4];
+    public static Player player1;
+    public static Player player2;
+    public static Player player3;
+    public static Player player4;
+    public static Player[] players = new Player[4];
 
-    private Player currentPlayer;
+    public static Player currentPlayer;
     private String direction;
     private int helpNeeded;
     private String playerName;
@@ -43,6 +43,17 @@ public class Game {
         this.input = input;
         this.output = output;
     }// Konstruktor
+
+    public static void renewDrawPile() {
+        System.out.println("Ablagestapel wird neu gemischt.");
+        Card lastCard = discardPile.pop();
+        while (discardPile.getSize() > 1) {
+            Card card = discardPile.pop();
+            drawPile.push(card);
+        }
+        drawPile.shuffle();
+        discardPile.push(lastCard);
+    }
 
     // game loop
     public void run() {
@@ -70,8 +81,16 @@ public class Game {
         Card firstCard = discardPile.lookAtTopCard();
         cardInput = firstCard.getType().getCaption();
         currentPlayer = checkPlayedCard(currentPlayer);
+
         if (!cardInput.equals("<->")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
+
+
+        }
+
+        if (cardInput.equals("W")) {
+            pickedColor = currentPlayer.pickColor();
+            System.out.println(currentPlayer + " hat " + pickedColor + " ausgesucht.");
         }
 
         inputCard(currentPlayer);
@@ -332,6 +351,14 @@ public class Game {
 
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
+
+                    for (Player p : players) {
+                        int points = p.getHand().getHandPoints();
+                        p.setPoint(points);
+                        System.out.println(p.getName() + ": " + points);
+                    }
+                    DemoApp.startDatabase();
+
                     System.exit(0);
 
                 } else {
@@ -347,7 +374,6 @@ public class Game {
 
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
-
 
 
                 }

@@ -1,5 +1,9 @@
 package uno.Database;
 
+import uno.Game;
+import uno.Player.Player;
+import uno.Player.PlayerHuman;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +14,7 @@ public class DemoApp {
     private static final String INSERT_TEMPLATE= "INSERT INTO Sessions (Player, Session, Round, Score) VALUES ('%1s', %2d, %3d, %4d);";
     private static final String SELECT_BYPLAYERANDSESSION = "SELECT Player, SUM(Score) AS Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
 
-    public static void main(String[] args) {
+    public static void startDatabase() {
         try{
             SqliteClient client = new SqliteClient("demodatabase.sqlite");
             if (client.tableExists("Sessions")){
@@ -18,12 +22,17 @@ public class DemoApp {
             }
             client.executeStatement(CREATETABLE);
 
-            client.executeStatement(String.format(INSERT_TEMPLATE, "Anita", 1, 1, 50));
+
+            int var = 50;
+
+            String name = Game.player1.getName();
+
+            client.executeStatement(String.format(INSERT_TEMPLATE, name, 1, 1, var));
             client.executeStatement(String.format(INSERT_TEMPLATE, "Hans", 1, 1, 0));
-            client.executeStatement(String.format(INSERT_TEMPLATE, "Anita", 1, 2, 20));
+            client.executeStatement(String.format(INSERT_TEMPLATE, name, 1, 2, 20));
             client.executeStatement(String.format(INSERT_TEMPLATE, "Hans", 1, 2, 100));
 
-            ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, "Anita", 1));
+            ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, name, 1));
 
             for (HashMap<String, String> map : results) {
                 System.out.println(map.get("Player") + " hat derzeit:  " + map.get("Score") + " Punkte");

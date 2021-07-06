@@ -26,6 +26,8 @@ public abstract class Player {
         return point;
     }
 
+    public abstract void setPoint(int point);
+
     public abstract void drawCardInHand(final Pile drawPile);
 
     public abstract String drawCard(Pile drawPile, Pile discardPile, String pickedColor);
@@ -56,6 +58,7 @@ public abstract class Player {
     public String toString() {
         return name;
     }
+
 
 
 }

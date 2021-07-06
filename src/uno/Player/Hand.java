@@ -22,8 +22,13 @@ public class Hand{
         return cardsInHand.size();
     }
 
-
-
+    public int getHandPoints() {
+        int points = 0;
+        for (Card card : cardsInHand) {
+            points += card.getType().getValue();
+        }
+        return points;
+    }
 
     @Override
     public String toString() {

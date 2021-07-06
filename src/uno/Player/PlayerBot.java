@@ -13,14 +13,9 @@ public class PlayerBot extends Player {
         this.point = 0;
     }
 
-    public static String generateRandomName(int len) {
-        String chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijk"
-                + "lmnopqrstuvwxyz!@#$%&";
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder(len);
-        for (int i = 0; i < len; i++)
-            sb.append(chars.charAt(rnd.nextInt(chars.length())));
-        return sb.toString();
+    @Override
+    public void setPoint(int point) {
+        this.point = point;
     }
 
     // Karten werden in die Hand gezogen
@@ -156,11 +151,10 @@ public class PlayerBot extends Player {
 
     public String pickColor() {
 
-
-        String colorInput = "B";
+        String colorInput = generateRandomColor();
         for (Card card : hand.cardsInHand) {
-            if (!card.getColor().getCaption().equals("W"))
-                colorInput = card.getColor().getCaption();
+          if (!card.getColor().getCaption().equals("W"))
+               colorInput = card.getColor().getCaption();
         }
 
         if (colorInput.equals("Y")) {
@@ -177,6 +171,34 @@ public class PlayerBot extends Player {
 
         }
         return colorInput;
+    }
+
+    public static String generateRandomColor() {
+        int len = 1;
+        String chars = "BRGY";
+        Random rnd = new Random();
+        StringBuilder sb = new StringBuilder(len);
+        for (int i = 0; i < len; i++)
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        return sb.toString();
+    }
+
+    public boolean challenge(boolean rightOrWrong){
+        getPlusTwoCards(Game.drawPile);
+        getPlusTwoCards(Game.drawPile);
+        System.out.println("_________________________________");
+        System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+        return false;
+    }
+
+    public boolean compareHandWithPile(){
+        Card topCard = Game.discardPile.lookAtTopCard();
+        for (Card card: hand.cardsInHand) {
+            if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
+                return true;
+            }
+        }
+        return false;
     }
 
 

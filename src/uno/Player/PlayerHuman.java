@@ -26,6 +26,12 @@ public class PlayerHuman extends Player {
         return point;
     }// getPoint
 
+    @Override
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
+
     // Karten werden in die Hand gezogen
     @Override
     public void drawCardInHand(final Pile drawPile) {
@@ -153,16 +159,16 @@ public class PlayerHuman extends Player {
         while (pickedColor == false) {
             colorInput = inputColor.next();
             if (colorInput.equals("Y")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("G")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("B")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else if (colorInput.equals("R")) {
-                System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+                System.out.println(name + "hat die Farbe " + colorInput + " gewählt");
                 pickedColor = true;
             } else {
                 System.out.println("Diese Eingabe ist nicht gültig");
