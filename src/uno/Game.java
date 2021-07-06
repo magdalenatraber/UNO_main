@@ -55,20 +55,39 @@ public class Game {
         discardPile.push(lastCard);
     }
 
+    private String getDirection() {
+        return direction;
+    }
+
+    //    private void playTurn() {
+//        System.out.println("current player: ");
+//    }//playTurn
+    private void setDirection(String direction) {
+        this.direction = direction;
+    }
+
     // game loop
     public void run() {
 
-        // Spielvorbereitung
+        // Spielvorbereitung // Passiert nur 1x
+
         initPlayer();
-        setDirection("clockwise");
-
-        Player startingPlayer = choosePlayer(); // Meggie // Steff // Caro // Kuni
-        //   startingPlayer = nextPlayer(startingPlayer, getDirection());
+        startingPlayer = choosePlayer(); // randomly chooses player to start
         currentPlayer = startingPlayer;
-
-        System.out.println("Spieler " + currentPlayer + " gibt die Karten." + " Spieler " + nextPlayer(currentPlayer, getDirection()) + " beginnt.");
         initDrawPile();
         initDiscardPile();
+        newRound();
+
+        while (!exit) {
+        }
+    }//Game Loop
+
+    public void newRound(){
+        // passiert für jede Runde
+        setDirection("clockwise");
+        startingPlayer = nextPlayer(startingPlayer, getDirection());
+        System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
+        currentPlayer = startingPlayer;
         dealCards();
 
         // distribute cards
@@ -84,8 +103,6 @@ public class Game {
 
         if (!cardInput.equals("<->")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-
-
         }
 
         if (cardInput.equals("W")) {
@@ -94,14 +111,9 @@ public class Game {
         }
 
         inputCard(currentPlayer);
-        // wegen bot
-//        currentPlayer.playCard()
+    }
 
-        System.out.println(drawPileCounter);
-        while (!exit) {
-        }
-    }//Game Loop
-
+    //Spielvorbereitung: Passiert nur 1x
     //Spieler werden erstellt
     public void initPlayer() {
 
@@ -244,14 +256,12 @@ public class Game {
         }
     }//initDiscardPile
 
-    private void checkFirstCard(Card initialCard) {
-    }
-
     private Player choosePlayer() {
         int index = (int) (Math.random() * players.length);
         return players[index];
     }//choosePlayer
 
+    //für jede Runde
     // Karten werden ausgeteilt - 7 Stück pro Spieler
     private void dealCards() {
         for (int i = 0; i < NUMBER_OF_CARDS_DEALT; i++) {
@@ -261,42 +271,6 @@ public class Game {
         }
     }//dealCards
 
-
-    //Help Input
-    private void inputHelp() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Benötigst du Hilfe?");
-        System.out.println("Für SPIELREGELN drücke 1");
-        System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
-        System.out.println("Benötigst du keine Hilfe, drücke 3");
-        do {
-            helpNeeded = input.nextInt();
-            if (helpNeeded < 1 || helpNeeded > 3) {
-                output.println("Dies ist keine gültige Eingabe!");
-            } else {
-                break;
-            }
-        } while (true);
-    }//Help Input
-
-
-    private void updateHelp() {
-        switch (helpNeeded) {
-            case 1:
-                help = new HelpText_Rules();
-                break;
-            case 2:
-                help = new HelpText_Inputs();
-                break;
-            case 3:
-                System.out.println("Spiel wird fortgesetzt");
-                break;
-            default:
-                break;
-        }
-    }//update Help
-
-
     //Spieler Input
     private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
@@ -304,6 +278,12 @@ public class Game {
         do {
 
             showHandAndTable(currentPlayer);
+
+            if (drawPile.getSize() < 7) {
+                System.out.println("Es gibt nur mehr 6 Karten im Ablagestapel.");
+                renewDrawPile();
+                drawPileCounter++;
+            }
 
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
 
@@ -356,7 +336,7 @@ public class Game {
                     }
 
                     DemoApp.startDatabase();
-
+                    System.out.println(drawPileCounter);
                     System.exit(0);
 
                 } else {
@@ -365,11 +345,6 @@ public class Game {
 
                     // neuer Stapel
 
-                    if (drawPile.getSize() < 6) {
-                        System.out.println("Es gibt nur mehr 6 Karten im Ablagestapel.");
-                        renewDrawPile();
-                        drawPileCounter++;
-                    }
 
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
@@ -381,7 +356,7 @@ public class Game {
         } while (true);
     }//inputCard
 
-
+    //passiert mehrmals pro Runde
     // checks which card is played and returns
     private Player checkPlayedCard(Player currentPlayer) {
 //        Card discardPileTopCard = discardPile.lookAtTopCard();
@@ -435,37 +410,12 @@ public class Game {
         return currentPlayer;
     }
 
-
-    private String getDirection() {
-        return direction;
-    }
-
-    //    private void playTurn() {
-//        System.out.println("current player: ");
-//    }//playTurn
-    private void setDirection(String direction) {
-        this.direction = direction;
-    }
-
     private void changeDirection(String direction) {
         if (direction.equals("clockwise"))
             setDirection("counterclockwise");
         else
             setDirection("clockwise");
     }
-
-    private Player setNextPlayer() {
-        return nextPlayer(currentPlayer, getDirection());
-    }
-
-    private Player nextPlayer(Player currentPlayer, String direction) {
-
-        if (direction.equals("clockwise"))
-            return clockwise(currentPlayer);
-        else
-            return counterClockwise(currentPlayer);
-
-    }//nextPlayer
 
     private Player clockwise(Player currentPlayer) {
         for (int i = 0; i < players.length; i++) {
@@ -495,6 +445,49 @@ public class Game {
         return currentPlayer;
     }//counterClockwise
 
+    private Player nextPlayer(Player currentPlayer, String direction) {
+
+        if (direction.equals("clockwise"))
+            return clockwise(currentPlayer);
+        else
+            return counterClockwise(currentPlayer);
+
+    }//nextPlayer
+
+    //Help Input
+    private void inputHelp() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Benötigst du Hilfe?");
+        System.out.println("Für SPIELREGELN drücke 1");
+        System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
+        System.out.println("Benötigst du keine Hilfe, drücke 3");
+        do {
+            helpNeeded = input.nextInt();
+            if (helpNeeded < 1 || helpNeeded > 3) {
+                output.println("Dies ist keine gültige Eingabe!");
+            } else {
+                break;
+            }
+        } while (true);
+    }//Help Input
+
+    private void updateHelp() {
+        switch (helpNeeded) {
+            case 1:
+                help = new HelpText_Rules();
+                break;
+            case 2:
+                help = new HelpText_Inputs();
+                break;
+            case 3:
+                System.out.println("Spiel wird fortgesetzt");
+                break;
+            default:
+                break;
+        }
+    }//update Help
+
+    //END OF ROUND
     private void showHandAndTable(Player player) {
         System.out.println("---------------------------");
         System.out.print("Anzahl Karten: " + countAllCards());
@@ -506,13 +499,9 @@ public class Game {
         System.out.println("Deine Hand: " + player.getHand());
     }//showHandAndTable
 
-
     public int countAllCards() {
         return discardPile.getSize() + drawPile.getSize() + player1.getHand().getHandSize() + player2.getHand().getHandSize()
                 + player3.getHand().getHandSize() + player4.getHand().getHandSize();
     }//countAllCards
-
-    // test comment caro 4
-    // test comment 5
 
 }
