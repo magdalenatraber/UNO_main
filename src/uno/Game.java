@@ -25,9 +25,9 @@ public class Game {
     public static Player player4;
     public static Player[] players = new Player[4];
     public static Player currentPlayer;
-    public Player startingPlayer;
     private final Scanner input;
     private final PrintStream output;
+    public Player startingPlayer;
     private boolean exit = false;
     private String cardInput;
     private String pickedColor;
@@ -83,34 +83,20 @@ public class Game {
         }
     }//Game Loop
 
-    public void newRound(){
+    public void newRound() {
         // passiert für jede Runde
         setDirection("clockwise");
         startingPlayer = nextPlayer(startingPlayer, getDirection());
         System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
         currentPlayer = startingPlayer;
-        dealCards();
 
         // distribute cards
-        System.out.println(player1 + " " + player1.getHand());
-        System.out.println(player2 + " " + player2.getHand());
-        System.out.println(player3 + " " + player3.getHand());
-        System.out.println(player4 + " " + player4.getHand());
+        dealCards();
 
         // check first card
-        Card firstCard = discardPile.lookAtTopCard();
-        cardInput = firstCard.getType().getCaption();
-        currentPlayer = checkPlayedCard(currentPlayer);
+        checkActionCard();
 
-        if (!cardInput.equals("<->")) {
-            currentPlayer = nextPlayer(currentPlayer, getDirection());
-        }
-
-        if (cardInput.equals("W")) {
-            pickedColor = currentPlayer.pickColor();
-            System.out.println(currentPlayer + " hat " + pickedColor + " ausgesucht.");
-        }
-
+        // player writes what he plays
         inputCard(currentPlayer);
     }
 
@@ -270,7 +256,30 @@ public class Game {
                 player.drawCardInHand(drawPile);
             }
         }
+        System.out.println(player1 + " " + player1.getHand());
+        System.out.println(player2 + " " + player2.getHand());
+        System.out.println(player3 + " " + player3.getHand());
+        System.out.println(player4 + " " + player4.getHand());
+
     }//dealCards
+
+    public void checkActionCard() {
+
+        // check first card
+        Card firstCard = discardPile.lookAtTopCard();
+        cardInput = firstCard.getType().getCaption();
+
+        currentPlayer = checkPlayedCard(currentPlayer);
+
+        if (!cardInput.equals("<->")) {
+            currentPlayer = nextPlayer(currentPlayer, getDirection());
+        }
+
+        if (cardInput.equals("W")) {
+            pickedColor = currentPlayer.pickColor();
+            System.out.println(currentPlayer + " hat " + pickedColor + " ausgesucht.");
+        }
+    }
 
     //Spieler Input
     private void inputCard(Player currentPlayer) {
@@ -337,7 +346,7 @@ public class Game {
                     }
 
                     DemoApp.startDatabase();
-                    System.out.println(drawPileCounter);
+                    System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
                     System.exit(0);
 
                 } else {
