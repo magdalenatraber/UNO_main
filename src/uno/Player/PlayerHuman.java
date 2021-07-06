@@ -178,6 +178,48 @@ public class PlayerHuman extends Player {
         return colorInput;
     }// pickColor
 
+// Herausfordern bei +4
+  public boolean challenge(boolean rightOrWrong){
+        Scanner input = new Scanner(System.in);
+String yesOrNo = input.next();
+        while(true) {
+            System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern? j/n");
+            if(yesOrNo.equals("j")) {
+                System.out.println("Du forderst den Vorgänger heraus");
+                if (!rightOrWrong) {
+                    System.out.println("Du hattest unrecht.Du musst sechs Karten ziehen");
+                    getPlusTwoCards(Game.drawPile);
+                    getPlusTwoCards(Game.drawPile);
+                    getPlusTwoCards(Game.drawPile);
+                    return false;
+                } else{
+                        System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen");
+                        return true;
+                    }
+            }else if (yesOrNo.equals("n")){
+                getPlusTwoCards(Game.drawPile);
+                getPlusTwoCards(Game.drawPile);
+                System.out.println("_________________________________");
+                System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+                return false;
+            }
+            else
+                System.out.println("Bitte Eingabe wiederholen");
+        }
+    }
+public boolean compareHandWithPile(){
+        Card topCard = Game.discardPile.lookAtTopCard();
+    for (Card card: hand.cardsInHand) {
+        if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
     @Override
     public String toString() {
         return name;

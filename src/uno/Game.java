@@ -392,11 +392,12 @@ public class Game {
         if (cardInput.equals("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
+            boolean rightOrWrong = currentPlayer.compareHandWithPile();
+            if(nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)){
+                currentPlayer.getPlusTwoCards(drawPile);
+                currentPlayer.getPlusTwoCards(drawPile);
+            }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            currentPlayer.getPlusTwoCards(drawPile);
-            currentPlayer.getPlusTwoCards(drawPile);
-            System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayer + "! Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
             System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + " Du musst die Farbe " + pickedColor + " spielen");
             return currentPlayer;
         }

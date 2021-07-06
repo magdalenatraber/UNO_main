@@ -54,6 +54,9 @@ public abstract class Player {
 
     public abstract String pickColor();
 
+    public abstract boolean challenge(boolean rightOrWrong);
+
+    public abstract boolean compareHandWithPile();
     @Override
     public String toString() {
         return name;
