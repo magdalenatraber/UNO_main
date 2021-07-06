@@ -347,7 +347,7 @@ public class Game {
                 }
 
                 if (currentPlayer.handIsEmpty()) {
-                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat das Spiel gewonnen!");
+                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat die Runde gewonnen!");
 
                     for (Player p : players) {
                         int points = p.getHand().getHandPoints();
