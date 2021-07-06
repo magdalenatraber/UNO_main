@@ -34,6 +34,11 @@ public class DemoApp {
         return points;
     }
 
+    public static String getDatabaseRundensieger(){
+        return databaseRundensieger;
+    }
+
+
     public static void startDatabase() {
         try {
             SqliteClient client = new SqliteClient("demodatabase.sqlite");

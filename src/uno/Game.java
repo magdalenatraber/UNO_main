@@ -36,6 +36,7 @@ public class Game {
     private String playerName;
     private int nrBots;
     private Help help;
+    private int round;
 
     private int drawPileCounter = 0;
 
@@ -89,6 +90,7 @@ public class Game {
         startingPlayer = nextPlayer(startingPlayer, getDirection());
         System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
         currentPlayer = startingPlayer;
+        System.out.println("name of current " + currentPlayer.name);
 
         // distribute cards
         dealCards();
