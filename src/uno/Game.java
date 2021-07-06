@@ -123,7 +123,7 @@ public class Game {
 
             if (i == 1) {
                 if (i <= nrBots) {
-                    playerName = "RoboCop";
+                    playerName = "Dalek";
                     player1 = new PlayerBot(playerName);
                     players[0] = player1;
                     System.out.println("Bot " + playerName + " erstellt!");
@@ -166,7 +166,7 @@ public class Game {
 
             if (i == 3) {
                 if (i <= nrBots) {
-                    playerName = "R2D2";
+                    playerName = "Bumblebee";
                     player3 = new PlayerBot(playerName);
                     players[2] = player3;
                     System.out.println("Bot " + playerName + " erstellt!");
@@ -192,7 +192,7 @@ public class Game {
 
             if (i == 4) {
                 if (i <= nrBots) {
-                    playerName = "Wall-E";
+                    playerName = "R2D2";
                     player4 = new PlayerBot(playerName);
                     players[3] = player4;
                     System.out.println("Bot " + playerName + " erstellt!");
@@ -234,30 +234,16 @@ public class Game {
         drawPile.shuffle();
     }//initDrawPile
 
-    public static void renewDrawPile() {
-        System.out.println("Ablagestapel wird neu gemischt.");
-        Card lastCard = discardPile.pop();
-        while (discardPile.getSize() > 1) {
-            Card card = discardPile.pop();
-            drawPile.push(card);
-        }
-        drawPile.shuffle();
-        discardPile.push(lastCard);
-
-    }
-
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
         final var initialCard = drawPile.pop();
         discardPile.push(initialCard);
         if (initialCard.getType().getCaption().equals("+4")) {
             initDiscardPile();
-        }//initDiscardPile
-
-    }
+        }
+    }//initDiscardPile
 
     private void checkFirstCard(Card initialCard) {
-
     }
 
     private Player choosePlayer() {
