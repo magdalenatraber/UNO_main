@@ -25,12 +25,14 @@ public class PlayerBot extends Player {
 
         final var card = drawPile.pop();
         hand.add(card);
+        if (Game.drawPile.isEmpty())
+            Game.renewDrawPile();
+
     }//drawCardInHand
 
     @Override
     public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
-        final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
@@ -40,11 +42,14 @@ public class PlayerBot extends Player {
         //if (playOrNot.equals("j")) {
 
         if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            discardPile.push(drawnCard);
+            discardPile.push(Game.drawPile.pop());
+            if(Game.drawPile.isEmpty()){
+                Game.renewDrawPile();
+            }
             System.out.println("Ich spiele " + drawnCard);
             return drawnCard.toString();
         } else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            hand.add(drawnCard);
+            drawCardInHand(Game.drawPile);
             System.out.println("Ich kann nicht spielen.");
             return null;
         }

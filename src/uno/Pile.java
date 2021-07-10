@@ -62,6 +62,13 @@ public class Pile {
     public int getSize() {
         return cards.size();
     }
+    public boolean isEmpty(){
+        if(cards.isEmpty())
+            return true;
+        else
+            return false;
+
+    }
 
     public Card pop() {
 //        if (cards.size() == 6) {

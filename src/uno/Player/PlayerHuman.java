@@ -37,13 +37,15 @@ public class PlayerHuman extends Player {
     public void drawCardInHand(final Pile drawPile) {
         final var card = drawPile.pop();
         hand.add(card);
+        if (Game.drawPile.isEmpty())
+            Game.renewDrawPile();
+
     }//drawCardInHand
 
     // Karte wird gezogen und angesehen
     @Override
     public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
-        final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
@@ -53,16 +55,19 @@ public class PlayerHuman extends Player {
             playOrNot = input.nextLine();
             if (playOrNot.contains("j")) {
                 if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    discardPile.push(drawnCard);
+                    discardPile.push(Game.drawPile.pop());
+                    if(Game.drawPile.isEmpty()){
+                        Game.renewDrawPile();
+                    }
                     return drawnCard.toString() + playOrNot;
                 }
                 if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    hand.add(drawnCard);
+                    drawCardInHand(Game.drawPile);
                     getPenaltyCard(drawPile);
                     return null;
                 }
             } else if (playOrNot.equals("n")) {
-                hand.add(drawnCard);
+                drawCardInHand(Game.drawPile);
                 return null;
             } else
                 System.out.println("Diese Eingabe ist nicht gültig");

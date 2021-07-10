@@ -37,9 +37,9 @@ public class Game {
     private String playerName;
     private int nrBots;
     private Help help;
-    private int round;
+    private int round = 0;
 
-    private int drawPileCounter = 0;
+    private static int drawPileCounter = 0;
 
     //Konstruktor
     public Game(Scanner input, PrintStream output) {
@@ -56,6 +56,8 @@ public class Game {
         }
         drawPile.shuffle();
         discardPile.push(lastCard);
+        drawPileCounter++;
+        System.out.println("Karten wurden neu gemischt");
     }
     public void shuffleNewDrawPile() throws EmptyStackException {
  /*   for (Player player: players) {
@@ -109,7 +111,7 @@ public class Game {
         initDiscardPile();
         System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
         currentPlayer = startingPlayer;
-        System.out.println("name of current " + currentPlayer.name);
+        System.out.println("Aktueller Spieler " + currentPlayer.name);
 
         // distribute cards
         dealCards();
@@ -306,20 +308,9 @@ public class Game {
     private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
 
-        do {
-
-            showHandAndTable(currentPlayer);
-
-            if (drawPile.getSize() < 7) {
-                System.out.println("Es gibt nur mehr 6 Karten im Ablagestapel.");
-                renewDrawPile();
-                drawPileCounter++;
-            }
-
+        do { showHandAndTable(currentPlayer);
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
-
             cardInput = currentPlayer.inputData(discardPile, pickedColor);
-
             if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
@@ -341,9 +332,10 @@ public class Game {
                             currentPlayer.getPlusTwoCards(drawPile);
                         }
                     }
+                }
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
 
-                }
+
             } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
 
                 System.out.println(currentPlayer + " spielt " + cardInput);
