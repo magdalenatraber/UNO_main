@@ -86,10 +86,10 @@ public class Game {
 
         initPlayer();
         startingPlayer = choosePlayer(); // randomly chooses player to start
-        currentPlayer = startingPlayer;
+       // currentPlayer = startingPlayer;
         //DemoApp.startDatabase();
         initDrawPile();
-        initDiscardPile();
+        //initDiscardPile();
         newRound();
 
         while (!exit) {
@@ -99,7 +99,14 @@ public class Game {
     public void newRound() {
         // passiert für jede Runde
         setDirection("clockwise");
-        startingPlayer = nextPlayer(startingPlayer, getDirection());
+        round++;
+        System.out.println("Runde: " + round);
+        if(round > 1) {
+            startingPlayer = nextPlayer(startingPlayer, getDirection());
+            shuffleNewDrawPile();
+        }
+
+        initDiscardPile();
         System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
         currentPlayer = startingPlayer;
         System.out.println("name of current " + currentPlayer.name);
@@ -365,7 +372,14 @@ public class Game {
                     DemoApp.startDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
                     System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
-                    System.exit(0);
+                    Scanner scanner = new Scanner(System.in);
+                    do {
+                        System.out.println("neue Runde? j/n");
+                        String yesOrNo = scanner.next();
+                        if(yesOrNo.equals("j")) newRound();
+                        else if (yesOrNo.equals("n")) System.exit(0);
+                        else System.out.println("Dies ist keine gültige Eingabe!");
+                    } while (true);
 
                 } else {
                     // checks which card is being played
