@@ -12,6 +12,7 @@ import uno.Player.PlayerBot;
 import uno.Player.PlayerHuman;
 
 import java.io.PrintStream;
+import java.util.EmptyStackException;
 import java.util.Scanner;
 
 public class Game {
@@ -56,7 +57,17 @@ public class Game {
         drawPile.shuffle();
         discardPile.push(lastCard);
     }
+    public void shuffleNewDrawPile() throws EmptyStackException {
+ /*   for (Player player: players) {
+        player.putHandCardsOnDrawPile();
+        }*/
+        while (discardPile.getSize() != 0) {
+            Card card = discardPile.pop();
+            drawPile.push(card);
+        }
+        drawPile.shuffle();
 
+    }
     private String getDirection() {
         return direction;
     }
