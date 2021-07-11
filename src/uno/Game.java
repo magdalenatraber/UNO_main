@@ -322,9 +322,7 @@ public class Game {
                 if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
                     if (currentPlayer.countCardsInHand() == 1) {
-                        System.out.println("test card input: " + cardInput);
                         cardInput = currentPlayer.sayUno(cardInput);
-                        System.out.println("test card input: " + cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
                             System.out.println(currentPlayer + " sagt Uno");
                         } else {
@@ -341,9 +339,7 @@ public class Game {
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
                 if (currentPlayer.countCardsInHand() == 1) {
-                    System.out.println("test card input: " + cardInput);
                     cardInput = currentPlayer.sayUno(cardInput);
-                    System.out.println("test card input: " + cardInput);
                     if (currentPlayer.didYouSayUno(cardInput)) {
                         System.out.println(currentPlayer + " sagt Uno");
                     } else {
@@ -364,6 +360,7 @@ public class Game {
                     DemoApp.startDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
                     System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
+                    System.out.println("Ende der Runde: " + round);
                     Scanner scanner = new Scanner(System.in);
                     do {
                         System.out.println("neue Runde? j/n");
@@ -397,7 +394,7 @@ public class Game {
 
         // error: if P1 plays +2 after having drawn card, and P2 can't play, +2 goes to next next player P3
 
-        if (cardInput.equals("W+4")) {
+        if (cardInput.contains("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
             boolean rightOrWrong = currentPlayer.compareHandWithPile();
@@ -410,13 +407,11 @@ public class Game {
             return currentPlayer;
         }
 
-        if (cardInput.equals("WW")) {
+        if (cardInput.contains("WW")) {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
             pickedColor = currentPlayer.pickColor();
-            // switch to next player
-            currentPlayer = nextPlayer(currentPlayer, getDirection());
-            System.out.println("Hi " + currentPlayer + "! Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
             return currentPlayer;
         }
 

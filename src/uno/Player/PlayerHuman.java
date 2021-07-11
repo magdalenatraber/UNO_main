@@ -59,7 +59,7 @@ public class PlayerHuman extends Player {
                     if(Game.drawPile.isEmpty()){
                         Game.renewDrawPile();
                     }
-                    return drawnCard.toString() + playOrNot;
+                    return drawnCard + playOrNot;
                 }
                 if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
                     drawCardInHand(Game.drawPile);

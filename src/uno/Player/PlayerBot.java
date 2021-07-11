@@ -105,14 +105,10 @@ public class PlayerBot extends Player {
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
         } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
-            System.out.println("W* wurde gespielt. Du musst färben.");
             return true;
-
         } else if (card.getColor().getCaption().equals("W")) {
-            System.out.println("W* wurde gespielt. Du kannst spielen was du willst.");
             return true;
         } else {
-
             return false;
         }
     }
@@ -152,7 +148,7 @@ public class PlayerBot extends Player {
     }
 
     public String sayUno(String cardInput){
-        return "uno";
+        return "piep";
     }
 
     public String pickColor() {
