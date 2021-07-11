@@ -60,9 +60,12 @@ public class Game {
         System.out.println("Karten wurden neu gemischt");
     }
     public void shuffleNewDrawPile() throws EmptyStackException {
- /*   for (Player player: players) {
-        player.putHandCardsOnDrawPile();
-        }*/
+    for (Player player: players) {
+        while(!player.hand.getCardsInHand().isEmpty()){
+            Card card = player.hand.getCardsInHand().remove(0);
+            drawPile.push(card);
+        }
+        }
         while (discardPile.getSize() != 0) {
             Card card = discardPile.pop();
             drawPile.push(card);
@@ -349,7 +352,7 @@ public class Game {
                 }
 
                 if (currentPlayer.handIsEmpty()) {
-                    System.out.println("Deine Hand ist leer! Gratulation! " + currentPlayer + " hat die Runde gewonnen!");
+                    System.out.println(currentPlayer +" hat keine Karten mehr auf der Hand!" + currentPlayer + " hat die Runde gewonnen! Gratulation");
 
                     for (Player p : players) {
                         int points = p.getHand().getHandPoints();
@@ -360,7 +363,7 @@ public class Game {
                     DemoApp.startDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
                     System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
-                    System.out.println("Ende der Runde: " + round);
+                    System.out.println("Ende der Runde " + round);
                     Scanner scanner = new Scanner(System.in);
                     do {
                         System.out.println("neue Runde? j/n");
@@ -524,8 +527,10 @@ public class Game {
         System.out.println(" | Ablagestapel: " + discardPile.getSize());
         System.out.print("Aktueller Spieler: " + player);
         System.out.println(" | Spielrichtung: " + getDirection());
-        System.out.println("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
-        System.out.println("Deine Hand: " + player.getHand());
+        System.out.print("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
+        if(discardPile.lookAtTopCard().getColor().getCaption().equals("W")) System.out.println(" | Gewählte Farbe: " + pickedColor);
+        System.out.println();
+        System.out.println("Deine Hand:" + player.getHand());
     }//showHandAndTable
 
     public int countAllCards() {
