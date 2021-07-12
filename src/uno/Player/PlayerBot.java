@@ -148,7 +148,7 @@ public class PlayerBot extends Player {
     }
 
     public String sayUno(String cardInput){
-        return "uno";
+        return "piep";
     }
 
     public String pickColor() {
@@ -187,7 +187,9 @@ public class PlayerBot extends Player {
 
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
-        if (rightOrWrong) {
+        System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+        if (!rightOrWrong) {
+            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
             return true;
         } else {
@@ -200,6 +202,15 @@ public class PlayerBot extends Player {
     }
     public boolean compareHandWithPile(){
         Card topCard = Game.discardPile.lookAtTopCard();
+        for (Card card: hand.cardsInHand) {
+            Game.showCards.add(card.toString());
+        }
+        for (String s: Game.showCards) {
+            if(s.equals("W+4"))
+                Game.showCards.remove(s);
+            break;
+        }
+
         for (Card card: hand.cardsInHand) {
             if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
                 return true;

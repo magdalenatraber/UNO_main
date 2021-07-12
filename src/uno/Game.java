@@ -12,6 +12,7 @@ import uno.Player.PlayerBot;
 import uno.Player.PlayerHuman;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.Scanner;
 
@@ -38,7 +39,7 @@ public class Game {
     private int nrBots;
     private Help help;
     private int round = 0;
-
+    public static ArrayList<String> showCards = new ArrayList<>();
     private static int drawPileCounter = 0;
 
     //Konstruktor
@@ -400,13 +401,16 @@ public class Game {
         if (cardInput.contains("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
+            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             boolean rightOrWrong = currentPlayer.compareHandWithPile();
+            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             if (nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)) {
                 currentPlayer.getPlusTwoCards(drawPile);
                 currentPlayer.getPlusTwoCards(drawPile);
             }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
+            Game.showCards.removeAll(Game.showCards);
             return currentPlayer;
         }
 

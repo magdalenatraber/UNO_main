@@ -4,6 +4,7 @@ import uno.Cards.Card;
 import uno.Game;
 import uno.Pile;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PlayerHuman extends Player {
@@ -189,9 +190,11 @@ public class PlayerHuman extends Player {
 
         do {
             System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern? j/n");
+            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             String yesOrNo = input.next();
             if (yesOrNo.equals("j")) {
                 System.out.println("Du forderst den Vorgänger heraus.");
+                System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards);
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
                     getPlusTwoCards(Game.drawPile);
@@ -215,6 +218,14 @@ public class PlayerHuman extends Player {
 
     public boolean compareHandWithPile() {
         Card topCard = Game.discardPile.lookAtTopCard();
+        for (Card card: hand.cardsInHand) {
+            Game.showCards.add(card.toString());
+        }
+        for (String s: Game.showCards) {
+            if(s.equals("W+4"))
+                Game.showCards.remove(s);
+            break;
+        }
         for (Card card : hand.cardsInHand) {
             if (card.getColor().getCaption().equals(topCard.getColor().getCaption())) {
                 return true;
