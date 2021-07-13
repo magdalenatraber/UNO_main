@@ -3,6 +3,9 @@ package uno.Player;
 import uno.Cards.Card;
 import uno.Game;
 import uno.Pile;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -187,9 +190,10 @@ public class PlayerBot extends Player {
 
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
-        System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
-        if (!rightOrWrong) {
+        if (rightOrWrong) {
+            Card card = Game.discardPile.pop();
             System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+            Game.discardPile.push(card);
             System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
             return true;
         } else {
@@ -201,16 +205,12 @@ public class PlayerBot extends Player {
         }
     }
     public boolean compareHandWithPile(){
+       Card fcard = Game.discardPile.pop();
         Card topCard = Game.discardPile.lookAtTopCard();
-        for (Card card: hand.cardsInHand) {
-            Game.showCards.add(card.toString());
-        }
-        for (String s: Game.showCards) {
-            if(s.equals("W+4"))
-                Game.showCards.remove(s);
-            break;
-        }
-
+        Game.discardPile.push(fcard);
+        Game.showCards = (ArrayList<Card>) hand.cardsInHand.clone();
+        if(topCard.getColor().getCaption().equals("W"))
+            return false;
         for (Card card: hand.cardsInHand) {
             if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
                 return true;

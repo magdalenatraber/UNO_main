@@ -39,7 +39,7 @@ public class Game {
     private int nrBots;
     private Help help;
     private int round = 0;
-    public static ArrayList<String> showCards = new ArrayList<>();
+    public static ArrayList<Card> showCards = new ArrayList<>();
     private static int drawPileCounter = 0;
 
     //Konstruktor
@@ -342,16 +342,6 @@ public class Game {
 
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
-                if (currentPlayer.countCardsInHand() == 1) {
-                    cardInput = currentPlayer.sayUno(cardInput);
-                    if (currentPlayer.didYouSayUno(cardInput)) {
-                        System.out.println(currentPlayer + " sagt Uno");
-                    } else {
-                        System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
-                        currentPlayer.getPlusTwoCards(drawPile);
-                    }
-                }
-
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println(currentPlayer +" hat keine Karten mehr auf der Hand!" + currentPlayer + " hat die Runde gewonnen! Gratulation");
 
@@ -374,7 +364,18 @@ public class Game {
                         else System.out.println("Dies ist keine gültige Eingabe!");
                     } while (true);
 
-                } else {
+                }
+                else {
+
+                    if (currentPlayer.countCardsInHand() == 1) {
+                        cardInput = currentPlayer.sayUno(cardInput);
+                        if (currentPlayer.didYouSayUno(cardInput)) {
+                            System.out.println(currentPlayer + " sagt Uno");
+                        } else {
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            currentPlayer.getPlusTwoCards(drawPile);
+                        }
+                    }
                     // checks which card is being played
                     currentPlayer = checkPlayedCard(currentPlayer);
 
@@ -401,9 +402,7 @@ public class Game {
         if (cardInput.contains("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
-            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             boolean rightOrWrong = currentPlayer.compareHandWithPile();
-            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             if (nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)) {
                 currentPlayer.getPlusTwoCards(drawPile);
                 currentPlayer.getPlusTwoCards(drawPile);
