@@ -371,15 +371,10 @@ public class Game {
                         startNewRound();
                     }
                     else {
+                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
                         gameEnded = true;
                     }
-//                    if (DemoApp.pointsCheck >= 500) {
-//                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
-//                        exit = true;
-//                        roundEnded = true;
-//                    }
 
-//                    startNewRound();
 
                 } else {
 
