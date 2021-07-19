@@ -16,8 +16,6 @@ public class HelpText_Inputs extends Help {
         System.out.println("");
         System.out.println("*  Punktestand: Mit dieser Eingabe erfährst du jederzeit deinen aktuellen Punktestand.");
         System.out.println("");
-        System.out.println("*  Punktestand gesamt: Mit dieser Eingabe erfährst du jederzeit deinen aktuellen Punktestand.");
-        System.out.println("");
         System.out.println("Setze nun dein Spiel fort! Viel Glück!");
 
     }

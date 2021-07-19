@@ -101,12 +101,12 @@ public class Game {
         startingPlayer = choosePlayer(); // randomly chooses player to start
 
 
-            // currentPlayer = startingPlayer;
-            DemoApp.startDatabase();
-            initDrawPile();
-            //initDiscardPile();
+        // currentPlayer = startingPlayer;
+        DemoApp.startDatabase();
+        initDrawPile();
+        //initDiscardPile();
 
-            newRound();
+        newRound();
 
     }//Game Loop
 
@@ -334,9 +334,6 @@ public class Game {
                 updateHelp();
 
             } else if (cardInput.equals("Punktestand")) {
-                System.out.println(DemoApp.getRequestedPoints());
-
-            } else if (cardInput.equals("Punktestand gesamt")) {
                 System.out.println(DemoApp.requestedPointsAll());
 
             } else if (cardInput.equals("ziehen")) {
@@ -369,8 +366,7 @@ public class Game {
 
                     if (checkPoints() < 500) {
                         startNewRound();
-                    }
-                    else {
+                    } else {
                         System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
                         gameEnded = true;
                     }
@@ -409,19 +405,17 @@ public class Game {
     public void startNewRound() {
         Scanner scanner = new Scanner(System.in);
 
-            System.out.println("neue Runde? j/n");
-            String yesOrNo = scanner.next();
+        System.out.println("neue Runde? j/n");
+        String yesOrNo = scanner.next();
 
-            if (yesOrNo.equals("j")) {
-                newRound();
-            }
-            else if (yesOrNo.equals("n")) {
-                System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
-                System.exit(0);
-            }
-            else {
-                System.out.println("Dies ist keine gültige Eingabe!");
-            }
+        if (yesOrNo.equals("j")) {
+            newRound();
+        } else if (yesOrNo.equals("n")) {
+            System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
+            System.exit(0);
+        } else {
+            System.out.println("Dies ist keine gültige Eingabe!");
+        }
 
     }
 

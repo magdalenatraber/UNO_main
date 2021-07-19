@@ -13,7 +13,7 @@ public class DemoApp {
     private static final String INSERT_TEMPLATE = "INSERT INTO Sessions (Player, Session, Round, Score) VALUES ('%1s', %2d, %3d, %4d);";
     private static final String SELECT_BYPLAYERANDSESSION = "SELECT Player, SUM(Score) AS Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
     private static final String SELECT_ACTUALPOINTS = "SELECT Player, Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
-    public static String requestedPoints = "In der ersten Runde gibt es noch keine Punkte!";
+    public static String requestedPoints;
     public static String databaseRundensieger;
     public static SqliteClient client;
     public static int pointsCheck;
@@ -58,13 +58,13 @@ public class DemoApp {
     public static String requestedPointsAll() {
         try {
             for (Player p : Game.players) {
-                ArrayList<HashMap<String, String>> actualPoints = client.executeQuery(String.format(SELECT_ACTUALPOINTS, p.getName(), 1));
-                for (HashMap<String, String> map : actualPoints) {
+                ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, p.getName(), 1));
+                for (HashMap<String, String> map : results) {
                     requestedPoints = ("Dein aktueller Punktestand beläuft sich auf " + map.get("Score") + " Punkte!");
                 }
                 System.out.println("Spieler " + p.getName() + ": " + requestedPoints);
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return "";
