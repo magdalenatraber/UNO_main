@@ -78,6 +78,10 @@ public class Game {
         return direction;
     }
 
+    public static int getRound() {
+        return round;
+    }
+
     //    private void playTurn() {
 //        System.out.println("current player: ");
 //    }//playTurn
@@ -93,7 +97,7 @@ public class Game {
         initPlayer();
         startingPlayer = choosePlayer(); // randomly chooses player to start
        // currentPlayer = startingPlayer;
-        //DemoApp.startDatabase();
+        DemoApp.startDatabase();
         initDrawPile();
         //initDiscardPile();
         newRound();

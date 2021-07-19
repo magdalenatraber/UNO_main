@@ -15,10 +15,23 @@ public class DemoApp {
     private static final String SELECT_ACTUALPOINTS = "SELECT Player, Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
     public static String requestedPoints = "In der ersten Runde gibt es noch keine Punkte!";
     public static String databaseRundensieger;
+    public static SqliteClient client;
+    public static int pointsCheck;
+
+    static {
+        try {
+            client = new SqliteClient("demodatabase.sqlite");
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public DemoApp() throws SQLException {
+    }
 
     public static String findWinnerName() {
         String winner = "";
-        for (int i = 0; i < Game.players.length - 1; i++) {
+        for (int i = 0; i < Game.players.length; i++) {
             if (Game.players[i].getHand().getHandPoints() == 0) {
                 winner = Game.players[i].getName();
             }
@@ -34,32 +47,61 @@ public class DemoApp {
         return points;
     }// pointsForWinner
 
-    public static String getRequestedPoints (){
+    public static String getRequestedPoints() {
         return requestedPoints;
     }
 
-    public static String getDatabaseRundensieger(){
+    public static String getDatabaseRundensieger() {
         return databaseRundensieger;
     }
 
-
     public static void startDatabase() {
         try {
-            SqliteClient client = new SqliteClient("demodatabase.sqlite");
+            //SqliteClient client = new SqliteClient("demodatabase.sqlite");
             if (client.tableExists("Sessions")) {
                 client.executeStatement("DROP TABLE Sessions;");
             }
 
             client.executeStatement(CREATETABLE);
 
+//            for (int i = 0; i < Game.players.length; i++) {
+//                int round = Game.getRound();
+//
+//                if (Game.players[i].getHand().getHandPoints() != 0) {
+//                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, 0));
+//                } else {
+//                    int points = pointsForWinner();
+//                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, points));
+//                }
+//            }
+
+
+        } catch (SQLException ex) {
+            System.out.println("Ups! Something went wrong: " + ex.getMessage());
+        }
+    }
+
+
+    public static void updateDatabase() {
+        try {
+//            SqliteClient client = new SqliteClient("demodatabase.sqlite");
+//            if (client.tableExists("Sessions")) {
+//                client.executeStatement("DROP TABLE Sessions;");
+//            }
+//
+//            client.executeStatement(CREATETABLE);
+
             for (int i = 0; i < Game.players.length; i++) {
+                int round = Game.getRound();
+
                 if (Game.players[i].getHand().getHandPoints() != 0) {
-                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, 1, 0));
+                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, 0));
                 } else {
                     int points = pointsForWinner();
-                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, 1, points));
+                    client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, points));
                 }
             }
+
 
             String name = findWinnerName();
             String selectedName = Game.currentPlayer.name;
@@ -67,7 +109,8 @@ public class DemoApp {
             // Endpunktestand der Runde wird für den Gewinner ausgelesen
             ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, name, 1));
             for (HashMap<String, String> map : results) {
-                databaseRundensieger = (map.get("Player") + " hat in dieser Runde " + map.get("Score") + " Punkte gewonnen!");
+                databaseRundensieger = (map.get("Player") + " hat nun insgesamt bereits " + map.get("Score") + " Punkte gewonnen!");
+                pointsCheck = Integer.parseInt(map.get("Score"));
             }
 
             // Aktuelle Punkte eines Spielers werden ausgegeben
@@ -78,7 +121,7 @@ public class DemoApp {
 
 
         } catch (SQLException ex) {
-            System.out.println("Ups! Something went wrong: " + ex.getMessage());
+            System.out.println("Update - Ups! Something went wrong: " + ex.getMessage());
         }
     }//startDatabase
 
