@@ -60,12 +60,13 @@ public class Game {
         drawPileCounter++;
         System.out.println("Karten wurden neu gemischt");
     }
+
     public void shuffleNewDrawPile() throws EmptyStackException {
-    for (Player player: players) {
-        while(!player.hand.getCardsInHand().isEmpty()){
-            Card card = player.hand.getCardsInHand().remove(0);
-            drawPile.push(card);
-        }
+        for (Player player : players) {
+            while (!player.hand.getCardsInHand().isEmpty()) {
+                Card card = player.hand.getCardsInHand().remove(0);
+                drawPile.push(card);
+            }
         }
         while (discardPile.getSize() != 0) {
             Card card = discardPile.pop();
@@ -74,6 +75,7 @@ public class Game {
         drawPile.shuffle();
 
     }
+
     private String getDirection() {
         return direction;
     }
@@ -96,13 +98,13 @@ public class Game {
 
         initPlayer();
         startingPlayer = choosePlayer(); // randomly chooses player to start
-       // currentPlayer = startingPlayer;
+        // currentPlayer = startingPlayer;
         DemoApp.startDatabase();
         initDrawPile();
         //initDiscardPile();
-        newRound();
 
         while (!exit) {
+            newRound();
         }
     }//Game Loop
 
@@ -111,7 +113,7 @@ public class Game {
         setDirection("clockwise");
         round++;
         System.out.println("Runde: " + round);
-        if(round > 1) {
+        if (round > 1) {
             startingPlayer = nextPlayer(startingPlayer, getDirection());
             shuffleNewDrawPile();
         }
@@ -316,7 +318,8 @@ public class Game {
     private void inputCard(Player currentPlayer) {
         Scanner input = new Scanner(System.in);
 
-        do { showHandAndTable(currentPlayer);
+        do {
+            showHandAndTable(currentPlayer);
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
             cardInput = currentPlayer.inputData(discardPile, pickedColor);
             if (cardInput.equals("help")) {
@@ -339,7 +342,7 @@ public class Game {
                         }
                     }
                 }
-                    currentPlayer = nextPlayer(currentPlayer, getDirection());
+                currentPlayer = nextPlayer(currentPlayer, getDirection());
 
 
             } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
@@ -347,7 +350,7 @@ public class Game {
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
                 if (currentPlayer.handIsEmpty()) {
-                    System.out.println(currentPlayer +" hat keine Karten mehr auf der Hand!" + currentPlayer + " hat die Runde gewonnen! Gratulation");
+                    System.out.println(currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation");
 
                     for (Player p : players) {
                         int points = p.getHand().getHandPoints();
@@ -358,24 +361,23 @@ public class Game {
                     DemoApp.updateDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
 
-                    if (DemoApp.pointsCheck >= 500){
-                        System.out.println(DemoApp.getDatabaseRundensieger());
-                        System.out.println("Gratuliere, du hast das Spiel gewonnen!");
+                    if (DemoApp.pointsCheck >= 500) {
+                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
+                        exit = true;
                     }
 
-                    System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
+                    // System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
                     System.out.println("Ende der Runde " + round);
                     Scanner scanner = new Scanner(System.in);
                     do {
                         System.out.println("neue Runde? j/n");
                         String yesOrNo = scanner.next();
-                        if(yesOrNo.equals("j")) newRound();
+                        if (yesOrNo.equals("j")) newRound();
                         else if (yesOrNo.equals("n")) System.exit(0);
                         else System.out.println("Dies ist keine gültige Eingabe!");
                     } while (true);
 
-                }
-                else {
+                } else {
 
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
@@ -541,7 +543,8 @@ public class Game {
         System.out.print("Aktueller Spieler: " + player);
         System.out.println(" | Spielrichtung: " + getDirection());
         System.out.print("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
-        if(discardPile.lookAtTopCard().getColor().getCaption().equals("W")) System.out.println(" | Gewählte Farbe: " + pickedColor);
+        if (discardPile.lookAtTopCard().getColor().getCaption().equals("W"))
+            System.out.println(" | Gewählte Farbe: " + pickedColor);
         System.out.println();
         System.out.println("Deine Hand:" + player.getHand());
     }//showHandAndTable
