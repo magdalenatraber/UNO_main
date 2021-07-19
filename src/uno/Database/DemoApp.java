@@ -14,7 +14,7 @@ public class DemoApp {
     private static final String SELECT_BYPLAYERANDSESSION = "SELECT Player, SUM(Score) AS Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
     private static final String SELECT_ACTUALPOINTS = "SELECT Player, Score FROM Sessions WHERE Player = '%1s' AND Session = %2d;";
     public static String requestedPoints;
-    public static String databaseRundensieger;
+    public static String databaseRoundWinner;
     public static SqliteClient client;
     public static int pointsCheck;
 
@@ -29,6 +29,7 @@ public class DemoApp {
     public DemoApp() throws SQLException {
     }
 
+    // Ermittelt den Gewinner der aktuellen Runde
     public static String findWinnerName() {
         String winner = "";
         for (int i = 0; i < Game.players.length; i++) {
@@ -39,6 +40,7 @@ public class DemoApp {
         return winner;
     }// findWinnerName
 
+    //Ermittelt die Punkte auf der Hand jedes Spielers am Rundenende
     public static int pointsForWinner() {
         int points = 0;
         for (Player p : Game.players) {
@@ -47,14 +49,12 @@ public class DemoApp {
         return points;
     }// pointsForWinner
 
-    public static String getRequestedPoints() {
-        return requestedPoints;
-    }
+    // Gibt den Rundengewinner zurück
+    public static String getDatabaseRoundWinner() {
+        return databaseRoundWinner;
+    } //getDatabaseRoundWinner
 
-    public static String getDatabaseRundensieger() {
-        return databaseRundensieger;
-    }
-
+    // Gibt die aktuellen Punkte aller Spieler während der laufenden Runde aus
     public static String requestedPointsAll() {
         try {
             for (Player p : Game.players) {
@@ -68,14 +68,14 @@ public class DemoApp {
             e.printStackTrace();
         }
         return "";
-    }
+    }// requestedPointsAll
 
+    //Startet und initialisiert die Database am Anfang des Spiels
     public static void startDatabase() {
         try {
             if (client.tableExists("Sessions")) {
                 client.executeStatement("DROP TABLE Sessions;");
             }
-
             client.executeStatement(CREATETABLE);
 
         } catch (SQLException ex) {
@@ -83,15 +83,19 @@ public class DemoApp {
         }
     } //startDatabase
 
-
+    // updatet die Database nach jeder gespielten Runde
     public static void updateDatabase() {
         try {
-
             for (int i = 0; i < Game.players.length; i++) {
                 int round = Game.getRound();
 
+                // Ermittelt den Gewinner und verteilt die Punkte dementsprechend
+
+                // Verlierer bekommen je 0 Punkte für die Runde gutgeschrieben
                 if (Game.players[i].getHand().getHandPoints() != 0) {
                     client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, 0));
+
+                    // Gewinner bekommt die Punkte aller Handkarten der Verlierer gutgeschrieben
                 } else {
                     int points = pointsForWinner();
                     client.executeStatement(String.format(INSERT_TEMPLATE, Game.players[i].getName(), 1, round, points));
@@ -99,19 +103,12 @@ public class DemoApp {
             }
 
             String name = findWinnerName();
-            //String selectedName = Game.currentPlayer.name;
 
             // Endpunktestand der Runde wird für den Gewinner ausgelesen
             ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, name, 1));
             for (HashMap<String, String> map : results) {
-                databaseRundensieger = (map.get("Player") + " hat nun insgesamt bereits " + map.get("Score") + " Punkte gewonnen!");
+                databaseRoundWinner = (map.get("Player") + " hat nun insgesamt bereits " + map.get("Score") + " Punkte gewonnen!");
                 pointsCheck = Integer.parseInt(map.get("Score"));
-            }
-
-            // Aktuelle Punkte eines Spielers werden ausgegeben
-            ArrayList<HashMap<String, String>> actualPoints = client.executeQuery(String.format(SELECT_ACTUALPOINTS, Game.currentPlayer.name, 1));
-            for (HashMap<String, String> map : actualPoints) {
-                requestedPoints = ("Dein aktueller Punktestand beläuft sich auf " + map.get("Score") + " Punkte!");
             }
 
         } catch (SQLException ex) {

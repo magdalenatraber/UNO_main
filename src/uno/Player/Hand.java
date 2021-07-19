@@ -42,4 +42,3 @@ public class Hand{
 
 }
 
-// hand hat nur mehr eine Karte drinnen
