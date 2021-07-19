@@ -329,6 +329,9 @@ public class Game {
             } else if (cardInput.equals("Punktestand")) {
                 System.out.println(DemoApp.getRequestedPoints());
 
+            } else if (cardInput.equals("Punktestand gesamt")) {
+                System.out.println(DemoApp.requestedPointsAll());
+
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
