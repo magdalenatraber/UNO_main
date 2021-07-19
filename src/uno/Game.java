@@ -38,7 +38,7 @@ public class Game {
     private String playerName;
     private int nrBots;
     private Help help;
-    private int round = 0;
+    public static int round = 0;
     public static ArrayList<Card> showCards = new ArrayList<>();
     private static int drawPileCounter = 0;
 
@@ -115,7 +115,7 @@ public class Game {
         initDiscardPile();
         System.out.println("Spieler " + startingPlayer + " gibt die Karten." + " Spieler " + nextPlayer(startingPlayer, getDirection()) + " beginnt.");
         currentPlayer = startingPlayer;
-        System.out.println("Aktueller Spieler " + currentPlayer.name);
+        //System.out.println("Aktueller Spieler " + currentPlayer.name);
 
         // distribute cards
         dealCards();
@@ -351,8 +351,14 @@ public class Game {
                         System.out.println(p.getName() + ": " + points);
                     }
 
-                    DemoApp.startDatabase();
+                    DemoApp.updateDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
+
+                    if (DemoApp.pointsCheck >= 500){
+                        System.out.println(DemoApp.getDatabaseRundensieger());
+                        System.out.println("Gratuliere, du hast das Spiel gewonnen!");
+                    }
+
                     System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
                     System.out.println("Ende der Runde " + round);
                     Scanner scanner = new Scanner(System.in);
