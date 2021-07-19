@@ -229,6 +229,7 @@ public class Game {
                 }
             }
 
+
             if (i == 4) {
                 if (i <= nrBots) {
                     playerName = "R2D2";
