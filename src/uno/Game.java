@@ -31,6 +31,7 @@ public class Game {
     private final PrintStream output;
     public Player startingPlayer;
     private boolean exit = false;
+    public boolean gameEnded;
     private String cardInput;
     private String pickedColor;
     private String direction;
@@ -98,14 +99,15 @@ public class Game {
 
         initPlayer();
         startingPlayer = choosePlayer(); // randomly chooses player to start
-        // currentPlayer = startingPlayer;
-        DemoApp.startDatabase();
-        initDrawPile();
-        //initDiscardPile();
 
-        while (!exit) {
+
+            // currentPlayer = startingPlayer;
+            DemoApp.startDatabase();
+            initDrawPile();
+            //initDiscardPile();
+
             newRound();
-        }
+
     }//Game Loop
 
     public void newRound() {
@@ -131,6 +133,10 @@ public class Game {
 
         // player writes what he plays
         inputCard(currentPlayer);
+
+        // start next round or end game?
+
+
     }
 
     //Spielvorbereitung: Passiert nur 1x
@@ -322,6 +328,7 @@ public class Game {
             showHandAndTable(currentPlayer);
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
             cardInput = currentPlayer.inputData(discardPile, pickedColor);
+
             if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
@@ -352,30 +359,24 @@ public class Game {
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println(currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation");
 
-                    for (Player p : players) {
-                        int points = p.getHand().getHandPoints();
-                        p.setPoint(points);
-                        System.out.println(p.getName() + ": " + points);
-                    }
+                    inputPoints();
 
-                    DemoApp.updateDatabase();
                     System.out.println(DemoApp.getDatabaseRundensieger());
-
-                    if (DemoApp.pointsCheck >= 500) {
-                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
-                        exit = true;
-                    }
-
-                    // System.out.println("Ablagestapel wurde neu gemischt: " + drawPileCounter);
                     System.out.println("Ende der Runde " + round);
-                    Scanner scanner = new Scanner(System.in);
-                    do {
-                        System.out.println("neue Runde? j/n");
-                        String yesOrNo = scanner.next();
-                        if (yesOrNo.equals("j")) newRound();
-                        else if (yesOrNo.equals("n")) System.exit(0);
-                        else System.out.println("Dies ist keine gültige Eingabe!");
-                    } while (true);
+
+                    if (checkPoints() < 500) {
+                        startNewRound();
+                    }
+                    else {
+                        gameEnded = true;
+                    }
+//                    if (DemoApp.pointsCheck >= 500) {
+//                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
+//                        exit = true;
+//                        roundEnded = true;
+//                    }
+
+//                    startNewRound();
 
                 } else {
 
@@ -393,16 +394,48 @@ public class Game {
 
                     // neuer Stapel
 
-
                     // next player's turn
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
-
 
                 }
             }
 
-        } while (true);
+        } while (!gameEnded);
+
     }//inputCard
+
+    public int checkPoints() {
+        return DemoApp.pointsCheck;
+    }
+
+    public void startNewRound() {
+        Scanner scanner = new Scanner(System.in);
+
+            System.out.println("neue Runde? j/n");
+            String yesOrNo = scanner.next();
+
+            if (yesOrNo.equals("j")) {
+                newRound();
+            }
+            else if (yesOrNo.equals("n")) {
+                System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
+                System.exit(0);
+            }
+            else {
+                System.out.println("Dies ist keine gültige Eingabe!");
+            }
+
+    }
+
+    public void inputPoints() {
+        for (Player p : players) {
+            int points = p.getHand().getHandPoints();
+            p.setPoint(points);
+            System.out.println(p.getName() + ": " + points);
+        }
+
+        DemoApp.updateDatabase();
+    }
 
     //passiert mehrmals pro Runde
     // checks which card is played and returns
