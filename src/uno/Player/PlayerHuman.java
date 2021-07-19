@@ -4,6 +4,8 @@ import uno.Cards.Card;
 import uno.Game;
 import uno.Pile;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class PlayerHuman extends Player {
@@ -37,13 +39,15 @@ public class PlayerHuman extends Player {
     public void drawCardInHand(final Pile drawPile) {
         final var card = drawPile.pop();
         hand.add(card);
+        if (Game.drawPile.isEmpty())
+            Game.renewDrawPile();
+
     }//drawCardInHand
 
     // Karte wird gezogen und angesehen
     @Override
     public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
-        final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
@@ -53,16 +57,19 @@ public class PlayerHuman extends Player {
             playOrNot = input.nextLine();
             if (playOrNot.contains("j")) {
                 if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    discardPile.push(drawnCard);
-                    return drawnCard.toString() + playOrNot;
+                    discardPile.push(Game.drawPile.pop());
+                    if(Game.drawPile.isEmpty()){
+                        Game.renewDrawPile();
+                    }
+                    return drawnCard + playOrNot;
                 }
                 if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    hand.add(drawnCard);
+                    drawCardInHand(Game.drawPile);
                     getPenaltyCard(drawPile);
                     return null;
                 }
             } else if (playOrNot.equals("n")) {
-                hand.add(drawnCard);
+                drawCardInHand(Game.drawPile);
                 return null;
             } else
                 System.out.println("Diese Eingabe ist nicht gültig");
@@ -187,6 +194,9 @@ public class PlayerHuman extends Player {
             String yesOrNo = input.next();
             if (yesOrNo.equals("j")) {
                 System.out.println("Du forderst den Vorgänger heraus.");
+                Card card = Game.discardPile.pop();
+                System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+                Game.discardPile.push(card);
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
                     getPlusTwoCards(Game.drawPile);
@@ -209,14 +219,19 @@ public class PlayerHuman extends Player {
     }
 
     public boolean compareHandWithPile() {
+        Card fcard = Game.discardPile.pop();
         Card topCard = Game.discardPile.lookAtTopCard();
-        for (Card card : hand.cardsInHand) {
-            if (card.getColor().getCaption().equals(topCard.getColor().getCaption())) {
+        Game.discardPile.push(fcard);
+        Game.showCards = (ArrayList<Card>) hand.cardsInHand.clone();
+        if(topCard.getColor().getCaption().equals("W"))
+            return false;
+        for (Card card: hand.cardsInHand) {
+            if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
                 return true;
             }
         }
         return false;
-    }
+        }
 
 
     @Override

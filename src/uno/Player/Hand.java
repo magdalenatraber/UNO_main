@@ -1,15 +1,19 @@
 package uno.Player;
 
 import uno.Cards.Card;
+import uno.Cards.CardComparator;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Hand{
 
     ArrayList<Card> cardsInHand = new ArrayList<>();
 
     public void add(final Card card) {
+
         cardsInHand.add(card);
+        Collections.sort(cardsInHand,new CardComparator());
     }
     public void remove(final Card card) {
         cardsInHand.remove(card);

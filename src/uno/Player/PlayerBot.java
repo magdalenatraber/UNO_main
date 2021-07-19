@@ -3,6 +3,9 @@ package uno.Player;
 import uno.Cards.Card;
 import uno.Game;
 import uno.Pile;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,12 +28,14 @@ public class PlayerBot extends Player {
 
         final var card = drawPile.pop();
         hand.add(card);
+        if (Game.drawPile.isEmpty())
+            Game.renewDrawPile();
+
     }//drawCardInHand
 
     @Override
     public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
         String playOrNot;
-        final var card = drawPile.pop();
         Card drawnCard = drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
@@ -40,11 +45,14 @@ public class PlayerBot extends Player {
         //if (playOrNot.equals("j")) {
 
         if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            discardPile.push(drawnCard);
+            discardPile.push(Game.drawPile.pop());
+            if(Game.drawPile.isEmpty()){
+                Game.renewDrawPile();
+            }
             System.out.println("Ich spiele " + drawnCard);
             return drawnCard.toString();
         } else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            hand.add(drawnCard);
+            drawCardInHand(Game.drawPile);
             System.out.println("Ich kann nicht spielen.");
             return null;
         }
@@ -100,14 +108,10 @@ public class PlayerBot extends Player {
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
         } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
-            System.out.println("W* wurde gespielt. Du musst färben.");
             return true;
-
         } else if (card.getColor().getCaption().equals("W")) {
-            System.out.println("W* wurde gespielt. Du kannst spielen was du willst.");
             return true;
         } else {
-
             return false;
         }
     }
@@ -187,6 +191,9 @@ public class PlayerBot extends Player {
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
         if (rightOrWrong) {
+            Card card = Game.discardPile.pop();
+            System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+            Game.discardPile.push(card);
             System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
             return true;
         } else {
@@ -198,7 +205,12 @@ public class PlayerBot extends Player {
         }
     }
     public boolean compareHandWithPile(){
+       Card fcard = Game.discardPile.pop();
         Card topCard = Game.discardPile.lookAtTopCard();
+        Game.discardPile.push(fcard);
+        Game.showCards = (ArrayList<Card>) hand.cardsInHand.clone();
+        if(topCard.getColor().getCaption().equals("W"))
+            return false;
         for (Card card: hand.cardsInHand) {
             if(card.getColor().getCaption().equals(topCard.getColor().getCaption()) ){
                 return true;
