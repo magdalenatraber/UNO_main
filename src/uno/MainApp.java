@@ -10,7 +10,7 @@ public class MainApp {
         Game game = new Game(input, System.out);
         game.run();
         input.close();
-        System.out.println("Program ends");
+        System.out.println("Das Spiel ist nun beendet! Bis zum nächsten Mal!");
         System.out.println();
 
 
