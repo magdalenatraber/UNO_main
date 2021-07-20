@@ -142,6 +142,7 @@ public class PlayerHuman extends Player {
 
     // zeigt an, ob die Hand leer ist oder nicht
     @Override
+
     public boolean handIsEmpty() {
         if (hand.getHandSize() == 0) {
             return true;
@@ -219,7 +220,7 @@ public class PlayerHuman extends Player {
             if (yesOrNo.equals("j")) {
                 System.out.println("Du forderst den Vorgänger heraus.");
                 Card card = Game.discardPile.pop();
-                System.out.println("Karten in der Hand des Vorgängers: " +Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+                System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
                 Game.discardPile.push(card);
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
