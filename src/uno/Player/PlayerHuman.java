@@ -49,7 +49,7 @@ public class PlayerHuman extends Player {
     public String drawCard(String pickedColor) {
         String playOrNot;
         Card drawnCard = Game.drawPile.lookAtTopCard();
-        System.out.println("Gezogene Karte:" + drawnCard);
+        System.out.println("Gezogene Karte: " + drawnCard);
         Scanner input = new Scanner(System.in);
 
         do {
