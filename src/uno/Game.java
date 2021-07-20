@@ -296,7 +296,7 @@ public class Game {
     private void dealCards() {
         for (int i = 0; i < NUMBER_OF_CARDS_DEALT; i++) {
             for (Player player : players) {
-                player.drawCardInHand(drawPile);
+                player.drawCardInHand();
             }
         }
         System.out.println(player1 + " " + player1.getHand());
@@ -334,7 +334,7 @@ public class Game {
             // * * * ANFORDERUNGEN PUNKT 12 * * *
             showHandAndTable(currentPlayer);
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
-            cardInput = currentPlayer.inputData(discardPile, pickedColor);
+            cardInput = currentPlayer.inputData(pickedColor);
 
             // diverse Eingaben
 
@@ -349,7 +349,7 @@ public class Game {
             // * * * ANFORDERUNGEN PUNKT 17 * * *
             // * * * ANFORDERUNGEN PUNKT 38 * * *
             } else if (cardInput.equals("ziehen")) {
-                if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
+                if ((cardInput = currentPlayer.drawCard(pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
@@ -357,7 +357,7 @@ public class Game {
                             System.out.println(currentPlayer + " sagt Uno");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
-                            currentPlayer.getPlusTwoCards(drawPile);
+                            currentPlayer.getPlusTwoCards();
                         }
                     }
                 }
@@ -365,7 +365,7 @@ public class Game {
 
                 // * * * ANFORDERUNGEN PUNKT 13 * * *
                 // Spieler spielt Karte
-            } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
+            } else if (currentPlayer.playCard(cardInput, pickedColor)) {
 
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
@@ -404,7 +404,7 @@ public class Game {
                             System.out.println(currentPlayer + " sagt Uno");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
-                            currentPlayer.getPlusTwoCards(drawPile);
+                            currentPlayer.getPlusTwoCards();
                         }
                     }
                     // Prüft die Karte, die der Spieler spielt
@@ -465,12 +465,11 @@ public class Game {
             pickedColor = currentPlayer.pickColor();
             boolean rightOrWrong = currentPlayer.compareHandWithPile();
             if (nextPlayer(currentPlayer, getDirection()).challenge(rightOrWrong)) {
-                currentPlayer.getPlusTwoCards(drawPile);
-                currentPlayer.getPlusTwoCards(drawPile);
+                currentPlayer.getPlusTwoCards();
+                currentPlayer.getPlusTwoCards();
             }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
-            Game.showCards.removeAll(Game.showCards);
             return currentPlayer;
         }
 
@@ -489,7 +488,7 @@ public class Game {
         // +2 wurde gespielt
         if (cardInput.contains("+2")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            currentPlayer.getPlusTwoCards(drawPile);
+            currentPlayer.getPlusTwoCards();
             System.out.println("_________________________________");
             System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
             return currentPlayer;

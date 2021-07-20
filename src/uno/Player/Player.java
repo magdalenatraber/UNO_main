@@ -30,26 +30,26 @@ public abstract class Player {
 
     public abstract void setPoint(int point);
 
-    public abstract void drawCardInHand(final Pile drawPile);
+    public abstract void drawCardInHand();
 
-    public abstract String drawCard(Pile drawPile, Pile discardPile, String pickedColor);
+    public abstract String drawCard(String pickedColor);
 
 
     public abstract void removeCardFromHand();
 
-    public abstract boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor);
+    public abstract boolean playCard(String playCard, String pickedColor);
 
-    public abstract void getPenaltyCard(Pile drawPile);
+    public abstract void getPenaltyCard();
 
-    public abstract void getPlusTwoCards(Pile drawPile);
+    public abstract void getPlusTwoCards();
 
-    public abstract boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor);
+    public abstract boolean playsMatchingCard(Card card, String pickedColor);
 
     public abstract boolean handIsEmpty();
 
     public abstract int countCardsInHand();
 
-    public abstract String inputData(Pile discardPile, String pickedColor);
+    public abstract String inputData(String pickedColor);
 
     public abstract boolean didYouSayUno(String cardInput);
 
