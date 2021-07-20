@@ -611,7 +611,7 @@ public class Game {
         System.out.print("Karte auf dem Tisch: " + discardPile.lookAtTopCard());
         if (discardPile.lookAtTopCard().getColor().getCaption().equals("W"))
             System.out.println(" | Gewählte Farbe: " + pickedColor);
-        System.out.println();
+        else System.out.println();
         System.out.println("Deine Hand:" + player.getHand());
     }//showHandAndTable
 
