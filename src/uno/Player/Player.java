@@ -9,10 +9,12 @@ public abstract class Player {
     public Hand hand;
     public int point;
 
+    // Konstruktor
     public Player(String name) {
         this.name = name;
-
     }
+
+    // Getter & Setter & abstrakte Methoden
 
     public String getName() {
         return name;

@@ -10,11 +10,14 @@ import java.util.Scanner;
 
 public class PlayerHuman extends Player {
 
+    //Konstruktor
     public PlayerHuman(String name) {
         super(name);
         this.hand = new Hand();
         this.point = 0;
-    }
+    }// PlayerHuman
+
+    // Getter & Setter
 
     public String getName() {
         return name;
@@ -41,7 +44,6 @@ public class PlayerHuman extends Player {
         hand.add(card);
         if (Game.drawPile.isEmpty())
             Game.renewDrawPile();
-
     }//drawCardInHand
 
     // Karte wird gezogen und angesehen
@@ -80,6 +82,7 @@ public class PlayerHuman extends Player {
     public void removeCardFromHand() {
     }// removeCardFromHand
 
+    // Karte wird gespielt
     @Override
     public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
         for (Card card : hand.cardsInHand) {
@@ -99,6 +102,7 @@ public class PlayerHuman extends Player {
         return false;
     }// playCard
 
+    // Strafkarte wird gezogen
     @Override
     public void getPenaltyCard(Pile drawPile) {
         drawCardInHand(drawPile);
@@ -106,6 +110,7 @@ public class PlayerHuman extends Player {
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
+    // zwei Strafkarten werden gezogen
     @Override
     public void getPlusTwoCards(Pile drawPile) {
         drawCardInHand(drawPile);
@@ -128,6 +133,7 @@ public class PlayerHuman extends Player {
         }
     }// playsMatchingCard
 
+    // zeigt an, ob die Hand leer ist oder nicht
     @Override
     public boolean handIsEmpty() {
         if (hand.getHandSize() == 0) {
@@ -137,15 +143,18 @@ public class PlayerHuman extends Player {
         }
     }// handIsEmpty
 
+    // zählt die aktuellen Karten einer Hand
     public int countCardsInHand() {
         return hand.getHandSize();
     }// countCardsInHand
 
+    // ermöglicht den Spieler-Input
     public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }// inputData
 
+    // prüft, ob Uno gesagt wurde
     public boolean didYouSayUno(String cardInput) {
         if (cardInput.contains("uno")) {
             System.out.println("Hat Uno gesagt");
@@ -155,10 +164,12 @@ public class PlayerHuman extends Player {
         }
     }// didYouSayUno
 
+    // ermöglicht die Eingabe von Uno
     public String sayUno(String cardInput) {
         return cardInput;
     }// sayUno
 
+    // Spieler sucht sich eine Farbe aus
     public String pickColor() {
         Scanner inputColor = new Scanner(System.in);
         String colorInput = null;
@@ -216,8 +227,9 @@ public class PlayerHuman extends Player {
             } else
                 System.out.println("Bitte Eingabe wiederholen.");
         } while (true);
-    }
+    }// challenge
 
+    // Zeigt, ob der Herausforderer bei der +4 Karte Recht hatte oder nicht
     public boolean compareHandWithPile() {
         Card fcard = Game.discardPile.pop();
         Card topCard = Game.discardPile.lookAtTopCard();
@@ -231,7 +243,7 @@ public class PlayerHuman extends Player {
             }
         }
         return false;
-        }
+        }// compareHandWithPile
 
 
     @Override

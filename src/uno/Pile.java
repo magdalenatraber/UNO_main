@@ -14,37 +14,37 @@ public class Pile {
         this.cards = new Stack<>();
     }
 
-    // creates deck out of 108 single cards
+    // Erstellt das Kartendeck mit 108 Karten
     public void generateDeck(CardColor[] colors, CardType[] cardTypes) {
 
-        Card card;
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < cardTypes.length; j++) {
 
                 if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD)) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    //   cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
+
                 } else if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD_DRAW_4)) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    //  cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
+
                 } else if (!colors[i].equals(CardColor.BLACK) && (!cardTypes[j].equals(CardType.WILD) && !cardTypes[j].equals(CardType.WILD_DRAW_4))) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    // cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
                 }
             }
         }
-    }
+    }// generateDeck
 
-    // creates single card
+    // Erzeugt eine einzelne Karte
     public Card generateCard(CardColor cardColor, CardType cardType, int numInDeck) {
         Card card = new Card(cardColor, cardType);
         for (int i = 0; i < numInDeck; i++) {
             card = new Card(cardColor, cardType);
             cards.add(card);
-
         }
         return card;
-    }
+    }// generateCard
+
+
+    // Getter & Setter
 
     @Override
     public String toString() {
@@ -62,13 +62,14 @@ public class Pile {
     public int getSize() {
         return cards.size();
     }
+
+    // zeigt, ob noch Karten vorhanden sind oder nicht
     public boolean isEmpty(){
         if(cards.isEmpty())
             return true;
         else
             return false;
-
-    }
+    }// isEmpty
 
     public Card pop() {
 //        if (cards.size() == 6) {
