@@ -63,7 +63,7 @@ public class PlayerHuman extends Player {
                     }
                     return drawnCard + playOrNot;
                 }
-                if (!playsMatchingCard(drawnCard, pickedColor)) {
+                else {
                     drawCardInHand();
                     getPenaltyCard();
                     return null;
