@@ -256,7 +256,9 @@ public class Game {
 
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
+        System.out.println("");
         System.out.println("Du erreichst das Hilfemenü jederzeit mit der Eingabe help");
+        System.out.println("");
         System.out.println("Das Spiel kann nun beginnen! Viel Spass!");
         System.out.println("");
         System.out.println("* * * * * * * * * * *");
@@ -371,12 +373,17 @@ public class Game {
                 // * * * ANFORDERUNGEN PUNKT 45 * * *
                 // Spieler hat keine Karten mehr auf der Hand - Runde gewonnen
                 if (currentPlayer.handIsEmpty()) {
-                    System.out.println(currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation");
-
+                    System.out.println("");
+                    System.out.println("* * * " + currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation! * * *");
+                    System.out.println("");
+                    System.out.println("Punkte der Karten auf der Hand:");
                     inputPoints();
 
+                    System.out.println("");
                     System.out.println(DemoApp.getDatabaseRoundWinner());
+                    System.out.println("");
                     System.out.println("Ende der Runde " + round);
+                    System.out.println("");
 
                     // * * * ANFORDERUNGEN PUNKT 46 * * *
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel

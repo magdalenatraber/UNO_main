@@ -111,7 +111,7 @@ public class DemoApp {
             // Endpunktestand der Runde wird für den Gewinner ausgelesen
             ArrayList<HashMap<String, String>> results = client.executeQuery(String.format(SELECT_BYPLAYERANDSESSION, name, 1));
             for (HashMap<String, String> map : results) {
-                databaseRoundWinner = (map.get("Player") + " hat nun insgesamt bereits " + map.get("Score") + " Punkte gewonnen!");
+                databaseRoundWinner = (map.get("Player") + " hat nun insgesamt " + map.get("Score") + " Punkte! Mach weiter so, dann kannst du gewinnen!");
                 pointsCheck = Integer.parseInt(map.get("Score"));
             }
 
