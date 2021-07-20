@@ -79,6 +79,7 @@ public class PlayerBot extends Player {
         return false;
     }// playCard
 
+    // * * * ANFORDERUNGEN PUNKT 39 * * *
     // wenn falsche Karte gespielt wird
     @Override
     public void getPenaltyCard(Pile drawPile) {
@@ -94,6 +95,7 @@ public class PlayerBot extends Player {
         drawCardInHand(drawPile);
     }// getPlusTwoCards
 
+    // * * * ANFORDERUNGEN PUNKT 12 * * *
     // prüft, ob die gespielte Karte gültig ist
     @Override
     public boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor) {
@@ -183,6 +185,10 @@ public class PlayerBot extends Player {
         return sb.toString();
     }//generateRandomColor
 
+    // * * * ANFORDERUNGEN PUNKT 33 * * *
+    // * * * ANFORDERUNGEN PUNKT 35 * * *
+    // * * * ANFORDERUNGEN PUNKT 40 * * *
+    // * * * ANFORDERUNGEN PUNKT 42 * * *
     //Entscheidet, ob der Bot den Spieler bei einer +4 Karte herausfordert
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
@@ -201,7 +207,8 @@ public class PlayerBot extends Player {
         }
     }// challenge
 
-    // zeigt dem Bot, ob die vor ihm gespielte +4 Karte gerechtfertigt war oder nicht, um gegebenenfalls herausfordern zu können
+    // * * * ANFORDERUNGEN PUNKT 41 * * *
+    // zeigt dem Bot, ob die vor ihm gespielte +4 Karte gerechtfertigt war oder nicht
     public boolean compareHandWithPile() {
         Card fcard = Game.discardPile.pop();
         Card topCard = Game.discardPile.lookAtTopCard();

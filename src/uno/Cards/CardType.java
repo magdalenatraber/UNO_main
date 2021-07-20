@@ -1,5 +1,6 @@
 package uno.Cards;
 
+// * * * ANFORDERUNGEN PUNKT 44 * * *
 public enum CardType {
     SKIP(2, "<S>", 20),
     REVERSE(2, "<->", 20),

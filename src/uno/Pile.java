@@ -43,53 +43,48 @@ public class Pile {
         return card;
     }// generateCard
 
-
-    // Getter & Setter
-
-    @Override
-    public String toString() {
-        return "cards:" + cards.toString();
-    }
-
-    public Stack<Card> getCards() {
-        return cards;
-    }
-
+    // Karten werden gemischt
     public void shuffle() {
         Collections.shuffle(cards);
-    }
-
-    public int getSize() {
-        return cards.size();
-    }
+    }// shuffle
 
     // zeigt, ob noch Karten vorhanden sind oder nicht
-    public boolean isEmpty(){
-        if(cards.isEmpty())
+    public boolean isEmpty() {
+        if (cards.isEmpty())
             return true;
         else
             return false;
     }// isEmpty
 
     public Card pop() {
-//        if (cards.size() == 6) {
-//            Game.renewDrawPile();
-//        }
-
         if (cards.empty()) {
             throw new java.util.EmptyStackException();
         }
         return cards.pop();
-
-    }
+    }// pop
 
     public void push(final Card card) {
         cards.push(card);
-    }
-
+    }// push
 
     public Card lookAtTopCard() {
         return cards.peek();
+    }// lookAtTopCard
+
+    // Getter & Setter
+
+    public Stack<Card> getCards() {
+        return cards;
     }
+
+    public int getSize() {
+        return cards.size();
+    }
+
+    @Override
+    public String toString() {
+        return "cards:" + cards.toString();
+    }
+
 
 }

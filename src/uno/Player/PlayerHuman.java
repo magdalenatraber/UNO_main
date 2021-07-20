@@ -102,6 +102,8 @@ public class PlayerHuman extends Player {
         return false;
     }// playCard
 
+    // * * * ANFORDERUNGEN PUNKT 15 * * *
+    // * * * ANFORDERUNGEN PUNKT 39 * * *
     // Strafkarte wird gezogen
     @Override
     public void getPenaltyCard(Pile drawPile) {
@@ -117,6 +119,11 @@ public class PlayerHuman extends Player {
         drawCardInHand(drawPile);
     }// getPlusTwoCards
 
+    // * * * ANFORDERUNGEN PUNKT 12 * * *
+    // * * * ANFORDERUNGEN PUNKT 21 * * *
+    // * * * ANFORDERUNGEN PUNKT 24 * * *
+    // * * * ANFORDERUNGEN PUNKT 27 * * *
+    // * * * ANFORDERUNGEN PUNKT 30 * * *
     // ist die vom Spieler ausgewählte Karte spielbar?
     @Override
     public boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor) {
@@ -148,6 +155,7 @@ public class PlayerHuman extends Player {
         return hand.getHandSize();
     }// countCardsInHand
 
+    // * * * ANFORDERUNGEN PUNKT 48 * * *
     // ermöglicht den Spieler-Input
     public String inputData(Pile discardPile, String pickedColor) {
         Scanner input = new Scanner(System.in);
@@ -164,6 +172,7 @@ public class PlayerHuman extends Player {
         }
     }// didYouSayUno
 
+    // * * * ANFORDERUNGEN PUNKT 17 * * *
     // ermöglicht die Eingabe von Uno
     public String sayUno(String cardInput) {
         return cardInput;
@@ -196,6 +205,10 @@ public class PlayerHuman extends Player {
         return colorInput;
     }// pickColor
 
+    // * * * ANFORDERUNGEN PUNKT 33 * * *
+    // * * * ANFORDERUNGEN PUNKT 35 * * *
+    // * * * ANFORDERUNGEN PUNKT 40 * * *
+    // * * * ANFORDERUNGEN PUNKT 42 * * *
     // Herausfordern bei +4
     public boolean challenge(boolean rightOrWrong) {
         Scanner input = new Scanner(System.in);
@@ -229,6 +242,7 @@ public class PlayerHuman extends Player {
         } while (true);
     }// challenge
 
+    // * * * ANFORDERUNGEN PUNKT 41 * * *
     // Zeigt, ob der Herausforderer bei der +4 Karte Recht hatte oder nicht
     public boolean compareHandWithPile() {
         Card fcard = Game.discardPile.pop();

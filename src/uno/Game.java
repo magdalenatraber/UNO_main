@@ -50,6 +50,7 @@ public class Game {
         this.output = output;
     }// Konstruktor
 
+    // * * * ANFORDERUNGEN PUNKT 16 * * *
     // Ziehstapel wird neu erstellt
     public static void renewDrawPile() {
         System.out.println("Ziehstapel wird neu gemischt.");
@@ -98,6 +99,7 @@ public class Game {
     public void run() {
         // Spielvorbereitung // Passiert nur 1x
         initPlayer();
+        // * * * ANFORDERUNGEN PUNKT 7 * * *
         startingPlayer = choosePlayer(); // Bestimmt einen Startspieler per Zufall
         DemoApp.startDatabase();
         initDrawPile();
@@ -111,6 +113,7 @@ public class Game {
         round++;
         System.out.println("Runde: " + round);
 
+        // * * * ANFORDERUNGEN PUNKT 9 * * *
         // Startspieler und Geber verschieben sich um eine Position
         if (round > 1) {
             startingPlayer = nextPlayer(startingPlayer, getDirection());
@@ -125,6 +128,7 @@ public class Game {
         // Karten werden ausgeteilt
         dealCards();
 
+        // * * * ANFORDERUNGEN PUNKT 7 * * *
         // Es wird geprüft, ob die erste Karte eine Action-Karte ist
         checkActionCard();
 
@@ -133,6 +137,7 @@ public class Game {
 
     }// newRound
 
+    // * * * ANFORDERUNGEN PUNKT 2 * * *
     //Spieler werden erstellt - passiert einmal zu Beginn des Spieles
     public void initPlayer() {
 
@@ -258,12 +263,17 @@ public class Game {
         System.out.println("");
     }//initPlayer
 
+    // * * * ANFORDERUNGEN PUNKT 1 * * *
+    // * * * ANFORDERUNGEN PUNKT 3 * * *
+    // * * * ANFORDERUNGEN PUNKT 5 * * *
     //Ziehstapel wird erstellt und gemischt - passiert einmal am Anfang des Spiels
     public void initDrawPile() {
         drawPile.generateDeck(CardColor.colors, CardType.cardType);
         drawPile.shuffle();
     }//initDrawPile
 
+    // * * * ANFORDERUNGEN PUNKT 6 * * *
+    // * * * ANFORDERUNGEN PUNKT 37 * * *
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
         final var initialCard = drawPile.pop();
@@ -279,6 +289,7 @@ public class Game {
         return players[index];
     }//choosePlayer
 
+    // * * * ANFORDERUNGEN PUNKT 4 * * *
     // Karten werden ausgeteilt - 7 Stück pro Spieler - zu Beginn jeder Runde
     private void dealCards() {
         for (int i = 0; i < NUMBER_OF_CARDS_DEALT; i++) {
@@ -302,10 +313,12 @@ public class Game {
 
         currentPlayer = checkPlayedCard(currentPlayer);
 
+        // * * * ANFORDERUNGEN PUNKT 25 * * *
         if (!cardInput.equals("<->")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
         }
 
+        // * * * ANFORDERUNGEN PUNKT 31 * * *
         if (cardInput.equals("W")) {
             pickedColor = currentPlayer.pickColor();
             System.out.println(currentPlayer + " hat " + pickedColor + " ausgesucht.");
@@ -316,11 +329,14 @@ public class Game {
     private void inputCard(Player currentPlayer) {
 
         do {
+            // * * * ANFORDERUNGEN PUNKT 12 * * *
             showHandAndTable(currentPlayer);
             output.println(currentPlayer + ", du bist dran. Was möchtest du machen?");
             cardInput = currentPlayer.inputData(discardPile, pickedColor);
 
             // diverse Eingaben
+
+            // * * * ANFORDERUNGEN PUNKT 49 * * *
             if (cardInput.equals("help")) {
                 inputHelp();
                 updateHelp();
@@ -328,6 +344,8 @@ public class Game {
             } else if (cardInput.equals("Punktestand")) {
                 System.out.println(DemoApp.requestedPointsAll());
 
+            // * * * ANFORDERUNGEN PUNKT 17 * * *
+            // * * * ANFORDERUNGEN PUNKT 38 * * *
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(drawPile, discardPile, pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
@@ -343,11 +361,14 @@ public class Game {
                 }
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
+                // * * * ANFORDERUNGEN PUNKT 13 * * *
                 // Spieler spielt Karte
             } else if (currentPlayer.playCard(discardPile, drawPile, cardInput, pickedColor)) {
 
                 System.out.println(currentPlayer + " spielt " + cardInput);
 
+                // * * * ANFORDERUNGEN PUNKT 19 * * *
+                // * * * ANFORDERUNGEN PUNKT 45 * * *
                 // Spieler hat keine Karten mehr auf der Hand - Runde gewonnen
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println(currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation");
@@ -357,15 +378,18 @@ public class Game {
                     System.out.println(DemoApp.getDatabaseRoundWinner());
                     System.out.println("Ende der Runde " + round);
 
+                    // * * * ANFORDERUNGEN PUNKT 46 * * *
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel
                     if (checkPoints() < 500) {
                         startNewRound();
+                    // * * * ANFORDERUNGEN PUNKT 47 * * *
                     } else {
                         System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
                         gameEnded = true;
                     }
 
                 } else {
+                    // * * * ANFORDERUNGEN PUNKT 18 * * *
                     // Uno
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
@@ -420,10 +444,15 @@ public class Game {
     }// inputPoints
 
 
+    // * * * ANFORDERUNGEN PUNKT 10 * * *
+    // * * * ANFORDERUNGEN PUNKT 11 * * *
     // Prüft welche Karte gespielt wurde und reagiert dementsprechend
     private Player checkPlayedCard(Player currentPlayer) {
 
-        // W+4 wird gespielt
+        // * * * ANFORDERUNGEN PUNKT 32 * * *
+        // * * * ANFORDERUNGEN PUNKT 34 * * *
+        // * * * ANFORDERUNGEN PUNKT 35 * * *
+        // W+4 wurde gespielt
         if (cardInput.contains("W+4")) {
             System.out.println("Hi " + currentPlayer + "! Du hast W+4 gespielt. Du darfst dir eine Farbe aussuchen.");
             pickedColor = currentPlayer.pickColor();
@@ -438,7 +467,8 @@ public class Game {
             return currentPlayer;
         }
 
-        // WW wird gespielt
+        // * * * ANFORDERUNGEN PUNKT 29 * * *
+        // WW wurde gespielt
         if (cardInput.contains("WW")) {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
@@ -447,7 +477,9 @@ public class Game {
             return currentPlayer;
         }
 
-        // +2 wird gespielt
+        // * * * ANFORDERUNGEN PUNKT 20 * * *
+        // * * * ANFORDERUNGEN PUNKT 22 * * *
+        // +2 wurde gespielt
         if (cardInput.contains("+2")) {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards(drawPile);
@@ -456,21 +488,23 @@ public class Game {
             return currentPlayer;
         }
 
-        // Richtungswechsel wird gespielt
+        // * * * ANFORDERUNGEN PUNKT 23 * * *
+        // Richtungswechsel wurde gespielt
         if (cardInput.contains("<->")) {
             changeDirection(direction);
             System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
             return currentPlayer;
         }
 
-        // Aussetzen wird gespielt
+        // * * * ANFORDERUNGEN PUNKT 26 * * *
+        // * * * ANFORDERUNGEN PUNKT 28 * * *
+        // Aussetzen wurde gespielt
         if (cardInput.contains("<S>")) {
             System.out.println("Sorry " + nextPlayer(currentPlayer, direction) + ", du musst aussetzen!");
             Player nextPlayerHuman = nextPlayer(currentPlayer, direction);
             System.out.println("Hi " + nextPlayer(nextPlayerHuman, direction) + ", du bist dran!");
             return nextPlayerHuman;
         }
-
         return currentPlayer;
     }//checkPlayedCard
 
@@ -559,7 +593,7 @@ public class Game {
         }
     }//update Help
 
-    //showHandAndTable - END OF ROUND
+    //Zeigt alle relevanten Spieldaten
     private void showHandAndTable(Player player) {
         System.out.println("---------------------------");
         System.out.print("Anzahl Karten: " + countAllCards());

@@ -18,7 +18,7 @@ public class DemoApp {
     public static SqliteClient client;
     public static int pointsCheck;
 
-    // Database wird initialisiert und gestartet
+    // Client wird erstellt
     static {
         try {
             client = new SqliteClient("demodatabase.sqlite");
@@ -55,6 +55,7 @@ public class DemoApp {
         return databaseRoundWinner;
     } //getDatabaseRoundWinner
 
+    // * * * ANFORDERUNGEN PUNKT 51 * * *
     // Gibt die aktuellen Punkte aller Spieler während der laufenden Runde aus
     public static String requestedPointsAll() {
         try {
@@ -84,6 +85,8 @@ public class DemoApp {
         }
     } //startDatabase
 
+    // * * * ANFORDERUNGEN PUNKT 43 * * *
+    // * * * ANFORDERUNGEN PUNKT 50 * * *
     // updatet die Database nach jeder gespielten Runde
     public static void updateDatabase() {
         try {
