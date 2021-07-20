@@ -14,7 +14,7 @@ public class HelpText_Rules extends Help {
         System.out.println("   Er erhält Punkte für die Karten, die seine Mitspieler noch in der Hand halten.");
         System.out.println("*  Derjenige, der am Ende einer Runde 500 Punkte erreicht hat, gewinnt das Spiel.");
         System.out.println("");
-        System.out.println("Übericht über die Karten und deren Wert:");
+        System.out.println("ÜBERSICHT ÜBER DIE KARTEN UND DEREN WERT:");
         System.out.println("");
         System.out.println("*  Karten 0-9: ");
         System.out.println("   Können auf die gleichen Zahlen oder gleiche Farbe gespielt werden");
@@ -38,6 +38,9 @@ public class HelpText_Rules extends Help {
         System.out.println("");
         System.out.println("*  Zieh Vier Farbenwahl Karte: ");
         System.out.println("   Du kannst eine neue Farbe wählen, der nächste Spieler muss zwei Strafkarten ziehen und muss eine Runde aussetzen");
+        System.out.println("   Aber Achtung: Du darfst diese Karte nur spielen, wenn Du keine andere Karte der aktuellen Farbe auf der Hand hast!");
+        System.out.println("   Spielst Du sie trotzdem, kann der nächste Spieler dich herausfordern und in Deine Karten sehen.");
+        System.out.println("   Hast Du nur geblufft, dann musst Du selbst die 4 Karten ziehen!");
         System.out.println("   Wert: 50 Punkte");
         System.out.println("");
         System.out.println("");
