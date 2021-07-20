@@ -257,7 +257,7 @@ public class Game {
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
         System.out.println("");
-        System.out.println("Du erreichst das Hilfemenü jederzeit mit der Eingabe help");
+        System.out.println("Ihr erreicht das Hilfemenü jederzeit mit der Eingabe help");
         System.out.println("");
         System.out.println("Das Spiel kann nun beginnen! Viel Spass!");
         System.out.println("");
