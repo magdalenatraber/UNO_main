@@ -24,8 +24,8 @@ public class PlayerBot extends Player {
 
     // Karten werden in die Hand gezogen
     @Override
-    public void drawCardInHand(final Pile drawPile) {
-        final var card = drawPile.pop();
+    public void drawCardInHand() {
+        final var card = Game.drawPile.pop();
         hand.add(card);
         if (Game.drawPile.isEmpty())
             Game.renewDrawPile();
@@ -33,21 +33,21 @@ public class PlayerBot extends Player {
 
     //Bot reagiert auf gezogene Karte
     @Override
-    public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
-        Card drawnCard = drawPile.lookAtTopCard();
+    public String drawCard(String pickedColor) {
+        Card drawnCard = Game.drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
 
         System.out.println("Möchtest du diese Karte spielen? j/n");
 
-        if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            discardPile.push(Game.drawPile.pop());
+        if (playsMatchingCard(drawnCard, pickedColor)) {
+            Game.discardPile.push(Game.drawPile.pop());
             if (Game.drawPile.isEmpty()) {
                 Game.renewDrawPile();
             }
             System.out.println("Ich spiele " + drawnCard);
             return drawnCard.toString();
-        } else if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-            drawCardInHand(Game.drawPile);
+        } else if (!playsMatchingCard(drawnCard, pickedColor)) {
+            drawCardInHand();
             System.out.println("Ich kann nicht spielen.");
             return null;
         }
@@ -60,17 +60,17 @@ public class PlayerBot extends Player {
 
     //Bot spielt eine Karte
     @Override
-    public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
+    public boolean playCard(String playCard, String pickedColor) {
         for (Card card : hand.cardsInHand) {
             if (playCard.contains(card.toString())) {
                 // Spielregel Methoden
-                if (playsMatchingCard(discardPile, card, pickedColor)) {
+                if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
-                    discardPile.push(card);
+                    Game.discardPile.push(card);
                     return true;
                 // wenn falsche Karte gespielt
                 } else {
-                    getPenaltyCard(drawPile);
+                    getPenaltyCard();
                     return true;
                 }
             }
@@ -82,24 +82,24 @@ public class PlayerBot extends Player {
     // * * * ANFORDERUNGEN PUNKT 39 * * *
     // wenn falsche Karte gespielt wird
     @Override
-    public void getPenaltyCard(Pile drawPile) {
-        drawCardInHand(drawPile);
+    public void getPenaltyCard() {
+        drawCardInHand();
         System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
     // ziehe 2 Strafkarten
     @Override
-    public void getPlusTwoCards(Pile drawPile) {
-        drawCardInHand(drawPile);
-        drawCardInHand(drawPile);
+    public void getPlusTwoCards() {
+        drawCardInHand();
+        drawCardInHand();
     }// getPlusTwoCards
 
     // * * * ANFORDERUNGEN PUNKT 12 * * *
     // prüft, ob die gespielte Karte gültig ist
     @Override
-    public boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor) {
-        Card topCard = discardPile.lookAtTopCard();
+    public boolean playsMatchingCard(Card card, String pickedColor) {
+        Card topCard = Game.discardPile.lookAtTopCard();
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
         } else if (topCard.getColor().getCaption().equals("W") && card.getColor().getCaption().equals(pickedColor)) {
@@ -127,10 +127,10 @@ public class PlayerBot extends Player {
     }//countCardsInHand
 
     // der Bot zieht eine Karte
-    public String inputData(Pile discardPile, String pickedColor) {
+    public String inputData(String pickedColor) {
         String input = "ziehen";
         for (Card card : hand.cardsInHand) {
-            if (playsMatchingCard(discardPile, card, pickedColor)) {
+            if (playsMatchingCard(card, pickedColor)) {
                 input = card.toString();
                 break;
             }
@@ -199,8 +199,8 @@ public class PlayerBot extends Player {
             System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
             return true;
         } else {
-            getPlusTwoCards(Game.drawPile);
-            getPlusTwoCards(Game.drawPile);
+            getPlusTwoCards();
+            getPlusTwoCards();
             System.out.println("_________________________________");
             System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
             return false;

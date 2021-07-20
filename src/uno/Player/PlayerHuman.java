@@ -2,10 +2,8 @@ package uno.Player;
 
 import uno.Cards.Card;
 import uno.Game;
-import uno.Pile;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PlayerHuman extends Player {
@@ -39,8 +37,8 @@ public class PlayerHuman extends Player {
 
     // Karten werden in die Hand gezogen
     @Override
-    public void drawCardInHand(final Pile drawPile) {
-        final var card = drawPile.pop();
+    public void drawCardInHand() {
+        final var card = Game.drawPile.pop();
         hand.add(card);
         if (Game.drawPile.isEmpty())
             Game.renewDrawPile();
@@ -48,9 +46,9 @@ public class PlayerHuman extends Player {
 
     // Karte wird gezogen und angesehen
     @Override
-    public String drawCard(Pile drawPile, Pile discardPile, String pickedColor) {
+    public String drawCard(String pickedColor) {
         String playOrNot;
-        Card drawnCard = drawPile.lookAtTopCard();
+        Card drawnCard = Game.drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte:" + drawnCard);
         Scanner input = new Scanner(System.in);
 
@@ -58,20 +56,20 @@ public class PlayerHuman extends Player {
             System.out.println("Möchtest du diese Karte spielen? j/n");
             playOrNot = input.nextLine();
             if (playOrNot.contains("j")) {
-                if (playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    discardPile.push(Game.drawPile.pop());
+                if (playsMatchingCard(drawnCard, pickedColor)) {
+                    Game.discardPile.push(Game.drawPile.pop());
                     if(Game.drawPile.isEmpty()){
                         Game.renewDrawPile();
                     }
                     return drawnCard + playOrNot;
                 }
-                if (!playsMatchingCard(discardPile, drawnCard, pickedColor)) {
-                    drawCardInHand(Game.drawPile);
-                    getPenaltyCard(drawPile);
+                if (!playsMatchingCard(drawnCard, pickedColor)) {
+                    drawCardInHand();
+                    getPenaltyCard();
                     return null;
                 }
             } else if (playOrNot.equals("n")) {
-                drawCardInHand(Game.drawPile);
+                drawCardInHand();
                 return null;
             } else
                 System.out.println("Diese Eingabe ist nicht gültig");
@@ -84,16 +82,16 @@ public class PlayerHuman extends Player {
 
     // Karte wird gespielt
     @Override
-    public boolean playCard(Pile discardPile, Pile drawPile, String playCard, String pickedColor) {
+    public boolean playCard(String playCard, String pickedColor) {
         for (Card card : hand.cardsInHand) {
             if (playCard.contains(card.toString())) {
                 // Spielregel Methoden
-                if (playsMatchingCard(discardPile, card, pickedColor)) {
+                if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
-                    discardPile.push(card);
+                    Game.discardPile.push(card);
                     return true;
                 } else {
-                    getPenaltyCard(drawPile);
+                    getPenaltyCard();
                     return true;
                 }
             }
@@ -106,17 +104,17 @@ public class PlayerHuman extends Player {
     // * * * ANFORDERUNGEN PUNKT 39 * * *
     // Strafkarte wird gezogen
     @Override
-    public void getPenaltyCard(Pile drawPile) {
-        drawCardInHand(drawPile);
+    public void getPenaltyCard() {
+        drawCardInHand();
         System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
     // zwei Strafkarten werden gezogen
     @Override
-    public void getPlusTwoCards(Pile drawPile) {
-        drawCardInHand(drawPile);
-        drawCardInHand(drawPile);
+    public void getPlusTwoCards() {
+        drawCardInHand();
+        drawCardInHand();
     }// getPlusTwoCards
 
     // * * * ANFORDERUNGEN PUNKT 12 * * *
@@ -126,8 +124,8 @@ public class PlayerHuman extends Player {
     // * * * ANFORDERUNGEN PUNKT 30 * * *
     // ist die vom Spieler ausgewählte Karte spielbar?
     @Override
-    public boolean playsMatchingCard(Pile discardPile, Card card, String pickedColor) {
-        Card topCard = discardPile.lookAtTopCard();
+    public boolean playsMatchingCard(Card card, String pickedColor) {
+        Card topCard = Game.discardPile.lookAtTopCard();
         if (topCard.getColor() == card.getColor() || topCard.getType() == card.getType()) {
             return true;
         } else if (card.getColor().getCaption().equals("W")) {
@@ -158,7 +156,7 @@ public class PlayerHuman extends Player {
 
     // * * * ANFORDERUNGEN PUNKT 48 * * *
     // ermöglicht den Spieler-Input
-    public String inputData(Pile discardPile, String pickedColor) {
+    public String inputData(String pickedColor) {
         Scanner input = new Scanner(System.in);
         return input.nextLine();
     }// inputData
@@ -224,17 +222,17 @@ public class PlayerHuman extends Player {
                 Game.discardPile.push(card);
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
-                    getPlusTwoCards(Game.drawPile);
-                    getPlusTwoCards(Game.drawPile);
-                    getPlusTwoCards(Game.drawPile);
+                    getPlusTwoCards();
+                    getPlusTwoCards();
+                    getPlusTwoCards();
                     return false;
                 } else {
                     System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
                     return true;
                 }
             } else if (yesOrNo.equals("n")) {
-                getPlusTwoCards(Game.drawPile);
-                getPlusTwoCards(Game.drawPile);
+                getPlusTwoCards();
+                getPlusTwoCards();
                 System.out.println("_________________________________");
                 System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
                 return false;
