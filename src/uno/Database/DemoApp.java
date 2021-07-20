@@ -18,6 +18,7 @@ public class DemoApp {
     public static SqliteClient client;
     public static int pointsCheck;
 
+    // Database wird initialisiert und gestartet
     static {
         try {
             client = new SqliteClient("demodatabase.sqlite");

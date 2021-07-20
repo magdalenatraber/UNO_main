@@ -15,8 +15,10 @@ public class HelpText_Punishments extends Help {
         System.out.println("");
         System.out.println("*  Legt ein Spieler eine falsche Karte, kassiert er eine Strafkarte!");
         System.out.println("");
+        System.out.println("*  Spielt der Spieler vor Dir eine +2 Karte, dann musst du 2 Strafkarten ziehen und der nächste Spieler ist an der Reihe!");
+        System.out.println("");
         System.out.println("*  Denkst Du, dass der Spieler vor dir die W+4 Karte unrechtmäßig gespielt hat?");
-        System.out.println("   Forderst Du ihn heraus und bist im Unrecht, dann musst Du insgesamt 6 Strafkarten ziehen!");
+        System.out.println("   Forderst Du ihn heraus und bist im Unrecht, dann musst Du insgesamt 6 Strafkarten ziehen und der nächste Spieler ist an der Reihe!");
         System.out.println("");
         System.out.println("");
         System.out.println("Setze nun dein Spiel fort! Viel Glück!");

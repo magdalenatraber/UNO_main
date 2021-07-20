@@ -251,6 +251,7 @@ public class Game {
 
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
+        System.out.println("Du erreichst das Hilfemenü jederzeit mit der Eingabe help");
         System.out.println("Das Spiel kann nun beginnen! Viel Spass!");
         System.out.println("");
         System.out.println("* * * * * * * * * * *");
@@ -364,9 +365,7 @@ public class Game {
                         gameEnded = true;
                     }
 
-
                 } else {
-
                     // Uno
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
@@ -382,12 +381,9 @@ public class Game {
 
                     // Nächster Spieler ist an der Reihe
                     currentPlayer = nextPlayer(currentPlayer, getDirection());
-
                 }
             }
-
         } while (!gameEnded);
-
     }//inputCard
 
     // in eine Zahl umgewandelter Endpunktestand aus der Datenbank

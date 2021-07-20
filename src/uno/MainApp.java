@@ -13,10 +13,6 @@ public class MainApp {
         System.out.println("Das Spiel ist nun beendet! Bis zum nächsten Mal!");
         System.out.println();
 
-
-
     } // main
 
-
-
-} // class
+}
