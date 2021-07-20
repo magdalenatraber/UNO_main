@@ -14,36 +14,71 @@ public class Pile {
         this.cards = new Stack<>();
     }
 
-    // creates deck out of 108 single cards
+    // Erstellt das Kartendeck mit 108 Karten
     public void generateDeck(CardColor[] colors, CardType[] cardTypes) {
 
-        Card card;
         for (int i = 0; i < colors.length; i++) {
             for (int j = 0; j < cardTypes.length; j++) {
 
                 if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD)) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    //   cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
+
                 } else if (colors[i].equals(CardColor.BLACK) && cardTypes[j].equals(CardType.WILD_DRAW_4)) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    //  cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
+
                 } else if (!colors[i].equals(CardColor.BLACK) && (!cardTypes[j].equals(CardType.WILD) && !cardTypes[j].equals(CardType.WILD_DRAW_4))) {
-                    card = generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
-                    // cards.add(card);
+                    generateCard(colors[i], cardTypes[j], cardTypes[j].getNumInDeck());
                 }
             }
         }
-    }
+    }// generateDeck
 
-    // creates single card
+    // Erzeugt eine einzelne Karte
     public Card generateCard(CardColor cardColor, CardType cardType, int numInDeck) {
         Card card = new Card(cardColor, cardType);
         for (int i = 0; i < numInDeck; i++) {
             card = new Card(cardColor, cardType);
             cards.add(card);
-
         }
         return card;
+    }// generateCard
+
+    // Karten werden gemischt
+    public void shuffle() {
+        Collections.shuffle(cards);
+    }// shuffle
+
+    // zeigt, ob noch Karten vorhanden sind oder nicht
+    public boolean isEmpty() {
+        if (cards.isEmpty())
+            return true;
+        else
+            return false;
+    }// isEmpty
+
+    public Card pop() {
+        if (cards.empty()) {
+            throw new java.util.EmptyStackException();
+        }
+        return cards.pop();
+    }// pop
+
+    public void push(final Card card) {
+        cards.push(card);
+    }// push
+
+    public Card lookAtTopCard() {
+        return cards.peek();
+    }// lookAtTopCard
+
+    // Getter & Setter
+
+    public Stack<Card> getCards() {
+        return cards;
+    }
+
+    public int getSize() {
+        return cards.size();
     }
 
     @Override
@@ -51,44 +86,5 @@ public class Pile {
         return "cards:" + cards.toString();
     }
 
-    public Stack<Card> getCards() {
-        return cards;
-    }
-
-    public void shuffle() {
-        Collections.shuffle(cards);
-    }
-
-    public int getSize() {
-        return cards.size();
-    }
-    public boolean isEmpty(){
-        if(cards.isEmpty())
-            return true;
-        else
-            return false;
-
-    }
-
-    public Card pop() {
-//        if (cards.size() == 6) {
-//            Game.renewDrawPile();
-//        }
-
-        if (cards.empty()) {
-            throw new java.util.EmptyStackException();
-        }
-        return cards.pop();
-
-    }
-
-    public void push(final Card card) {
-        cards.push(card);
-    }
-
-
-    public Card lookAtTopCard() {
-        return cards.peek();
-    }
 
 }
