@@ -6,6 +6,7 @@ import uno.Cards.CardType;
 import uno.Database.DemoApp;
 import uno.Help.Help;
 import uno.Help.HelpText_Inputs;
+import uno.Help.HelpText_Punishments;
 import uno.Help.HelpText_Rules;
 import uno.Player.Player;
 import uno.Player.PlayerBot;
@@ -530,10 +531,11 @@ public class Game {
         System.out.println("Benötigst du Hilfe?");
         System.out.println("Für SPIELREGELN drücke 1");
         System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
-        System.out.println("Benötigst du keine Hilfe, drücke 3");
+        System.out.println("Für STRAFEN drücke 3");
+        System.out.println("Benötigst du keine Hilfe, drücke 4");
         do {
             helpNeeded = input.nextInt();
-            if (helpNeeded < 1 || helpNeeded > 3) {
+            if (helpNeeded < 1 || helpNeeded > 4) {
                 output.println("Dies ist keine gültige Eingabe!");
             } else {
                 break;
@@ -551,6 +553,9 @@ public class Game {
                 help = new HelpText_Inputs();
                 break;
             case 3:
+                help = new HelpText_Punishments();
+                break;
+            case 4:
                 System.out.println("Spiel wird fortgesetzt");
                 break;
             default:
