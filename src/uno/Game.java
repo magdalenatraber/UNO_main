@@ -109,7 +109,7 @@ public class Game {
     // Eine neue Runde wird gestartet
     public void newRound() {
         // passiert für jede Runde
-        setDirection("clockwise");
+        setDirection("im UZS");
         round++;
         System.out.println("Runde: " + round);
 
@@ -517,10 +517,10 @@ public class Game {
 
     // wechselt die Richtung
     private void changeDirection(String direction) {
-        if (direction.equals("clockwise"))
-            setDirection("counterclockwise");
+        if (direction.equals("im UZS"))
+            setDirection("gegen den UZS");
         else
-            setDirection("clockwise");
+            setDirection("im UZS");
     }//changeDirection
 
     // Richtung: im Uhrzeigersinn
@@ -556,7 +556,7 @@ public class Game {
     // Wechselt zum nächsten Spieler
     private Player nextPlayer(Player currentPlayer, String direction) {
 
-        if (direction.equals("clockwise"))
+        if (direction.equals("im UZS"))
             return clockwise(currentPlayer);
         else
             return counterClockwise(currentPlayer);
