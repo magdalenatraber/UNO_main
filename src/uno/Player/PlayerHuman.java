@@ -216,7 +216,7 @@ public class PlayerHuman extends Player {
             System.out.println("Hallo " + name + "! Es wurde eine +4 gespielt. Möchtest du den Vorgänger herausfordern? j/n");
             String yesOrNo = input.next();
             if (yesOrNo.equals("j")) {
-                System.out.println(name +" fordert den Vorgänger heraus.");
+                System.out.println(name +", du forderst den Vorgänger heraus.");
                 Card card = Game.discardPile.pop();
                 System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
                 Game.discardPile.push(card);
@@ -234,7 +234,7 @@ public class PlayerHuman extends Player {
                 getPlusTwoCards();
                 getPlusTwoCards();
                 System.out.println("_________________________________");
-                System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
+                System.out.println("Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
                 return false;
             } else
                 System.out.println("Bitte Eingabe wiederholen.");
