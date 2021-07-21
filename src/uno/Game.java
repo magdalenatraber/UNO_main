@@ -141,12 +141,20 @@ public class Game {
     public void initPlayer() {
 
         System.out.println("");
-
-        Scanner botOrNot = new Scanner(System.in);
         System.out.println("Es können 4 Spieler mitspielen.");
-        System.out.println("Wieviele Bots werden benötigt?");
-        nrBots = botOrNot.nextInt();
 
+
+       do {
+           Scanner botOrNot = new Scanner(System.in);
+           System.out.println("Wieviele Bots werden benötigt?");
+
+           if(botOrNot.hasNextInt()) {
+               nrBots = botOrNot.nextInt();
+               break;
+           }
+           else
+               System.out.println("Falsche Eingabe!");
+       } while (true);
         if (nrBots > 4) {
             System.out.println("Ungültige Eingabe! Die Eingabe wurde auf 4 verringert!");
             nrBots = 4;
