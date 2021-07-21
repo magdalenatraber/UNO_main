@@ -356,9 +356,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
+                            System.out.println(currentPlayer + " hat vergessen uno zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -404,9 +404,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
+                            System.out.println(currentPlayer + " hat vergessen uno zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -451,8 +451,7 @@ public class Game {
             System.out.println(p.getName() + ": " + points);
             pointswinner += points;
         }
-        System.out.println();
-        System.out.println(nextPlayer(currentPlayer, getDirection()) + " hat diese Runde " + pointswinner + " Punkte gewonnen!");
+
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
