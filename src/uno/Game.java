@@ -356,9 +356,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno");
+                            System.out.println(currentPlayer + " sagt Uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -405,7 +405,7 @@ public class Game {
                         if (currentPlayer.didYouSayUno(cardInput)) {
                             System.out.println(currentPlayer + " sagt Uno");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -471,7 +471,7 @@ public class Game {
                 currentPlayer.getPlusTwoCards();
             }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen.");
             return currentPlayer;
         }
 
@@ -481,7 +481,7 @@ public class Game {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
             pickedColor = currentPlayer.pickColor();
-            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen.");
             return currentPlayer;
         }
 
