@@ -62,7 +62,6 @@ public class Game {
         drawPile.shuffle();
         discardPile.push(lastCard);
         drawPileCounter++;
-        System.out.println("Karten wurden neu gemischt");
     }//renewDrawPile
 
     // neu erstellter Ziehstapel wird gemischt
@@ -357,9 +356,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno");
+                            System.out.println(currentPlayer + " sagt Uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -377,7 +376,7 @@ public class Game {
                 // Spieler hat keine Karten mehr auf der Hand - Runde gewonnen
                 if (currentPlayer.handIsEmpty()) {
                     System.out.println("");
-                    System.out.println("* * * " + currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat die Runde gewonnen! Gratulation! * * *");
+                    System.out.println("* * * " + currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat Runde " + round + " gewonnen! Gratulation! * * *");
                     System.out.println("");
                     System.out.println("Punkte der Karten auf der Hand:");
                     inputPoints();
@@ -387,6 +386,7 @@ public class Game {
                     System.out.println("");
                     System.out.println("Ende der Runde " + round);
                     System.out.println("");
+                    System.out.println(DemoApp.requestedPointsAll());
 
                     // * * * ANFORDERUNGEN PUNKT 46 * * *
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel
@@ -394,7 +394,7 @@ public class Game {
                         startNewRound();
                     // * * * ANFORDERUNGEN PUNKT 47 * * *
                     } else {
-                        System.out.println("Gratuliere, du hast damit das Spiel gewonnen!");
+                        System.out.println("Gratuliere " + currentPlayer + ", du hast damit das Spiel gewonnen!");
                         gameEnded = true;
                     }
 
@@ -406,7 +406,7 @@ public class Game {
                         if (currentPlayer.didYouSayUno(cardInput)) {
                             System.out.println(currentPlayer + " sagt Uno");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen." + currentPlayer + " muss zwei Karten heben");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -472,7 +472,7 @@ public class Game {
                 currentPlayer.getPlusTwoCards();
             }
             currentPlayer = nextPlayer(currentPlayer, getDirection());
-            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen.");
             return currentPlayer;
         }
 
@@ -482,7 +482,7 @@ public class Game {
             System.out.println("Hi " + currentPlayer + "! Du hast WW gespielt. Du darfst dir eine Farbe aussuchen.");
 
             pickedColor = currentPlayer.pickColor();
-            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen");
+            System.out.println("Hi " + nextPlayer(currentPlayer, getDirection()) + "! Du musst die Farbe " + pickedColor + " spielen.");
             return currentPlayer;
         }
 
