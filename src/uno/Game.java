@@ -149,7 +149,7 @@ public class Game {
            Scanner botOrNot = new Scanner(System.in);
            System.out.println("Wieviele Bots werden benötigt?");
 
-           if(botOrNot.hasNextInt()) {
+           if (botOrNot.hasNextInt()) {
                nrBots = botOrNot.nextInt();
                break;
            }
