@@ -387,7 +387,7 @@ public class Game {
 
                     // * * * ANFORDERUNGEN PUNKT 46 * * *
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel
-                    if (checkPoints() < 30000) {
+                    if (checkPoints() < 24500) {
                         startNewRound();
                     // * * * ANFORDERUNGEN PUNKT 47 * * *
                     } else {
