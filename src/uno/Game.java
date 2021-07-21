@@ -281,6 +281,9 @@ public class Game {
         final var initialCard = drawPile.pop();
         discardPile.push(initialCard);
         if (initialCard.getType().getCaption().equals("+4")) {
+            discardPile.pop();
+            drawPile.push(initialCard);
+            drawPile.shuffle();
             initDiscardPile();
         }
     }//initDiscardPile
@@ -498,6 +501,9 @@ public class Game {
         // Richtungswechsel wurde gespielt
         if (cardInput.contains("<->")) {
             changeDirection(direction);
+            if (cardInput.equals("<->"))
+                System.out.println("Richtungswechsel wurde aufgedeckt. Damit ist der Geber " + currentPlayer + " an der Reihe.");
+            else
             System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
             return currentPlayer;
         }
