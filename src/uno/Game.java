@@ -156,9 +156,14 @@ public class Game {
                System.out.println("Falsche Eingabe!");
        } while (true);
         if (nrBots > 4) {
-            System.out.println("Ungültige Eingabe! Die Eingabe wurde auf 4 verringert!");
+            System.out.println("Eingabe zu hoch! Die Anzahl der Bots wird auf 4 gesetzt!");
             nrBots = 4;
         }
+        if (nrBots < 0) {
+            System.out.println("Eingabe zu niedrig! Die Anzahl der Bots wird auf 0 gesetzt!");
+            nrBots = 0;
+        }
+
 
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
         System.out.println("____________________");

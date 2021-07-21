@@ -204,7 +204,7 @@ public class PlayerBot extends Player {
             getPlusTwoCards();
             getPlusTwoCards();
             System.out.println("_________________________________");
-            System.out.println("Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+            System.out.println("Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
             return false;
         }
     }// challenge
