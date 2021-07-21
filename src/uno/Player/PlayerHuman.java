@@ -89,7 +89,7 @@ public class PlayerHuman extends Player {
                 if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
                     Game.discardPile.push(card);
-                    System.out.println(name + " spielt " + card);
+                    System.out.println(name + " spielt " + card + ".");
                     return true;
                 } else {
                     getPenaltyCard();
@@ -107,7 +107,7 @@ public class PlayerHuman extends Player {
     @Override
     public void getPenaltyCard() {
         drawCardInHand();
-        System.out.println("Hallo " + name + "! Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
+        System.out.println(name + ", du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte!");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
@@ -185,19 +185,19 @@ public class PlayerHuman extends Player {
         while (pickedColor == false) {
             colorInput = inputColor.next();
             if (colorInput.equals("Y")) {
-                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
                 pickedColor = true;
             } else if (colorInput.equals("G")) {
-                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
                 pickedColor = true;
             } else if (colorInput.equals("B")) {
-                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
                 pickedColor = true;
             } else if (colorInput.equals("R")) {
-                System.out.println(name + " hat die Farbe " + colorInput + " gewählt");
+                System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
                 pickedColor = true;
             } else {
-                System.out.println("Diese Eingabe ist nicht gültig");
+                System.out.println("Diese Eingabe ist nicht gültig.");
                 continue;
             }
         }
