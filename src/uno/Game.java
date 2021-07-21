@@ -145,17 +145,17 @@ public class Game {
         System.out.println("Es können 4 Spieler mitspielen.");
 
 
-       do {
-           Scanner botOrNot = new Scanner(System.in);
-           System.out.println("Wieviele Bots werden benötigt?");
+        do {
+            Scanner botOrNot = new Scanner(System.in);
+            System.out.println("Wieviele Bots werden benötigt?");
 
-           if(botOrNot.hasNextInt()) {
-               nrBots = botOrNot.nextInt();
-               break;
-           }
-           else
-               System.out.println("Falsche Eingabe!");
-       } while (true);
+            if (botOrNot.hasNextInt()) {
+                nrBots = botOrNot.nextInt();
+                break;
+            } else
+                System.out.println("Falsche Eingabe!");
+        } while (true);
+
         if (nrBots > 4) {
             System.out.println("Ungültige Eingabe! Die Eingabe wurde auf 4 verringert!");
             nrBots = 4;
@@ -357,8 +357,8 @@ public class Game {
             } else if (cardInput.equals("Punktestand")) {
                 System.out.println(DemoApp.requestedPointsAll());
 
-            // * * * ANFORDERUNGEN PUNKT 17 * * *
-            // * * * ANFORDERUNGEN PUNKT 38 * * *
+                // * * * ANFORDERUNGEN PUNKT 17 * * *
+                // * * * ANFORDERUNGEN PUNKT 38 * * *
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(pickedColor)) != null) {
                     currentPlayer = checkPlayedCard(currentPlayer);
@@ -378,7 +378,7 @@ public class Game {
                 // Spieler spielt Karte
             } else if (currentPlayer.playCard(cardInput, pickedColor)) {
 
-             //   System.out.println(currentPlayer + " spielt " + cardInput);
+                //   System.out.println(currentPlayer + " spielt " + cardInput);
 
                 // * * * ANFORDERUNGEN PUNKT 19 * * *
                 // * * * ANFORDERUNGEN PUNKT 45 * * *
@@ -403,7 +403,7 @@ public class Game {
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel
                     if (checkPoints() < 500) {
                         startNewRound();
-                    // * * * ANFORDERUNGEN PUNKT 47 * * *
+                        // * * * ANFORDERUNGEN PUNKT 47 * * *
                     } else {
                         System.out.println("Gratuliere " + currentPlayer + ", du hast damit das Spiel gewonnen!");
                         gameEnded = true;
@@ -441,14 +441,14 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("neue Runde? j/n");
-       String yesOrNo = scanner.next();
+        String yesOrNo = scanner.next();
 
         if (yesOrNo.equals("j")) {
             newRound();
         } else if (yesOrNo.equals("n")) {
             System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
             System.exit(0);
-    } else {
+        } else {
             System.out.println("Dies ist keine gültige Eingabe!");
         }
     }//startNewRound
@@ -508,7 +508,7 @@ public class Game {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards();
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. "+ nextPlayer(currentPlayer, direction) +" ist an der Reihe.");
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. " + nextPlayer(currentPlayer, direction) + " ist an der Reihe.");
             return currentPlayer;
         }
 
@@ -519,7 +519,7 @@ public class Game {
             if (cardInput.equals("<->"))
                 System.out.println("Richtungswechsel wurde aufgedeckt. Damit ist der Geber " + currentPlayer + " an der Reihe.");
             else
-            System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
+                System.out.println("Hi " + nextPlayer(currentPlayer, direction) + ", Die Richtung wurde geändert. Du bist jetzt an der Reihe!");
             return currentPlayer;
         }
 
@@ -591,14 +591,14 @@ public class Game {
         System.out.println("Für STRAFEN drücke 3");
         System.out.println("Benötigst du keine Hilfe, drücke 4");
 
-           do {
-               helpNeeded = input.nextInt();
-               if (helpNeeded < 1 || helpNeeded > 4) {
-                   output.println("Dies ist keine gültige Eingabe! Bitte wiederholen.");
-               } else {
-                   break;
-               }
-           } while (true);
+        do {
+            helpNeeded = input.nextInt();
+            if (helpNeeded < 1 || helpNeeded > 4) {
+                output.println("Dies ist keine gültige Eingabe! Bitte wiederholen.");
+            } else {
+                break;
+            }
+        } while (true);
 
     }//Help Input
 
