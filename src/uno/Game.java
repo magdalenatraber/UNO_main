@@ -583,18 +583,24 @@ public class Game {
 
     //Zeigt das Hilfe-Menü
     private void inputHelp() {
+        do {
         Scanner input = new Scanner(System.in);
         System.out.println("Benötigst du Hilfe?");
         System.out.println("Für SPIELREGELN drücke 1");
         System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
         System.out.println("Für STRAFEN drücke 3");
         System.out.println("Benötigst du keine Hilfe, drücke 4");
-        do {
-            helpNeeded = input.nextInt();
-            if (helpNeeded < 1 || helpNeeded > 4) {
-                output.println("Dies ist keine gültige Eingabe!");
-            } else {
-                break;
+       if(input.hasNextInt()) {
+           if (helpNeeded < 1 || helpNeeded > 4) {
+               System.out.println("Dies ist keine gültige Eingabe!");
+           }
+           else {
+               helpNeeded = input.nextInt();
+               break;
+           }
+       }
+       else {
+                System.out.println("Falsche Eingabe");
             }
         } while (true);
     }//Help Input
