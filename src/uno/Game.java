@@ -454,15 +454,13 @@ public class Game {
 
     // Zeigt den Punktestand der Spieler am Ende einer Runde und startet das Update der Datenbank
     public void inputPoints() {
-        int pointswinner = 0;
+
         for (Player p : players) {
             int points = p.getHand().getHandPoints();
             p.setPoint(points);
-            System.out.println(p.getName() + ": " + points);
-            pointswinner += points;
+            System.out.print(p.getName() + ": " + points);
+            System.out.println( " | Handkarten:" + p.getHand());
         }
-        System.out.println();
-
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
