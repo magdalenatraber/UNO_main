@@ -356,9 +356,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt uno.");
+                            System.out.println(currentPlayer + " sagt Uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen uno zu sagen. " + currentPlayer + " muss zwei Karten heben.");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -382,6 +382,8 @@ public class Game {
                     inputPoints();
 
                     System.out.println("");
+                    System.out.println(currentPlayer.getName() + " hat in dieser Runde " + DemoApp.pointsForWinner() + " Punkte gewonnen!");
+                    System.out.println("");
                     System.out.println(DemoApp.getDatabaseRoundWinner());
                     System.out.println("");
                     System.out.println("Ende der Runde " + round);
@@ -404,9 +406,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt uno.");
+                            System.out.println(currentPlayer + " sagt Uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen uno zu sagen. " + currentPlayer + " muss zwei Karten heben.");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -451,6 +453,7 @@ public class Game {
             System.out.println(p.getName() + ": " + points);
             pointswinner += points;
         }
+        System.out.println();
 
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
