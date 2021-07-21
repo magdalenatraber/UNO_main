@@ -382,6 +382,8 @@ public class Game {
                     inputPoints();
 
                     System.out.println("");
+                    System.out.println(currentPlayer.getName() + " hat in dieser Runde " + DemoApp.pointsForWinner() + " Punkte gewonnen!");
+                    System.out.println("");
                     System.out.println(DemoApp.getDatabaseRoundWinner());
                     System.out.println("");
                     System.out.println("Ende der Runde " + round);
@@ -452,7 +454,7 @@ public class Game {
             pointswinner += points;
         }
         System.out.println();
-        System.out.println(nextPlayer(currentPlayer, getDirection()) + " hat diese Runde " + pointswinner + " Punkte gewonnen!");
+
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
