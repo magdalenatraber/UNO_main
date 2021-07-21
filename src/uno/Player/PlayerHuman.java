@@ -89,6 +89,7 @@ public class PlayerHuman extends Player {
                 if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
                     Game.discardPile.push(card);
+                    System.out.println(name + " spielt " + card);
                     return true;
                 } else {
                     getPenaltyCard();
@@ -106,7 +107,7 @@ public class PlayerHuman extends Player {
     @Override
     public void getPenaltyCard() {
         drawCardInHand();
-        System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
+        System.out.println("Hallo " + name + "! Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
@@ -164,7 +165,6 @@ public class PlayerHuman extends Player {
     // prüft, ob Uno gesagt wurde
     public boolean didYouSayUno(String cardInput) {
         if (cardInput.contains("uno")) {
-            System.out.println("Hat Uno gesagt");
             return true;
         } else {
             return false;
@@ -213,12 +213,12 @@ public class PlayerHuman extends Player {
         Scanner input = new Scanner(System.in);
 
         do {
-            System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern? j/n");
+            System.out.println("Hallo " + name + "! Es wurde eine +4 gespielt. Möchtest du den Vorgänger herausfordern? j/n");
             String yesOrNo = input.next();
             if (yesOrNo.equals("j")) {
-                System.out.println("Du forderst den Vorgänger heraus.");
+                System.out.println(name +" fordert den Vorgänger heraus.");
                 Card card = Game.discardPile.pop();
-                System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+                System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
                 Game.discardPile.push(card);
                 if (!rightOrWrong) {
                     System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");

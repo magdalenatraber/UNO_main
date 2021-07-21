@@ -367,7 +367,7 @@ public class Game {
                 // Spieler spielt Karte
             } else if (currentPlayer.playCard(cardInput, pickedColor)) {
 
-                System.out.println(currentPlayer + " spielt " + cardInput);
+             //   System.out.println(currentPlayer + " spielt " + cardInput);
 
                 // * * * ANFORDERUNGEN PUNKT 19 * * *
                 // * * * ANFORDERUNGEN PUNKT 45 * * *
@@ -490,7 +490,7 @@ public class Game {
             currentPlayer = nextPlayer(currentPlayer, getDirection());
             currentPlayer.getPlusTwoCards();
             System.out.println("_________________________________");
-            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. Der nächste Spieler ist an der Reihe.");
+            System.out.println("Hi " + currentPlayer + "! Du musst zwei Karten ziehen. "+ nextPlayer(currentPlayer, direction) +" ist an der Reihe.");
             return currentPlayer;
         }
 
