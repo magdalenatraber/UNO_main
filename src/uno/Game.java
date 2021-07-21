@@ -62,7 +62,6 @@ public class Game {
         drawPile.shuffle();
         discardPile.push(lastCard);
         drawPileCounter++;
-        System.out.println("Karten wurden neu gemischt");
     }//renewDrawPile
 
     // neu erstellter Ziehstapel wird gemischt
