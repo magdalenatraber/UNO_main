@@ -386,7 +386,7 @@ public class Game {
                     System.out.println("");
                     System.out.println("* * * " + currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat Runde " + round + " gewonnen! Gratulation! * * *");
                     System.out.println("");
-                    System.out.println("Punkte der Karten auf der Hand: ");
+                    System.out.println("Verbleibende Karten auf der Hand und deren Punkte: ");
                     inputPoints();
 
                     System.out.println("");
@@ -458,11 +458,12 @@ public class Game {
         for (Player p : players) {
             int points = p.getHand().getHandPoints();
             p.setPoint(points);
-            System.out.print(p.getName() + ": " + points);
-            System.out.println( " | Handkarten:" + p.getHand());
+            System.out.println(p.getName() + ":" + p.getHand() + " --> " + points + " Punkte");
         }
+
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
+
     }// inputPoints
 
 
