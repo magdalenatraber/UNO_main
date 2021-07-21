@@ -15,7 +15,6 @@ import uno.Player.PlayerHuman;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -149,7 +148,7 @@ public class Game {
            Scanner botOrNot = new Scanner(System.in);
            System.out.println("Wieviele Bots werden benötigt?");
 
-           if (botOrNot.hasNextInt()) {
+           if(botOrNot.hasNextInt()) {
                nrBots = botOrNot.nextInt();
                break;
            }
@@ -389,6 +388,8 @@ public class Game {
                     System.out.println("");
                     System.out.println("Punkte der Karten auf der Hand: ");
                     inputPoints();
+
+                    System.out.println("");
                     System.out.println(currentPlayer.getName() + " hat in dieser Runde " + DemoApp.pointsForWinner() + " Punkte gewonnen!");
                     System.out.println("");
                     System.out.println(DemoApp.getDatabaseRoundWinner());
@@ -453,15 +454,13 @@ public class Game {
 
     // Zeigt den Punktestand der Spieler am Ende einer Runde und startet das Update der Datenbank
     public void inputPoints() {
-        int pointswinner = 0;
+
         for (Player p : players) {
             int points = p.getHand().getHandPoints();
             p.setPoint(points);
-            System.out.println(p.getName() + ": " + points);
-            pointswinner += points;
+            System.out.print(p.getName() + ": " + points);
+            System.out.println( " | Handkarten:" + p.getHand());
         }
-        System.out.println();
-
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
@@ -582,23 +581,27 @@ public class Game {
 
     //Zeigt das Hilfe-Menü
     private void inputHelp() {
+        do {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Benötigst du Hilfe?");
+        System.out.println("Für SPIELREGELN drücke 1");
+        System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
+        System.out.println("Für STRAFEN drücke 3");
+        System.out.println("Benötigst du keine Hilfe, drücke 4");
 
-            Scanner input = new Scanner(System.in);
-            System.out.println("Benötigst du Hilfe?");
-            System.out.println("Für SPIELREGELN drücke 1");
-            System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
-            System.out.println("Für STRAFEN drücke 3");
-            System.out.println("Benötigst du keine Hilfe, drücke 4");
-
-            do {
-                helpNeeded = input.nextInt();
-                if (helpNeeded < 1 || helpNeeded > 4) {
-                    output.println("Dies ist keine gültige Eingabe!");
-                } else {
-                    break;
-                }
-            } while (true);
-
+       if(input.hasNextInt()) {
+           helpNeeded = input.nextInt();
+           if (helpNeeded < 1 || helpNeeded > 4) {
+               System.out.println("Dies ist keine gültige Eingabe!");
+           }
+           else {
+               break;
+           }
+       }
+       else {
+                System.out.println("Falsche Eingabe");
+            }
+        } while (true);
     }//Help Input
 
     // Entscheidet die Art der Hilfe
