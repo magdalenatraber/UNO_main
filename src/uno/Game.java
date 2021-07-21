@@ -387,7 +387,7 @@ public class Game {
 
                     // * * * ANFORDERUNGEN PUNKT 46 * * *
                     // Bei einem Punktestand über 500 gewinnt der aktuelle Rundengewinner das Spiel
-                    if (checkPoints() < 25000) {
+                    if (checkPoints() < 500) {
                         startNewRound();
                     // * * * ANFORDERUNGEN PUNKT 47 * * *
                     } else {
@@ -424,19 +424,19 @@ public class Game {
 
     // Abfrage, ob eine neue Runde gestartet werden soll
     public void startNewRound() {
-//        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-//        System.out.println("neue Runde? j/n");
-//        String yesOrNo = scanner.next();
+        System.out.println("neue Runde? j/n");
+        String yesOrNo = scanner.next();
 
-//        if (yesOrNo.equals("j")) {
+        if (yesOrNo.equals("j")) {
             newRound();
-//        } else if (yesOrNo.equals("n")) {
-//            System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
-//            System.exit(0);
-//        } else {
-//            System.out.println("Dies ist keine gültige Eingabe!");
-//        }
+        } else if (yesOrNo.equals("n")) {
+            System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
+            System.exit(0);
+        } else {
+            System.out.println("Dies ist keine gültige Eingabe!");
+        }
     }//startNewRound
 
     // Zeigt den Punktestand der Spieler am Ende einer Runde und startet das Update der Datenbank
