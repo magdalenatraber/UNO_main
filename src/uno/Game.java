@@ -430,25 +430,29 @@ public class Game {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("neue Runde? j/n");
-        String yesOrNo = scanner.next();
+       String yesOrNo = scanner.next();
 
         if (yesOrNo.equals("j")) {
             newRound();
         } else if (yesOrNo.equals("n")) {
             System.out.println("Du magst keine weitere Runde spielen. Das Spiel wird nun beendet! Bis zum nächsten Mal!");
             System.exit(0);
-        } else {
+    } else {
             System.out.println("Dies ist keine gültige Eingabe!");
         }
     }//startNewRound
 
     // Zeigt den Punktestand der Spieler am Ende einer Runde und startet das Update der Datenbank
     public void inputPoints() {
+        int pointswinner = 0;
         for (Player p : players) {
             int points = p.getHand().getHandPoints();
             p.setPoint(points);
             System.out.println(p.getName() + ": " + points);
+            pointswinner += points;
         }
+        System.out.println();
+        System.out.println(currentPlayer + " hat diese Runde " + pointswinner + " Punkte gewonnen!");
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
