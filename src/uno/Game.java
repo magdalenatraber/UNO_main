@@ -15,6 +15,7 @@ import uno.Player.PlayerHuman;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.EmptyStackException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Game {
@@ -380,8 +381,6 @@ public class Game {
                     System.out.println("");
                     System.out.println("Punkte der Karten auf der Hand: ");
                     inputPoints();
-
-                    System.out.println("");
                     System.out.println(currentPlayer.getName() + " hat in dieser Runde " + DemoApp.pointsForWinner() + " Punkte gewonnen!");
                     System.out.println("");
                     System.out.println(DemoApp.getDatabaseRoundWinner());
@@ -575,20 +574,23 @@ public class Game {
 
     //Zeigt das Hilfe-Menü
     private void inputHelp() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Benötigst du Hilfe?");
-        System.out.println("Für SPIELREGELN drücke 1");
-        System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
-        System.out.println("Für STRAFEN drücke 3");
-        System.out.println("Benötigst du keine Hilfe, drücke 4");
-        do {
-            helpNeeded = input.nextInt();
-            if (helpNeeded < 1 || helpNeeded > 4) {
-                output.println("Dies ist keine gültige Eingabe!");
-            } else {
-                break;
-            }
-        } while (true);
+
+            Scanner input = new Scanner(System.in);
+            System.out.println("Benötigst du Hilfe?");
+            System.out.println("Für SPIELREGELN drücke 1");
+            System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
+            System.out.println("Für STRAFEN drücke 3");
+            System.out.println("Benötigst du keine Hilfe, drücke 4");
+
+            do {
+                helpNeeded = input.nextInt();
+                if (helpNeeded < 1 || helpNeeded > 4) {
+                    output.println("Dies ist keine gültige Eingabe!");
+                } else {
+                    break;
+                }
+            } while (true);
+
     }//Help Input
 
     // Entscheidet die Art der Hilfe
