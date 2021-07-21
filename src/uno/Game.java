@@ -590,12 +590,13 @@ public class Game {
         System.out.println("Für EINGABEMÖGLICHKEITEN drücke 2");
         System.out.println("Für STRAFEN drücke 3");
         System.out.println("Benötigst du keine Hilfe, drücke 4");
+
        if(input.hasNextInt()) {
+           helpNeeded = input.nextInt();
            if (helpNeeded < 1 || helpNeeded > 4) {
                System.out.println("Dies ist keine gültige Eingabe!");
            }
            else {
-               helpNeeded = input.nextInt();
                break;
            }
        }
