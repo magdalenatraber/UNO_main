@@ -360,16 +360,16 @@ public class Game {
             // * * * ANFORDERUNGEN PUNKT 38 * * *
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(pickedColor)) != null) {
-                    currentPlayer = checkPlayedCard(currentPlayer);
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
+                    currentPlayer = checkPlayedCard(currentPlayer);
                 }
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
@@ -414,7 +414,7 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
