@@ -35,7 +35,7 @@ public class PlayerBot extends Player {
     @Override
     public String drawCard(String pickedColor) {
         Card drawnCard = Game.drawPile.lookAtTopCard();
-        System.out.println("Gezogene Karte:" + drawnCard);
+        System.out.println("Gezogene Karte: " + drawnCard);
 
         System.out.println("Möchtest du diese Karte spielen? j/n");
 
@@ -44,11 +44,11 @@ public class PlayerBot extends Player {
             if (Game.drawPile.isEmpty()) {
                 Game.renewDrawPile();
             }
-            System.out.println("Ich spiele " + drawnCard);
+            System.out.println(name + " spielt " + drawnCard + ".");
             return drawnCard.toString();
         } else if (!playsMatchingCard(drawnCard, pickedColor)) {
             drawCardInHand();
-            System.out.println("Ich kann nicht spielen.");
+            System.out.println(name + " kann nicht spielen.");
             return null;
         }
         return null;
@@ -67,7 +67,7 @@ public class PlayerBot extends Player {
                 if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
                     Game.discardPile.push(card);
-                    System.out.println(name + " spielt " + card);
+                    System.out.println(name + " spielt " + card + ".");
                     return true;
                 // wenn falsche Karte gespielt
                 } else {
@@ -85,7 +85,7 @@ public class PlayerBot extends Player {
     @Override
     public void getPenaltyCard() {
         drawCardInHand();
-        System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte");
+        System.out.println("Du hast eine falsche Karte gespielt, du bekommst 1 Strafkarte!");
         System.out.println("Der nächste Spieler ist an der Reihe!");
     }// getPenaltyCard
 
@@ -161,16 +161,16 @@ public class PlayerBot extends Player {
                 colorInput = card.getColor().getCaption();
         }
         if (colorInput.equals("Y")) {
-            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+            System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
 
         } else if (colorInput.equals("G")) {
-            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+            System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
 
         } else if (colorInput.equals("B")) {
-            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+            System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
 
         } else if (colorInput.equals("R")) {
-            System.out.println("Du hast die Farbe " + colorInput + " gewählt");
+            System.out.println(name + " hat die Farbe " + colorInput + " gewählt.");
         }
         return colorInput;
     }// pickColor

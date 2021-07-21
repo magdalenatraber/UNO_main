@@ -256,7 +256,7 @@ public class Game {
         System.out.println("");
         System.out.println("Willkommen " + player1.getName() + ", " + player2.getName() + ", " + player3.getName() + " und " + player4.getName() + "!");
         System.out.println("");
-        System.out.println("Ihr erreicht das Hilfemenü jederzeit mit der Eingabe help");
+        System.out.println("Ihr erreicht das Hilfemenü jederzeit mit der Eingabe help.");
         System.out.println("");
         System.out.println("Das Spiel kann nun beginnen! Viel Spass!");
         System.out.println("");
@@ -378,7 +378,7 @@ public class Game {
                     System.out.println("");
                     System.out.println("* * * " + currentPlayer + " hat keine Karten mehr auf der Hand! " + currentPlayer + " hat Runde " + round + " gewonnen! Gratulation! * * *");
                     System.out.println("");
-                    System.out.println("Punkte der Karten auf der Hand:");
+                    System.out.println("Punkte der Karten auf der Hand: ");
                     inputPoints();
 
                     System.out.println("");
@@ -404,9 +404,9 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno");
+                            System.out.println(currentPlayer + " sagt Uno.");
                         } else {
-                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben");
+                            System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
@@ -452,7 +452,7 @@ public class Game {
             pointswinner += points;
         }
         System.out.println();
-        System.out.println(currentPlayer + " hat diese Runde " + pointswinner + " Punkte gewonnen!");
+        System.out.println(nextPlayer(currentPlayer, getDirection()) + " hat diese Runde " + pointswinner + " Punkte gewonnen!");
         // Datenbank wird aktualisiert
         DemoApp.updateDatabase();
     }// inputPoints
