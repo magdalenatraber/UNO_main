@@ -194,7 +194,7 @@ public class PlayerBot extends Player {
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Hallo " + name + "! Es wurde eine +4 gespielt. Möchtest du den Vorgänger herausfordern?");
         if (rightOrWrong) {
-            System.out.println(name+ "fordert den Vorgänger heraus.");
+            System.out.println(name+ " fordert den Vorgänger heraus.");
             Card card = Game.discardPile.pop();
             System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             Game.discardPile.push(card);
