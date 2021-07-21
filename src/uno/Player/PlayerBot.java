@@ -67,6 +67,7 @@ public class PlayerBot extends Player {
                 if (playsMatchingCard(card, pickedColor)) {
                     hand.remove(card);
                     Game.discardPile.push(card);
+                    System.out.println(name + " spielt " + card);
                     return true;
                 // wenn falsche Karte gespielt
                 } else {
@@ -191,10 +192,11 @@ public class PlayerBot extends Player {
     // * * * ANFORDERUNGEN PUNKT 42 * * *
     //Entscheidet, ob der Bot den Spieler bei einer +4 Karte herausfordert
     public boolean challenge(boolean rightOrWrong) {
-        System.out.println("Es wurde eine +4 gespielt. Möchtest du den Spieler herausfordern?");
+        System.out.println("Hallo " + name + "! Es wurde eine +4 gespielt. Möchtest du den Vorgänger herausfordern?");
         if (rightOrWrong) {
+            System.out.println(name+ "fordert den Vorgänger heraus.");
             Card card = Game.discardPile.pop();
-            System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + "Karte am Tisch: " + Game.discardPile.lookAtTopCard());
+            System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             Game.discardPile.push(card);
             System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
             return true;
