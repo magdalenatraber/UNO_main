@@ -55,12 +55,16 @@ public class Game {
     public static void renewDrawPile() {
         System.out.println("Ziehstapel wird neu gemischt.");
         Card lastCard = discardPile.pop();
-        while (discardPile.getSize() > 1) {
-            Card card = discardPile.pop();
-            drawPile.push(card);
+        int nrCards = 0;
+        if(lastCard.getType().getCaption().equals("+4")){
+            nrCards = 1;
         }
-        drawPile.shuffle();
+            while (discardPile.getSize() > nrCards) {
+                Card card = discardPile.pop();
+                drawPile.push(card);
+            }
         discardPile.push(lastCard);
+        drawPile.shuffle();
         drawPileCounter++;
     }//renewDrawPile
 
@@ -290,7 +294,7 @@ public class Game {
     // * * * ANFORDERUNGEN PUNKT 37 * * *
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
-        final var initialCard = drawPile.pop();
+        Card initialCard = drawPile.pop();
         discardPile.push(initialCard);
         if (initialCard.getType().getCaption().equals("+4")) {
             discardPile.pop();
