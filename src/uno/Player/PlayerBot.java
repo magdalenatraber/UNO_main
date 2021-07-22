@@ -37,7 +37,7 @@ public class PlayerBot extends Player {
         Card drawnCard = Game.drawPile.lookAtTopCard();
         System.out.println("Gezogene Karte: " + drawnCard);
 
-        System.out.println("Möchtest du diese Karte spielen? j/n");
+        System.out.println("Möchtest du diese Karte spielen?");
 
         if (playsMatchingCard(drawnCard, pickedColor)) {
             Game.discardPile.push(Game.drawPile.pop());
@@ -48,7 +48,7 @@ public class PlayerBot extends Player {
             return drawnCard.toString();
         } else if (!playsMatchingCard(drawnCard, pickedColor)) {
             drawCardInHand();
-            System.out.println(name + " kann nicht spielen.");
+            System.out.println(name + " kann die Karte nicht spielen.");
             return null;
         }
         return null;
@@ -150,7 +150,7 @@ public class PlayerBot extends Player {
 
     // Bot sagt Uno
     public String sayUno(String cardInput) {
-        return "uno";
+        return cardInput + "uno";
     }// sayUno
 
     // Bot sucht sich eine Farbe aus
@@ -194,7 +194,7 @@ public class PlayerBot extends Player {
     public boolean challenge(boolean rightOrWrong) {
         System.out.println("Hallo " + name + "! Es wurde eine +4 gespielt. Möchtest du den Vorgänger herausfordern?");
         if (rightOrWrong) {
-            System.out.println(name+ " fordert den Vorgänger heraus.");
+            System.out.println(name+ ", du forderst den Vorgänger heraus.");
             Card card = Game.discardPile.pop();
             System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
             Game.discardPile.push(card);
@@ -204,7 +204,7 @@ public class PlayerBot extends Player {
             getPlusTwoCards();
             getPlusTwoCards();
             System.out.println("_________________________________");
-            System.out.println("Hi " + name + "! Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe");
+            System.out.println("Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
             return false;
         }
     }// challenge

@@ -55,12 +55,16 @@ public class Game {
     public static void renewDrawPile() {
         System.out.println("Ziehstapel wird neu gemischt.");
         Card lastCard = discardPile.pop();
-        while (discardPile.getSize() > 1) {
-            Card card = discardPile.pop();
-            drawPile.push(card);
+        int nrCards = 0;
+        if(lastCard.getType().getCaption().equals("+4")){
+            nrCards = 1;
         }
-        drawPile.shuffle();
+            while (discardPile.getSize() > nrCards) {
+                Card card = discardPile.pop();
+                drawPile.push(card);
+            }
         discardPile.push(lastCard);
+        drawPile.shuffle();
         drawPileCounter++;
     }//renewDrawPile
 
@@ -156,9 +160,14 @@ public class Game {
                System.out.println("Falsche Eingabe!");
        } while (true);
         if (nrBots > 4) {
-            System.out.println("Ungültige Eingabe! Die Eingabe wurde auf 4 verringert!");
+            System.out.println("Eingabe zu hoch! Die Anzahl der Bots wird auf 4 gesetzt!");
             nrBots = 4;
         }
+        if (nrBots < 0) {
+            System.out.println("Eingabe zu niedrig! Die Anzahl der Bots wird auf 0 gesetzt!");
+            nrBots = 0;
+        }
+
 
         System.out.println("Es werden " + nrBots + " Bots erstellt.");
         System.out.println("____________________");
@@ -285,7 +294,7 @@ public class Game {
     // * * * ANFORDERUNGEN PUNKT 37 * * *
     //Ablagestapel wird erstellt - oberste Karte wird vom Ziehstapel genommen und auf Ablagestapel gelegt
     private void initDiscardPile() {
-        final var initialCard = drawPile.pop();
+        Card initialCard = drawPile.pop();
         discardPile.push(initialCard);
         if (initialCard.getType().getCaption().equals("+4")) {
             discardPile.pop();
@@ -360,16 +369,16 @@ public class Game {
             // * * * ANFORDERUNGEN PUNKT 38 * * *
             } else if (cardInput.equals("ziehen")) {
                 if ((cardInput = currentPlayer.drawCard(pickedColor)) != null) {
-                    currentPlayer = checkPlayedCard(currentPlayer);
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();
                         }
                     }
+                    currentPlayer = checkPlayedCard(currentPlayer);
                 }
                 currentPlayer = nextPlayer(currentPlayer, getDirection());
 
@@ -414,7 +423,7 @@ public class Game {
                     if (currentPlayer.countCardsInHand() == 1) {
                         cardInput = currentPlayer.sayUno(cardInput);
                         if (currentPlayer.didYouSayUno(cardInput)) {
-                            System.out.println(currentPlayer + " sagt Uno.");
+                            System.out.println(currentPlayer + " sagt uno.");
                         } else {
                             System.out.println(currentPlayer + " hat vergessen UNO zu sagen. " + currentPlayer + " muss zwei Karten heben.");
                             currentPlayer.getPlusTwoCards();

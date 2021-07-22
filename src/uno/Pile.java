@@ -63,7 +63,7 @@ public class Pile {
         return cards.pop();
     }// pop
 
-    public void push(final Card card) {
+    public void push(Card card) {
         cards.push(card);
     }// push
 
