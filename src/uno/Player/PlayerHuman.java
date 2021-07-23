@@ -221,20 +221,20 @@ public class PlayerHuman extends Player {
                 System.out.println("Karten in der Hand des Vorgängers: " + Game.showCards + " | Karte am Tisch: " + Game.discardPile.lookAtTopCard());
                 Game.discardPile.push(card);
                 if (!rightOrWrong) {
-                    System.out.println("Du hattest unrecht. Du musst sechs Karten ziehen.");
+                    System.out.println(name + ", du hattest unrecht. Du musst sechs Karten ziehen.");
                     getPlusTwoCards();
                     getPlusTwoCards();
                     getPlusTwoCards();
                     return false;
                 } else {
-                    System.out.println("Du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
+                    System.out.println(name + ", du hattest recht. Dein Vorgänger muss die vier Karten ziehen.");
                     return true;
                 }
             } else if (yesOrNo.equals("n")) {
                 getPlusTwoCards();
                 getPlusTwoCards();
                 System.out.println("_________________________________");
-                System.out.println("Du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
+                System.out.println(name + ", du willst den Vorgänger nicht herausfordern. Du musst vier Karten ziehen. Der nächste Spieler ist an der Reihe.");
                 return false;
             } else
                 System.out.println("Bitte Eingabe wiederholen.");
