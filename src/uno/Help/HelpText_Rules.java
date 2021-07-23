@@ -37,10 +37,11 @@ public class HelpText_Rules extends Help {
         System.out.println("   Wert: 50 Punkte");
         System.out.println("");
         System.out.println("*  Zieh Vier Farbenwahl Karte: ");
-        System.out.println("   Du kannst eine neue Farbe wählen, der nächste Spieler muss zwei Strafkarten ziehen und muss eine Runde aussetzen");
+        System.out.println("   Du kannst eine neue Farbe wählen, der nächste Spieler muss vier Strafkarten ziehen und muss eine Runde aussetzen");
         System.out.println("   Aber Achtung: Du darfst diese Karte nur spielen, wenn Du keine andere Karte der aktuellen Farbe auf der Hand hast!");
         System.out.println("   Spielst Du sie trotzdem, kann der nächste Spieler dich herausfordern und in Deine Karten sehen.");
         System.out.println("   Hast Du nur geblufft, dann musst Du selbst die 4 Karten ziehen!");
+        System.out.println("   Hast du die Karte aber richtig gespielt, so muss der nächste Spieler sechs Karten ziehen!");
         System.out.println("   Wert: 50 Punkte");
         System.out.println("");
         System.out.println("");
